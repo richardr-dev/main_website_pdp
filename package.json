@@ -1,36 +1,28 @@
 {
-  "name": "patuh-data-website",
-  "version": "0.1.0",
+  "name": "main_website_pdp",
+  "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "dev:clean": "rm -rf .next && next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "generate:downloads": "node scripts/generate-lead-magnets.mjs",
-    "generate:monogram": "node scripts/generate-monogram.mjs"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "framer-motion": "^12.38.0",
-    "lucide-react": "^1.16.0",
-    "next": "^15.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "resend": "^6.12.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "^15.1.0",
-    "exceljs": "^4.4.0",
-    "pdfkit": "^0.18.0",
-    "postcss": "^8",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.24",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
+    "vite": "^4.5.14"
   }
 }
