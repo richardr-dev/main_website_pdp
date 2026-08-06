@@ -64,7 +64,7 @@ export const solutionCategories: SolutionCategory[] = [
   {
     number: '02',
     slug: 'agentic-ai',
-    title: 'Agentic AI & Automasi',
+    title: 'Agentic AI & Automation',
     subtitle: 'AI agent yang bekerja 24/7 — menggantikan proses manual dan mempercepat operasi bisnis.',
     items: [
       {

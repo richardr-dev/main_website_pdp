@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import ClientLogos from './components/ClientLogos'
 import Services from './components/Services'
 import WhyUs from './components/WhyUs'
+import BlogCarousel from './components/BlogCarousel'
 import Solutions from './components/Solutions'
 import SolutionDetail from './components/SolutionDetail'
 import SolutionsSection from './components/SolutionsSection'
@@ -61,10 +62,11 @@ export default function App() {
     return (
       <>
         <Hero />
-        <ClientLogos />
         <Services />
         <SolutionsSection />
         <WhyUs />
+        <BlogCarousel />
+        <ClientLogos />
         <FeaturedSolution />
         <HowItWorks />
         <Contact />

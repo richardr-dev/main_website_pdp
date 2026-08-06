@@ -1,6 +1,6 @@
 const solutionLinks = [
   { label: 'IT Infrastructure', href: '#/solutions/it-infrastructure' },
-  { label: 'Agentic AI & Automasi', href: '#/solutions/agentic-ai' },
+  { label: 'Agentic AI & Automation', href: '#/solutions/agentic-ai' },
   { label: 'Keamanan Siber & Kepatuhan', href: '#/solutions/cybersecurity' },
   { label: 'Cloud & Digital Workplace', href: '#/solutions/cloud-digital' },
   { label: 'Managed IT & Support', href: '#/solutions/managed-it' },

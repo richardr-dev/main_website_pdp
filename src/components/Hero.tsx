@@ -7,24 +7,12 @@ const t = {
     line1: 'Pasang.', line2: 'Lindungi.', line3: 'Kelola.',
     body: 'PT PatuhData Solusi Nusantara — satu mitra untuk semua kebutuhan IT kantor Anda. Supply hardware, instalasi jaringan, CCTV, server, dan maintenance.',
     cta1: 'Mulai Konsultasi →', cta2: 'Jelajahi Layanan',
-    stats: [
-      { num: '2 Tahun', label: 'Garansi Hardware' },
-      { num: 'Gratis', label: 'Konsultasi Awal' },
-      { num: '4 Jam', label: 'Respons Cepat' },
-      { num: 'PT', label: 'Berlegalitas' },
-    ],
   },
   en: {
     badge: 'IT Partner for SMEs — Jakarta & Greater Jakarta',
     line1: 'Install.', line2: 'Protect.', line3: 'Operate.',
     body: 'PT PatuhData Solusi Nusantara — one partner for all your office IT needs. Hardware supply, network installation, CCTV, servers, and maintenance.',
     cta1: 'Start Consultation →', cta2: 'Explore Services',
-    stats: [
-      { num: '2 Years', label: 'Hardware Warranty' },
-      { num: 'Free', label: 'Initial Consultation' },
-      { num: '4 Hours', label: 'Fast Response' },
-      { num: 'PT', label: 'Legally Registered' },
-    ],
   },
 }
 
@@ -130,21 +118,6 @@ export default function Hero() {
         {/* Particle canvas visualization — full width, like the reference */}
         <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
           <ParticleCanvas />
-        </div>
-
-        {/* Stats row below canvas */}
-        <div
-          className="flex flex-wrap gap-10 border-t mt-8 pt-8 animate-fade-in"
-          style={{ borderColor: 'rgba(255,255,255,0.07)', animationDelay: '0.6s' }}
-        >
-          {tx.stats.map((s) => (
-            <div key={s.label}>
-              <p className="text-xl font-black text-white">{s.num}</p>
-              <p className="text-xs font-medium mt-0.5" style={{ color: 'rgba(255,255,255,0.28)' }}>
-                {s.label}
-              </p>
-            </div>
-          ))}
         </div>
 
       </div>
