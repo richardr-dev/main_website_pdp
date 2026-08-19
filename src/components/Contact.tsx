@@ -5,26 +5,24 @@ type FormState = {
   company: string
   email: string
   phone: string
+  role: string
+  companySize: string
+  locations: string
   interest: string
+  timeline: string
   message: string
 }
 
 const interests = [
-  'Infrastruktur — Instalasi Wi-Fi & Jaringan',
-  'Infrastruktur — CCTV & IP Camera',
-  'Infrastruktur — UPS & Proteksi Daya',
-  'Infrastruktur — Server & Storage',
-  'Cloud — Google Workspace / Microsoft 365',
-  'Cloud — AWS & Cloud Migration',
-  'Keamanan — Endpoint Security & Antivirus',
-  'Keamanan — Backup & Disaster Recovery',
-  'Keamanan — Security Assessment',
-  'Managed IT — IT Support & Helpdesk',
-  'Managed IT — Network Monitoring',
-  'Platform — PatuhData ONE Demo',
-  'Platform — Asset & SOP Management',
-  'Full IT Partner Review',
-  'General Consultation',
+  'Managed Infrastructure & IT Operations',
+  'Colocation & Server Deployment',
+  'Cloud Infrastructure & AWS',
+  'Backup, Restore & Disaster Recovery',
+  'Data Recovery & Incident Response',
+  'Multi-Branch Network Management',
+  'Infrastructure Risk Assessment',
+  'Starter Managed IT Package',
+  'Custom Enterprise Requirement',
 ]
 
 export default function Contact() {
@@ -33,7 +31,11 @@ export default function Contact() {
     company: '',
     email: '',
     phone: '',
+    role: '',
+    companySize: '',
+    locations: '',
     interest: '',
+    timeline: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
@@ -55,14 +57,18 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: 'b1454cc6-bdd9-48f4-b161-45d5fdbc19e1',
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
           subject: `New IT Partner Inquiry — ${form.interest || 'General'}`,
           from_name: form.name,
           name: form.name,
           company: form.company,
           email: form.email,
           phone: form.phone,
+          role: form.role,
+          company_size: form.companySize,
+          number_of_locations: form.locations,
           interest: form.interest,
+          preferred_timeline: form.timeline,
           message: form.message,
         }),
       })
@@ -80,7 +86,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="section bg-white relative overflow-hidden">
+    <section id="contact" className="section bg-slate-50 relative overflow-hidden pt-28">
       {/* Diagonal stripe overlay */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -91,12 +97,12 @@ export default function Contact() {
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-card border border-slate-200">
           <div className="bg-gradient-to-br from-primary-900 to-primary-700 p-10 lg:p-14 text-white">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">Hubungi Kami</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">Request for Quotation</p>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Ceritakan kebutuhan IT kantor Anda
+              Tell us what your business needs
             </h2>
             <p className="mt-5 text-base text-white/70 leading-relaxed">
-              Kami rekomendasikan solusi yang tepat dan kirimkan penawaran tertulis dalam 24 jam. Tanpa biaya, tanpa kewajiban.
+              Share your current environment, priorities, and timeline. Our team will review the scope and respond with the right next step for a clear, relevant quotation.
             </p>
 
             <div className="mt-8">
@@ -136,9 +142,9 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                     </svg>
                   ),
-                  label: 'Lokasi',
-                  value: 'Jakarta, Indonesia',
-                  href: undefined,
+                  label: 'Location',
+                  value: 'INFINITI OFFICE — Srengseng, West Jakarta 11630',
+                  href: 'https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630',
                 },
               ].map((item) => (
                 <div key={item.label}>
@@ -164,16 +170,16 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Pesan Terkirim!</h3>
+                <h3 className="text-xl font-bold text-slate-900">Message Sent!</h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Kami akan menghubungi Anda dalam 1 hari kerja.
+                  Our team will contact you within one business day.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Nama Lengkap *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Full Name *</label>
                     <input
                       type="text"
                       name="name"
@@ -181,11 +187,11 @@ export default function Contact() {
                       value={form.name}
                       onChange={handleChange}
                       className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-                      placeholder="Andi Wijaya"
+                      placeholder="Your name"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Nama Perusahaan *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Company Name *</label>
                     <input
                       type="text"
                       name="company"
@@ -199,7 +205,36 @@ export default function Contact() {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Alamat Email *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Your Role *</label>
+                    <select name="role" required value={form.role} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                      <option value="">Select your role...</option>
+                      <option>Owner / Founder</option><option>Director / C-Level</option><option>IT Manager / Lead</option><option>Procurement</option><option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Organization Size *</label>
+                    <select name="companySize" required value={form.companySize} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                      <option value="">Select size...</option><option>1–10 employees</option><option>11–50 employees</option><option>51–200 employees</option><option>201–500 employees</option><option>500+ employees</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Number of Locations *</label>
+                    <select name="locations" required value={form.locations} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                      <option value="">Select locations...</option><option>1 location</option><option>2–5 locations</option><option>6–20 locations</option><option>21+ locations</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Preferred Timeline</label>
+                    <select name="timeline" value={form.timeline} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                      <option value="">Select timeline...</option><option>Urgent / Incident</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option><option>Exploring options</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Business Email *</label>
                     <input
                       type="email"
                       name="email"
@@ -207,11 +242,11 @@ export default function Contact() {
                       value={form.email}
                       onChange={handleChange}
                       className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-                      placeholder="budi@perusahaan.com"
+                      placeholder="name@company.com"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Nomor WhatsApp</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">WhatsApp Number</label>
                     <input
                       type="tel"
                       name="phone"
@@ -223,7 +258,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Kebutuhan Anda *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">What do you need? *</label>
                   <select
                     name="interest"
                     required
@@ -231,28 +266,28 @@ export default function Contact() {
                     onChange={handleChange}
                     className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                   >
-                    <option value="">Pilih area layanan...</option>
+                    <option value="">Select a service area...</option>
                     {interests.map((i) => (
                       <option key={i} value={i}>{i}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Ceritakan Situasi Anda</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Priority or risk you want to address</label>
                   <textarea
                     name="message"
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
                     className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 resize-none"
-                    placeholder="Ceritakan jenis bisnis, jumlah karyawan, dan tantangan IT yang ingin Anda selesaikan..."
+                    placeholder="Example: we operate 12 branches, downtime is affecting transactions, and backup ownership is unclear..."
                   />
                 </div>
                 {error && (
                   <p className="text-sm text-red-600 text-center">{error}</p>
                 )}
-                <button type="submit" disabled={loading} className="btn-primary w-full justify-center py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
-                  {loading ? 'Mengirim…' : 'Kirim Pesan'}
+                <button type="submit" disabled={loading} className="contact-submit">
+                  {loading ? 'Submitting…' : 'Request a Quotation'}
                   {!loading && (
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -260,7 +295,7 @@ export default function Contact() {
                   )}
                 </button>
                 <p className="text-xs text-slate-500 text-center">
-                  Kami respons dalam 1 hari kerja. Tidak ada spam, tidak ada telepon yang tidak diundang.
+                  We respond within one business day. No spam or unsolicited calls.
                 </p>
               </form>
             )}

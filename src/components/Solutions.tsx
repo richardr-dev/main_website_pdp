@@ -99,6 +99,11 @@ export default function Solutions() {
                         <span className="text-sm font-semibold text-slate-800 group-hover:text-primary-700 transition-colors">
                           {item.name}
                         </span>
+                        {item.comingSoon && (
+                          <span className="ml-2 inline-block rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-amber-700 align-middle">
+                            Segera Hadir
+                          </span>
+                        )}
                         <span className="hidden sm:inline ml-3 text-xs text-slate-400 group-hover:text-primary-400 transition-colors">
                           {item.tagline}
                         </span>

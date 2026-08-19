@@ -71,16 +71,15 @@ export default function About() {
               style={{ animationDelay: '0.2s', minHeight: '420px' }}
             >
               <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80"
-                alt="Kantor PatuhData"
+                src="/officeabt.jpeg"
+                alt="Kantor PatuhData — INFINITI OFFICE, Jakarta Barat"
                 className="w-full h-full object-cover"
-                style={{ minHeight: '420px' }}
+                style={{ minHeight: '420px', objectPosition: 'center 55%' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
               {/* Stat overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-8 flex gap-8">
                 {[
-                  { n: '50+', l: 'Proyek Selesai' },
                   { n: 'PT', l: 'Berlegalitas' },
                   { n: 'Jakarta', l: 'Tim Lokal' },
                 ].map((s) => (

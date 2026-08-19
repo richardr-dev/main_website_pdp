@@ -132,22 +132,6 @@ export default function ParticleCanvas() {
     <div className="relative w-full rounded-2xl overflow-hidden" style={{ height: '340px', background: '#060c18' }}>
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      {/* Floating stats card */}
-      <div
-        className="absolute top-5 right-5 rounded-xl border border-white/10 px-5 py-4 backdrop-blur-md z-10"
-        style={{ background: 'rgba(10,15,30,0.85)' }}
-      >
-        <p
-          className="font-black text-primary-400 leading-none"
-          style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '2.4rem' }}
-        >
-          50+
-        </p>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mt-0.5">
-          Proyek Selesai
-        </p>
-      </div>
-
       {/* Bottom labels */}
       <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between z-10">
         <p className="text-[10px] font-bold uppercase tracking-widest text-white/25">

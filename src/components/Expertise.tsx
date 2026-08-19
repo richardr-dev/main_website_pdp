@@ -18,7 +18,7 @@ const assessments = [
     pillarColor: 'text-violet-600 bg-violet-50',
     title: 'Operational Readiness Assessment',
     description:
-      'We review how your team handles IT assets, incidents, and SOPs today. You get a clear view of what is undocumented, what is manual that should not be, and where PatuhData ONE will have the most impact.',
+      'We review how your team handles backup status, recovery drills, and incident response today. You get a clear view of what is untested, what is manual that should not be, and where PatuhData ONE — our upcoming dashboard for backup & recovery visibility — will have the most impact.',
   },
   {
     pillar: 'ALL',

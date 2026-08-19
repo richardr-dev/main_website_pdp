@@ -57,6 +57,11 @@ export default function SolutionDetail({ slug }: { slug: string }) {
               >
                 {category.number} — {category.title}
               </span>
+              {item.comingSoon && (
+                <span className="inline-block rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-amber-400">
+                  Segera Hadir
+                </span>
+              )}
             </div>
             <h1
               className="font-black text-white leading-none mb-5 animate-fade-in"
@@ -120,14 +125,16 @@ export default function SolutionDetail({ slug }: { slug: string }) {
               </ul>
 
               <div className="mt-10 pt-8 border-t border-slate-100">
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Mulai dengan konsultasi gratis</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">
+                  {item.comingSoon ? 'Segera hadir — daftar untuk diinformasikan' : 'Mulai dengan konsultasi gratis'}
+                </p>
                 <a
                   href={waBase + encodeURIComponent(item.waText)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center rounded-full bg-primary-600 px-7 py-3.5 text-sm font-bold text-white hover:bg-primary-500 transition-all duration-200 hover:-translate-y-0.5"
                 >
-                  Hubungi via WhatsApp →
+                  {item.comingSoon ? 'Daftar via WhatsApp →' : 'Hubungi via WhatsApp →'}
                 </a>
               </div>
             </div>

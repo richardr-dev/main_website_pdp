@@ -36,15 +36,15 @@ function CategoryCard({ cat, large = false }: { cat: typeof solutionCategories[0
           <a
             key={item.slug}
             href={`#/solutions/${item.slug}`}
-            className={`flex items-center justify-between px-7 py-4 group hover:bg-primary-50 transition-colors duration-200 ${
+            className={`flex items-center justify-between px-7 py-5 group hover:bg-primary-50 transition-colors duration-200 ${
               idx < cat.items.length - 1 ? 'border-b border-slate-100' : ''
             }`}
           >
             <div className="min-w-0">
-              <span className="text-sm font-semibold text-slate-800 group-hover:text-primary-700 transition-colors">
+              <span className="block text-sm font-semibold text-slate-800 group-hover:text-primary-700 transition-colors">
                 {item.name}
               </span>
-              <span className="hidden lg:inline ml-2 text-xs text-slate-400 group-hover:text-primary-400 transition-colors truncate">
+              <span className="hidden lg:block mt-1 text-xs text-slate-400 group-hover:text-primary-400 transition-colors">
                 {item.tagline}
               </span>
             </div>
@@ -84,10 +84,10 @@ export default function SolutionsSection() {
               fontSize: 'clamp(2.4rem, 5vw, 4.5rem)',
             }}
           >
-            Semua yang Anda butuhkan.<br />Satu mitra.
+            Business continuity, security,<br />dan managed IT. Satu mitra.
           </h2>
           <p className="mt-4 text-base text-slate-500 max-w-xl">
-            Lima kategori solusi — dari pasang infrastruktur hingga deploy AI agent. Pilih yang relevan, atau konsultasi untuk paket custom.
+            Lima area fokus — backup & disaster recovery, cybersecurity, cloud services, managed IT, dan Google Workspace. Pilih yang relevan, atau konsultasi untuk paket custom.
           </p>
         </div>
 
@@ -100,13 +100,17 @@ export default function SolutionsSection() {
 
           {/* Col right — Category 02 + 03 stacked */}
           <div className="flex flex-col gap-4 h-full">
-            <CategoryCard cat={cat02} />
-            <CategoryCard cat={cat03} />
+            <div className="flex-1">
+              <CategoryCard cat={cat02} />
+            </div>
+            <div className="flex-1">
+              <CategoryCard cat={cat03} />
+            </div>
           </div>
         </div>
 
-        {/* Row 2: Category 04 + 05 side by side */}
-        <div className="grid sm:grid-cols-2 gap-4 reveal reveal-delay-2">
+        {/* Row 2: Categories 04 + 05 side by side */}
+        <div className="grid lg:grid-cols-2 gap-4 reveal reveal-delay-2">
           <CategoryCard cat={cat04} />
           <CategoryCard cat={cat05} />
         </div>

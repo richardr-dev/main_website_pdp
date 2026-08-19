@@ -1,63 +1,39 @@
 const services = [
   {
-    title: 'Instalasi Wi-Fi & Jaringan',
-    desc: 'Access point, switch, router, kabel UTP Cat6. Ubiquiti, TP-Link, Mikrotik, Cisco.',
-    badge: 'INFRASTRUKTUR',
-    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
-  },
-  {
-    title: 'Pasang CCTV & IP Camera',
-    desc: 'Kamera indoor/outdoor, DVR/NVR, remote view HP. Hikvision & Dahua.',
-    badge: 'INFRASTRUKTUR',
-    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
-  },
-  {
-    title: 'UPS & Proteksi Daya',
-    desc: 'Lindungi perangkat dari mati lampu mendadak. APC, Eaton, Rimo.',
-    badge: 'INFRASTRUKTUR',
-    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
-  },
-  {
-    title: 'Server & NAS Storage',
-    desc: 'File server, NAS, backup lokal. Synology, Qnap, Dell, HP ProLiant.',
-    badge: 'INFRASTRUKTUR',
-    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
-  },
-  {
-    title: 'Keamanan Siber & Antivirus',
-    desc: 'Proteksi endpoint, firewall, backup otomatis, monitoring jaringan 24/7.',
-    badge: 'KEAMANAN',
+    title: 'Business Continuity & Disaster Recovery',
+    desc: 'Backup Veeam terenkripsi & immutable, DRaaS dengan failover ke cloud, DR plan, dan BCP. Data Anda selalu bisa dipulihkan.',
+    badge: 'CONTINUITY & DR',
     badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200',
   },
   {
-    title: 'IT Support & Managed IT',
-    desc: 'Helpdesk, perawatan rutin, troubleshooting remote & on-site. Tim lokal Jakarta.',
-    badge: 'MANAGED IT',
-    badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200',
+    title: 'Cybersecurity',
+    desc: 'Sophos firewall & network security — perlindungan jaringan kantor dari gerbang utamanya.',
+    badge: 'SECURITY',
+    badgeColor: 'text-rose-700 bg-rose-50 border-rose-200',
   },
   {
-    title: 'Cloud & Migrasi Data',
-    desc: 'Setup Google Workspace, Microsoft 365, AWS, backup cloud. Harga transparan.',
+    title: 'Cloud & Google Workspace',
+    desc: 'Migrasi dan setup infrastruktur cloud di AWS, GCP, dan Azure, plus Google Workspace sebagai reseller resmi.',
     badge: 'CLOUD',
-    badgeColor: 'text-sky-700 bg-sky-50 border-sky-200',
+    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
   },
   {
-    title: 'PatuhData ONE Platform',
-    desc: 'Kelola aset IT, SOP, workflow, dan helpdesk kantor dalam satu dashboard.',
-    badge: 'PLATFORM',
-    badgeColor: 'text-blue-700 bg-blue-50 border-blue-200',
+    title: 'Managed IT Services',
+    desc: 'Monitoring proaktif 24/7, patch management, dan perawatan rutin. Tim IT on-demand tanpa rekrut karyawan.',
+    badge: 'MANAGED IT',
+    badgeColor: 'text-violet-700 bg-violet-50 border-violet-200',
   },
 ]
 
 const tickerItems = [
-  { text: 'INSTALASI JARINGAN', outline: false },
-  { text: 'PASANG CCTV', outline: true },
-  { text: 'UPS & POWER', outline: false },
-  { text: 'SERVER & NAS', outline: true },
-  { text: 'KEAMANAN SIBER', outline: false },
+  { text: 'BUSINESS CONTINUITY', outline: false },
+  { text: 'VEEAM BACKUP', outline: true },
+  { text: 'DISASTER RECOVERY · DRAAS', outline: false },
+  { text: 'SOPHOS FIREWALL', outline: true },
+  { text: 'DATA RESILIENCE', outline: false },
   { text: 'MANAGED IT', outline: true },
   { text: 'CLOUD MIGRATION', outline: false },
-  { text: 'IT PLATFORM', outline: true },
+  { text: 'GOOGLE WORKSPACE', outline: true },
 ]
 const tickerDuplicated = [...tickerItems, ...tickerItems]
 
@@ -113,10 +89,10 @@ export default function Services() {
                 fontSize: 'clamp(2.4rem, 5vw, 4.5rem)',
               }}
             >
-              Satu mitra, semua<br />kebutuhan IT kantor Anda.
+              Bisnis Anda tetap jalan,<br />apa pun yang terjadi.
             </h2>
             <p className="mt-5 text-base text-slate-500 max-w-xl">
-              Dari pasang kabel sampai keamanan siber — kami supply hardware, instalasi, dan maintenance tanpa perlu hubungi banyak vendor.
+              Backup & disaster recovery, cybersecurity, cloud, dan managed IT services — semua dari satu partner lokal yang Anda bisa hubungi langsung.
             </p>
           </div>
 

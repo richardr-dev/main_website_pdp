@@ -3,15 +3,13 @@ import { useLang } from '../contexts/LanguageContext'
 
 const t = {
   id: {
-    badge: 'IT Partner untuk SME — Jakarta & Jabodetabek',
-    line1: 'Pasang.', line2: 'Lindungi.', line3: 'Kelola.',
-    body: 'PT PatuhData Solusi Nusantara — satu mitra untuk semua kebutuhan IT kantor Anda. Supply hardware, instalasi jaringan, CCTV, server, dan maintenance.',
+    line1: 'Backup.', line2: 'Pulihkan.', line3: 'Lindungi.',
+    body: 'PT PatuhData Solusi Nusantara — mitra business continuity bisnis Anda: backup Veeam, disaster recovery (DRaaS), dan keamanan jaringan dengan Sophos.',
     cta1: 'Mulai Konsultasi →', cta2: 'Jelajahi Layanan',
   },
   en: {
-    badge: 'IT Partner for SMEs — Jakarta & Greater Jakarta',
-    line1: 'Install.', line2: 'Protect.', line3: 'Operate.',
-    body: 'PT PatuhData Solusi Nusantara — one partner for all your office IT needs. Hardware supply, network installation, CCTV, servers, and maintenance.',
+    line1: 'Backup.', line2: 'Recover.', line3: 'Protect.',
+    body: 'PT PatuhData Solusi Nusantara — your business continuity partner: Veeam-powered backup, disaster recovery (DRaaS), and network security with Sophos.',
     cta1: 'Start Consultation →', cta2: 'Explore Services',
   },
 }
@@ -44,20 +42,9 @@ export default function Hero() {
 
       <div className="relative container w-full pt-20 pb-12">
 
-        {/* Badge */}
-        <div
-          className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-2 mb-10 animate-fade-in"
-          style={{ animationDelay: '0.05s' }}
-        >
-          <span className="h-2 w-2 rounded-full bg-blue-400 shrink-0 animate-pulse" />
-          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            {tx.badge}
-          </span>
-        </div>
-
         {/* Massive headline — full width like reference */}
         <div
-          className="mb-8 animate-fade-in"
+          className="mb-8 pt-6 animate-fade-in"
           style={{
             animationDelay: '0.15s',
             fontFamily: "'Barlow Condensed', sans-serif",

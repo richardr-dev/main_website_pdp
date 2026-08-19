@@ -1,5 +1,5 @@
 const WA_NUMBER = '6281903378000'
-const WA_MESSAGE = encodeURIComponent('Halo PatuhData, saya ingin berkonsultasi mengenai layanan Anda.')
+const WA_MESSAGE = encodeURIComponent('Hello PatuhData, I would like to discuss my IT infrastructure requirements.')
 
 export default function WhatsAppButton() {
   return (
