@@ -56,14 +56,18 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
     const canonical = `${siteUrl}${path === '/' ? '' : path}`
     const image = data.image || `${siteUrl}/patuhdata.png`
 
+    document.documentElement.lang = 'en-ID'
     document.title = data.title
     setMeta('meta[name="description"]', { name: 'description', content: data.description })
     setMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow, max-image-preview:large' })
+    setMeta('meta[name="author"]', { name: 'author', content: 'PT PatuhData Solusi Nusantara' })
     setMeta('meta[property="og:title"]', { property: 'og:title', content: data.title })
     setMeta('meta[property="og:description"]', { property: 'og:description', content: data.description })
     setMeta('meta[property="og:type"]', { property: 'og:type', content: data.type || 'website' })
     setMeta('meta[property="og:url"]', { property: 'og:url', content: canonical })
     setMeta('meta[property="og:image"]', { property: 'og:image', content: image })
+    setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'PatuhData managed IT services in Indonesia' })
+    setMeta('meta[property="og:locale"]', { property: 'og:locale', content: 'en_ID' })
     setMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: data.title })
     setMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: data.description })
@@ -82,27 +86,38 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
     const schema = document.createElement('script')
     schema.id = schemaId
     schema.type = 'application/ld+json'
-    schema.text = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'ProfessionalService',
-      name: 'PatuhData',
-      legalName: 'PT PatuhData Solusi Nusantara',
-      url: siteUrl,
-      logo: `${siteUrl}/logo.png`,
-      email: 'hello@patuhdata.id',
-      telephone: '+62-819-0337-8000',
-      description: pages['/'].description,
-      areaServed: { '@type': 'Country', name: 'Indonesia' },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'INFINITI OFFICE, Jl. Permata Regency, Jl. H. Kelik, RT.1/RW.6, Srengseng, Kembangan',
-        addressLocality: 'Jakarta Barat',
-        addressRegion: 'DKI Jakarta',
-        postalCode: '11630',
-        addressCountry: 'ID',
-      },
-      sameAs: ['https://www.linkedin.com/company/patuhdata-id'],
-    })
+    const pageSchema = data.type === 'article'
+      ? {
+          '@type': 'Article',
+          '@id': `${canonical}#article`,
+          headline: data.title,
+          description: data.description,
+          mainEntityOfPage: canonical,
+          image,
+          author: { '@id': `${siteUrl}/#organization` },
+          publisher: { '@id': `${siteUrl}/#organization` },
+          inLanguage: 'en-ID',
+        }
+      : service
+        ? {
+            '@type': 'Service',
+            '@id': `${canonical}#service`,
+            name: service.title,
+            description: data.description,
+            url: canonical,
+            provider: { '@id': `${siteUrl}/#organization` },
+            areaServed: { '@type': 'Country', name: 'Indonesia' },
+          }
+        : {
+            '@type': 'WebPage',
+            '@id': `${canonical}#webpage`,
+            url: canonical,
+            name: data.title,
+            description: data.description,
+            isPartOf: { '@id': `${siteUrl}/#website` },
+            inLanguage: 'en-ID',
+          }
+    schema.text = JSON.stringify({ '@context': 'https://schema.org', '@graph': [pageSchema] })
     document.head.appendChild(schema)
   }, [path, servicesList])
 }
@@ -172,8 +187,8 @@ export default function App() {
     }
     const id = window.location.hash.replace('#', '')
     requestAnimationFrame(() => {
-      if (!id) window.scrollTo({ top: 0, behavior: 'smooth' })
-      else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      if (!id) window.scrollTo({ top: 0, behavior: 'auto' })
+      else document.getElementById(id)?.scrollIntoView({ behavior: 'auto', block: 'start' })
     })
   }, [route])
   const serviceSlug = route.startsWith('/services/') ? route.replace('/services/', '') : ''
