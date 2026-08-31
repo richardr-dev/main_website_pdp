@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { WEB3FORMS_ACCESS_KEY } from '../config/web3forms'
 
 type FormState = {
   name: string
@@ -13,19 +14,31 @@ type FormState = {
   message: string
 }
 
-const interests = [
-  'Managed Infrastructure & IT Operations',
-  'Colocation & Server Deployment',
-  'Cloud Infrastructure & AWS',
-  'Backup, Restore & Disaster Recovery',
-  'Data Recovery & Incident Response',
-  'Multi-Branch Network Management',
-  'Infrastructure Risk Assessment',
-  'Starter Managed IT Package',
-  'Custom Enterprise Requirement',
+const interestsId = [
+  'PDP Readiness Assessment',
+  'Implementasi Program PDP',
+  'DPO as a Service',
+  'DPIA & Data Mapping',
+  'Respons Insiden Data Pribadi',
+  'Privacy Policy & SOP',
+  'Pelatihan & Awareness',
+  'Kebutuhan Lainnya',
 ]
 
-export default function Contact() {
+const interestsEn = [
+  'PDP Readiness Assessment',
+  'PDP Program Implementation',
+  'DPO as a Service',
+  'DPIA & Data Mapping',
+  'Personal Data Breach Response',
+  'Privacy Policies & Procedures',
+  'Training & Awareness',
+  'Other Requirement',
+]
+
+export default function Contact({ lang = 'id' }: { lang?: 'id' | 'en' }) {
+  const en = lang === 'en'
+  const interests = en ? interestsEn : interestsId
   const [form, setForm] = useState<FormState>({
     name: '',
     company: '',
@@ -57,8 +70,8 @@ export default function Contact() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
-          subject: `New IT Partner Inquiry — ${form.interest || 'General'}`,
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New PDP Consultation — ${form.interest || 'General'}`,
           from_name: form.name,
           name: form.name,
           company: form.company,
@@ -76,10 +89,10 @@ export default function Contact() {
       if (data.success) {
         setSubmitted(true)
       } else {
-        setError('Something went wrong. Please email us directly at hello@patuhdata.id')
+        setError(en ? 'Your message could not be sent. Please email hello@patuhdata.id directly.' : 'Pesan belum berhasil dikirim. Silakan email langsung ke hello@patuhdata.id')
       }
     } catch {
-      setError('Something went wrong. Please email us directly at hello@patuhdata.id')
+      setError(en ? 'Your message could not be sent. Please email hello@patuhdata.id directly.' : 'Pesan belum berhasil dikirim. Silakan email langsung ke hello@patuhdata.id')
     } finally {
       setLoading(false)
     }
@@ -97,12 +110,12 @@ export default function Contact() {
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-card border border-slate-200">
           <div className="bg-gradient-to-br from-primary-900 to-primary-700 p-10 lg:p-14 text-white">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">Request for Quotation</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">{en ? 'Initial Consultation' : 'Konsultasi Awal'}</p>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Tell us what your business needs
+              {en ? 'Tell us about your PDP needs' : 'Ceritakan kebutuhan PDP Anda'}
             </h2>
             <p className="mt-5 text-base text-white/70 leading-relaxed">
-              Share your current environment, priorities, and timeline. Our team will review the scope and respond with the right next step for a clear, relevant quotation.
+              {en ? 'Share your current situation, priorities, and target timeline. Our team will review the context and respond with a relevant first step.' : 'Sampaikan kondisi saat ini, prioritas, dan target waktu Anda. Tim kami akan mempelajari konteksnya dan menghubungi Anda dengan langkah awal yang relevan.'}
             </p>
 
             <div className="mt-8">
@@ -142,8 +155,8 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                     </svg>
                   ),
-                  label: 'Location',
-                  value: 'INFINITI OFFICE — Srengseng, West Jakarta 11630',
+                  label: en ? 'Location' : 'Lokasi',
+                  value: en ? 'INFINITI OFFICE — Srengseng, West Jakarta 11630' : 'INFINITI OFFICE — Srengseng, Jakarta Barat 11630',
                   href: 'https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630',
                 },
               ].map((item) => (
@@ -170,16 +183,16 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Message Sent!</h3>
+                <h3 className="text-xl font-bold text-slate-900">{en ? 'Message sent!' : 'Pesan terkirim!'}</h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Our team will contact you within one business day.
+                  {en ? 'Our team will contact you within one business day.' : 'Tim kami akan menghubungi Anda dalam satu hari kerja.'}
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Full Name *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Full Name' : 'Nama Lengkap'} *</label>
                     <input
                       type="text"
                       name="name"
@@ -187,11 +200,11 @@ export default function Contact() {
                       value={form.name}
                       onChange={handleChange}
                       className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-                      placeholder="Your name"
+                      placeholder={en ? 'Your name' : 'Nama Anda'}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Company Name *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Company Name' : 'Nama Perusahaan'} *</label>
                     <input
                       type="text"
                       name="company"
@@ -205,36 +218,36 @@ export default function Contact() {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Your Role *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Your Role' : 'Jabatan Anda'} *</label>
                     <select name="role" required value={form.role} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
-                      <option value="">Select your role...</option>
+                      <option value="">{en ? 'Select your role...' : 'Pilih jabatan...'}</option>
                       <option>Owner / Founder</option><option>Director / C-Level</option><option>IT Manager / Lead</option><option>Procurement</option><option>Other</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Organization Size *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Organization Size' : 'Ukuran Organisasi'} *</label>
                     <select name="companySize" required value={form.companySize} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
-                      <option value="">Select size...</option><option>1–10 employees</option><option>11–50 employees</option><option>51–200 employees</option><option>201–500 employees</option><option>500+ employees</option>
+                      <option value="">{en ? 'Select size...' : 'Pilih ukuran...'}</option><option>1–10 {en ? 'employees' : 'karyawan'}</option><option>11–50 {en ? 'employees' : 'karyawan'}</option><option>51–200 {en ? 'employees' : 'karyawan'}</option><option>201–500 {en ? 'employees' : 'karyawan'}</option><option>500+ {en ? 'employees' : 'karyawan'}</option>
                     </select>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Number of Locations *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Number of Locations' : 'Jumlah Lokasi'} *</label>
                     <select name="locations" required value={form.locations} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
-                      <option value="">Select locations...</option><option>1 location</option><option>2–5 locations</option><option>6–20 locations</option><option>21+ locations</option>
+                      <option value="">{en ? 'Select locations...' : 'Pilih jumlah...'}</option><option>1 {en ? 'location' : 'lokasi'}</option><option>2–5 {en ? 'locations' : 'lokasi'}</option><option>6–20 {en ? 'locations' : 'lokasi'}</option><option>21+ {en ? 'locations' : 'lokasi'}</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Preferred Timeline</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Target Timeline' : 'Target Waktu'}</label>
                     <select name="timeline" value={form.timeline} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
-                      <option value="">Select timeline...</option><option>Urgent / Incident</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option><option>Exploring options</option>
+                      <option value="">{en ? 'Select timeline...' : 'Pilih target...'}</option><option>{en ? 'Urgent / Active incident' : 'Mendesak / Ada insiden'}</option><option>{en ? 'Within 30 days' : 'Dalam 30 hari'}</option><option>1–3 {en ? 'months' : 'bulan'}</option><option>3+ {en ? 'months' : 'bulan'}</option><option>{en ? 'Exploring options' : 'Masih eksplorasi'}</option>
                     </select>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Business Email *</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Business Email' : 'Email Bisnis'} *</label>
                     <input
                       type="email"
                       name="email"
@@ -246,7 +259,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">WhatsApp Number</label>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'WhatsApp Number' : 'Nomor WhatsApp'}</label>
                     <input
                       type="tel"
                       name="phone"
@@ -258,7 +271,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">What do you need? *</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'What do you need?' : 'Apa yang Anda butuhkan?'} *</label>
                   <select
                     name="interest"
                     required
@@ -266,28 +279,28 @@ export default function Contact() {
                     onChange={handleChange}
                     className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                   >
-                    <option value="">Select a service area...</option>
+                    <option value="">{en ? 'Select a service area...' : 'Pilih area layanan...'}</option>
                     {interests.map((i) => (
                       <option key={i} value={i}>{i}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Priority or risk you want to address</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">{en ? 'Priority or risk you want to address' : 'Prioritas atau risiko yang ingin ditangani'}</label>
                   <textarea
                     name="message"
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
                     className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 resize-none"
-                    placeholder="Example: we operate 12 branches, downtime is affecting transactions, and backup ownership is unclear..."
+                    placeholder={en ? 'Example: we do not yet have a data map, our policies are fragmented, and we need an implementation roadmap...' : 'Contoh: kami belum memiliki data mapping, kebijakan masih tersebar, dan perlu menyiapkan roadmap implementasi...'}
                   />
                 </div>
                 {error && (
                   <p className="text-sm text-red-600 text-center">{error}</p>
                 )}
                 <button type="submit" disabled={loading} className="contact-submit">
-                  {loading ? 'Submitting…' : 'Request a Quotation'}
+                  {loading ? (en ? 'Sending…' : 'Mengirim…') : (en ? 'Send Consultation Request' : 'Kirim Permintaan Konsultasi')}
                   {!loading && (
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -295,7 +308,7 @@ export default function Contact() {
                   )}
                 </button>
                 <p className="text-xs text-slate-500 text-center">
-                  We respond within one business day. No spam or unsolicited calls.
+                  {en ? 'We respond within one business day. No spam or unsolicited calls.' : 'Kami merespons dalam satu hari kerja. Tanpa spam atau telepon yang tidak diminta.'}
                 </p>
               </form>
             )}
