@@ -1,110 +1,231 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const STORAGE_KEY = 'patuhdata_cookie_consent'
+type Lang = 'id' | 'en'
+type ConsentMethod = 'accept_all' | 'reject_optional' | 'save_preferences'
 
-type ConsentState = 'undecided' | 'accepted' | 'declined'
+type ConsentRecord = {
+  consentId: string
+  policyVersion: string
+  timestamp: string
+  method: ConsentMethod
+  necessary: true
+  analytics: boolean
+}
 
-export default function CookieConsent() {
-  const [state, setState] = useState<ConsentState>('undecided')
-  const [visible, setVisible] = useState(false)
-  const [showDetail, setShowDetail] = useState(false)
+declare global {
+  interface Window {
+    dataLayer: unknown[]
+    gtag: (...args: unknown[]) => void
+  }
+}
+
+const COOKIE_NAME = 'patuhdata_consent_v1'
+const STORAGE_KEY = 'patuhdata_consent_record'
+const HISTORY_KEY = 'patuhdata_consent_history'
+const POLICY_VERSION = '2026-09-01'
+const GA_ID = 'G-5QYE9SJ0CX'
+
+function readRecord(): ConsentRecord | null {
+  try {
+    const cookie = document.cookie.split('; ').find((item) => item.startsWith(`${COOKIE_NAME}=`))
+    const value = cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : localStorage.getItem(STORAGE_KEY)
+    if (!value) return null
+    const record = JSON.parse(value) as ConsentRecord
+    return record.policyVersion === POLICY_VERSION ? record : null
+  } catch {
+    return null
+  }
+}
+
+function loadAnalytics() {
+  ;(window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`] = false
+  if (!document.querySelector(`script[src*="${GA_ID}"]`)) {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
+    document.head.appendChild(script)
+  }
+  window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
+  window.gtag('js', new Date())
+  window.gtag('config', GA_ID, { anonymize_ip: true })
+}
+
+function removeAnalytics() {
+  ;(window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`] = true
+  document.querySelectorAll<HTMLScriptElement>(`script[src*="${GA_ID}"]`).forEach((script) => script.remove())
+
+  const host = window.location.hostname
+  const domains = host && host !== 'localhost' ? Array.from(new Set([host, `.${host}`, 'patuhdata.id', '.patuhdata.id'])) : []
+  document.cookie.split(';').forEach((item) => {
+    const name = item.split('=')[0]?.trim()
+    if (!name?.startsWith('_ga')) return
+    document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`
+    domains.forEach((domain) => {
+      document.cookie = `${name}=; Max-Age=0; Path=/; Domain=${domain}; SameSite=Lax`
+    })
+  })
+}
+
+function applyConsent(record: ConsentRecord) {
+  window.gtag('consent', 'update', {
+    analytics_storage: record.analytics ? 'granted' : 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  })
+  if (record.analytics) loadAnalytics()
+  else removeAnalytics()
+}
+
+function persistRecord(record: ConsentRecord) {
+  const serialized = JSON.stringify(record)
+  document.cookie = `${COOKIE_NAME}=${encodeURIComponent(serialized)}; Max-Age=31536000; Path=/; SameSite=Lax; Secure`
+  localStorage.setItem(STORAGE_KEY, serialized)
+  try {
+    const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]') as ConsentRecord[]
+    localStorage.setItem(HISTORY_KEY, JSON.stringify([...history, record].slice(-20)))
+  } catch {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify([record]))
+  }
+  applyConsent(record)
+}
+
+export default function CookieConsent({ lang }: { lang: Lang }) {
+  const en = lang === 'en'
+  const [banner, setBanner] = useState(false)
+  const [preferences, setPreferences] = useState(false)
+  const [analytics, setAnalytics] = useState(false)
+  const [expanded, setExpanded] = useState<string | null>('necessary')
+  const [lastRecord, setLastRecord] = useState<ConsentRecord | null>(null)
+  const [tab, setTab] = useState<'consent' | 'details' | 'about'>('consent')
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const preferencesRef = useRef(false)
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (!stored) {
-      const timer = setTimeout(() => setVisible(true), 800)
-      return () => clearTimeout(timer)
+    const record = readRecord()
+    if (record) {
+      setAnalytics(record.analytics)
+      setLastRecord(record)
+      applyConsent(record)
     } else {
-      setState(stored as ConsentState)
+      const timer = window.setTimeout(() => setBanner(true), 500)
+      return () => window.clearTimeout(timer)
     }
   }, [])
 
-  const accept = () => {
-    localStorage.setItem(STORAGE_KEY, 'accepted')
-    setState('accepted')
-    setVisible(false)
+  useEffect(() => {
+    const open = () => {
+      const record = readRecord()
+      setAnalytics(record?.analytics ?? false)
+      setLastRecord(record)
+      setBanner(false)
+      setPreferences(true)
+      setTab('details')
+    }
+    window.addEventListener('patuhdata:open-consent', open)
+    return () => window.removeEventListener('patuhdata:open-consent', open)
+  }, [])
+
+  useEffect(() => { preferencesRef.current = preferences }, [preferences])
+
+  const isOpen = banner || preferences
+  useEffect(() => {
+    if (!isOpen) return
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const dialog = dialogRef.current
+    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>('button, a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])') || []).filter((element) => !element.hasAttribute('disabled'))
+    window.setTimeout(() => focusables()[0]?.focus(), 0)
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && preferencesRef.current) {
+        const record = readRecord()
+        setAnalytics(record?.analytics ?? false)
+        setPreferences(false)
+        return
+      }
+      if (event.key !== 'Tab') return
+      const elements = focusables()
+      if (!elements.length) return
+      const first = elements[0]
+      const last = elements[elements.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+      previousFocus?.focus()
+    }
+  }, [isOpen])
+
+  const closePreferences = () => {
+    const record = readRecord()
+    setAnalytics(record?.analytics ?? false)
+    setPreferences(false)
   }
 
-  const decline = () => {
-    localStorage.setItem(STORAGE_KEY, 'declined')
-    setState('declined')
-    setVisible(false)
+  const save = (method: ConsentMethod, nextAnalytics: boolean) => {
+    const record: ConsentRecord = {
+      consentId: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      policyVersion: POLICY_VERSION,
+      timestamp: new Date().toISOString(),
+      method,
+      necessary: true,
+      analytics: nextAnalytics,
+    }
+    setAnalytics(nextAnalytics)
+    setLastRecord(record)
+    persistRecord(record)
+    setBanner(false)
+    setPreferences(false)
   }
 
-  if (!visible || state !== 'undecided') return null
+  const categories = [
+    {
+      key: 'necessary',
+      title: en ? 'Strictly Necessary Cookies' : 'Cookie yang Sangat Diperlukan',
+      description: en ? 'Required for consent records, language settings, security, and core website functions. These cannot be disabled.' : 'Diperlukan untuk catatan persetujuan, pengaturan bahasa, keamanan, dan fungsi inti situs. Kategori ini tidak dapat dinonaktifkan.',
+      cookies: [`${COOKIE_NAME} · 1 year`, 'patuhdata-language · persistent', 'patuhdata_consent_history · local storage'],
+    },
+    {
+      key: 'analytics',
+      title: en ? 'Analytics Cookies' : 'Cookie Analitik',
+      description: en ? 'Google Analytics helps us understand visits, navigation, and conversions. It loads only after consent.' : 'Google Analytics membantu kami memahami kunjungan, navigasi, dan konversi. Analitik hanya dimuat setelah persetujuan.',
+      cookies: ['_ga · 2 years', `_ga_${GA_ID.replace('G-', '')} · 2 years`],
+    },
+  ]
 
-  return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
-      <div className="mx-auto max-w-4xl">
-        <div className="rounded-xl border border-slate-200 bg-white shadow-lg">
-          <div className="p-5 sm:p-6">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-start gap-4">
-                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">We use cookies on this website</p>
-                  <p className="mt-1 text-sm text-slate-500 leading-relaxed max-w-xl">
-                    We use essential cookies to keep the site running and analytics cookies to understand how visitors use it. No personal data is sold or shared with third parties.
-                  </p>
+  if (!banner && !preferences) return null
 
-                  {showDetail && (
-                    <div className="mt-4 grid sm:grid-cols-2 gap-3">
-                      {[
-                        {
-                          name: 'Essential Cookies',
-                          always: true,
-                          desc: 'Required for the website to function — form submissions, navigation, and security. Cannot be disabled.',
-                        },
-                        {
-                          name: 'Analytics Cookies',
-                          always: false,
-                          desc: 'Help us understand which pages are visited and how users navigate the site. Used to improve the experience.',
-                        },
-                      ].map((cookie) => (
-                        <div key={cookie.name} className="rounded-lg border border-slate-100 bg-slate-50 p-4">
-                          <div className="flex items-center justify-between mb-1.5">
-                            <p className="text-xs font-bold text-slate-800">{cookie.name}</p>
-                            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${cookie.always ? 'bg-slate-200 text-slate-600' : 'bg-primary-100 text-primary-700'}`}>
-                              {cookie.always ? 'Always On' : 'Optional'}
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-500 leading-relaxed">{cookie.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => setShowDetail(!showDetail)}
-                    className="mt-3 text-xs font-medium text-primary-600 hover:text-primary-700 underline underline-offset-2"
-                  >
-                    {showDetail ? 'Hide details' : 'Show cookie details'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center gap-3 sm:justify-end">
-              <button
-                onClick={decline}
-                className="rounded border border-slate-300 px-5 py-2 text-sm font-medium text-slate-600 transition-colors hover:border-slate-400 hover:text-slate-800"
-              >
-                Decline Optional
-              </button>
-              <button
-                onClick={accept}
-                className="btn-primary py-2 px-6 text-sm"
-              >
-                Accept All
-              </button>
-            </div>
-          </div>
-        </div>
+  return <div className="consent-backdrop consent-suite-wrap" role="dialog" aria-modal="true" aria-label={en ? 'Cookie preferences' : 'Preferensi cookie'} ref={dialogRef}>
+    <div className="consent-suite">
+      {preferences && <button className="consent-suite-close" aria-label={en ? 'Close cookie settings' : 'Tutup pengaturan cookie'} onClick={closePreferences}>×</button>}
+      <div className="consent-suite-tabs" role="tablist">
+        <button id="consent-tab" role="tab" aria-selected={tab === 'consent'} aria-controls="consent-panel" tabIndex={tab === 'consent' ? 0 : -1} className={tab === 'consent' ? 'active' : ''} onClick={() => setTab('consent')}>{en ? 'Consent' : 'Persetujuan'}</button>
+        <button id="details-tab" role="tab" aria-selected={tab === 'details'} aria-controls="details-panel" tabIndex={tab === 'details' ? 0 : -1} className={tab === 'details' ? 'active' : ''} onClick={() => setTab('details')}>{en ? 'Details' : 'Detail'}</button>
+        <button id="about-tab" role="tab" aria-selected={tab === 'about'} aria-controls="about-panel" tabIndex={tab === 'about' ? 0 : -1} className={tab === 'about' ? 'active' : ''} onClick={() => setTab('about')}>{en ? 'About' : 'Tentang'}</button>
       </div>
+
+      <div className="consent-suite-content">
+        {tab === 'consent' && <div id="consent-panel" role="tabpanel" aria-labelledby="consent-tab" className="consent-tab-copy"><h2 id="consent-dialog-title">{en ? 'This website uses cookies' : 'Situs ini menggunakan cookie'}</h2><p>{en ? 'We use necessary storage to operate the website. With your permission, Google Analytics helps us understand how visitors use the site and which services are most useful. Analytics stays disabled until you allow it.' : 'Kami menggunakan penyimpanan yang diperlukan agar situs dapat berfungsi. Dengan izin Anda, Google Analytics membantu kami memahami penggunaan situs dan layanan yang paling berguna. Analitik tetap nonaktif sampai Anda mengizinkannya.'}</p><p>{en ? 'You may deny analytics, review its details, or allow it. Your choice does not affect access to the website.' : 'Anda dapat menolak analitik, melihat detailnya, atau mengizinkannya. Pilihan Anda tidak memengaruhi akses ke situs.'}</p></div>}
+
+        {tab === 'details' && <div id="details-panel" role="tabpanel" aria-labelledby="details-tab" className="consent-categories consent-suite-categories">{categories.map((category) => <article key={category.key}>
+          <div className="consent-category-head"><button className="category-expand" aria-expanded={expanded === category.key} aria-controls={`category-${category.key}`} onClick={() => setExpanded(expanded === category.key ? null : category.key)}><span aria-hidden="true">{expanded === category.key ? '⌄' : '›'}</span><strong>{category.title}</strong><em>{category.cookies.length}</em></button>{category.key === 'necessary' ? <b className="always-active">{en ? 'Always active' : 'Selalu aktif'}</b> : <label className="consent-toggle" aria-label={en ? 'Allow analytics cookies' : 'Izinkan cookie analitik'}><input type="checkbox" checked={analytics} onChange={(event) => setAnalytics(event.target.checked)} /><i /></label>}</div>
+          {expanded === category.key && <div id={`category-${category.key}`} className="consent-category-detail"><p>{category.description}</p><strong>{en ? 'Cookies and storage' : 'Cookie dan penyimpanan'}</strong><ul>{category.cookies.map((cookie) => <li key={cookie}>{cookie}</li>)}</ul></div>}
+        </article>)}</div>}
+
+        {tab === 'about' && <div id="about-panel" role="tabpanel" aria-labelledby="about-tab" className="consent-tab-copy"><h2>{en ? 'About your consent' : 'Tentang persetujuan Anda'}</h2><p>{en ? 'Necessary storage may be used without an analytics choice because it supports language settings and consent evidence. Google Analytics requires your permission.' : 'Penyimpanan yang diperlukan dapat digunakan tanpa pilihan analitik karena mendukung pengaturan bahasa dan bukti persetujuan. Google Analytics memerlukan izin Anda.'}</p><p>{en ? 'You can change or withdraw your choice at any time through Cookie Settings in the footer. Withdrawing analytics deletes accessible Google Analytics cookies from this site and prevents further analytics collection.' : 'Anda dapat mengubah atau menarik pilihan kapan saja melalui Pengaturan Cookie di footer. Penarikan izin analitik menghapus cookie Google Analytics yang dapat diakses dari situs ini dan mencegah pengumpulan analitik berikutnya.'}</p><div className="consent-policy-links"><a href="/cookies">{en ? 'Cookie Policy' : 'Kebijakan Cookie'}</a><a href="/privacy">{en ? 'Privacy Policy' : 'Kebijakan Privasi'}</a></div>{lastRecord && <small className="consent-record-box">{en ? 'Consent ID' : 'ID Persetujuan'}: <b>{lastRecord.consentId}</b><br />{new Date(lastRecord.timestamp).toLocaleString(en ? 'en-ID' : 'id-ID')} · v{lastRecord.policyVersion}</small>}</div>}
+      </div>
+
+      <div className="consent-suite-actions">
+        <button onClick={() => save('reject_optional', false)}>{en ? 'Deny analytics' : 'Tolak analitik'}</button>
+        <button onClick={() => tab === 'details' ? save('save_preferences', analytics) : setTab('details')}>{tab === 'details' ? (en ? 'Save selection' : 'Simpan pilihan') : (en ? 'Review details' : 'Lihat detail')} <span>›</span></button>
+        <button onClick={() => save('accept_all', true)}>{en ? 'Allow analytics' : 'Izinkan analitik'}</button>
+      </div>
+      <div className="consent-suite-logo"><img src="/logobluee.png" alt="PatuhData" /></div>
     </div>
-  )
+  </div>
 }

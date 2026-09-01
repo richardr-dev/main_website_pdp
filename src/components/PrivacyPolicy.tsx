@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Privacy Policy</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 July 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 1 September 2026</p>
         </div>
       </section>
 
@@ -27,7 +27,9 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Data We Collect</h2>
               <p className="mb-3">We collect personal data in the following circumstances:</p>
               <ul className="space-y-2 ml-5 list-disc">
-                <li><strong className="text-slate-900">Contact form submissions:</strong> Name, company name, email address, WhatsApp number, and the content of your message.</li>
+                <li><strong className="text-slate-900">Consultation forms:</strong> Name, company, role, business email, WhatsApp number, organization details, interests, timeline, and message.</li>
+                <li><strong className="text-slate-900">Free resource requests:</strong> Name, company, business email, role, optional WhatsApp number, and requested resource.</li>
+                <li><strong className="text-slate-900">Consent records:</strong> A random consent ID, timestamp, policy version, consent method, and selected cookie categories. Browser-side consent records do not intentionally contain your name or email.</li>
                 <li><strong className="text-slate-900">Analytics:</strong> If you accept optional analytics cookies, we collect anonymised usage data (pages visited, session duration, browser type) via analytics tooling. No personally identifiable information is collected through analytics.</li>
                 <li><strong className="text-slate-900">Email correspondence:</strong> If you contact us by email, we retain the content of that correspondence and your email address.</li>
               </ul>
@@ -48,6 +50,7 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-bold text-slate-900 mb-3">4. How We Use Your Data</h2>
               <ul className="space-y-2 ml-5 list-disc">
                 <li>To respond to your consultation inquiry or service request</li>
+                <li>To provide requested templates and relevant follow-up</li>
                 <li>To provide and manage the services you have engaged</li>
                 <li>To send service-related communications (not marketing without consent)</li>
                 <li>To improve our website and services (anonymised analytics only)</li>
@@ -58,7 +61,7 @@ export default function PrivacyPolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">5. Data Retention</h2>
               <p>
-                Contact form data and email correspondence: retained for 3 years from the date of last contact, or for the duration of a client engagement plus 2 years, whichever is longer. Analytics data: retained in anonymised form in accordance with the analytics provider's retention settings. We do not retain personally identifiable analytics data.
+                Inquiry, resource-request, and email data may be retained for up to 3 years from the last meaningful interaction, unless a longer period is required for an engagement or legal obligation. The consent cookie is retained for up to 1 year, and browser-side history stores the most recent 20 consent decisions. Analytics data follows the configured provider retention settings.
               </p>
             </div>
 
@@ -68,7 +71,7 @@ export default function PrivacyPolicy() {
                 We do not sell, rent, or share your personal data with third parties for marketing purposes. We may share data with:
               </p>
               <ul className="space-y-2 ml-5 list-disc mt-3">
-                <li><strong className="text-slate-900">Service providers:</strong> Cloud infrastructure providers (AWS, Google) necessary to operate our services, under data processing agreements.</li>
+                <li><strong className="text-slate-900">Service providers:</strong> Vercel hosts the website, Web3Forms processes submitted forms, and Google Analytics processes usage information only after analytics consent.</li>
                 <li><strong className="text-slate-900">Legal requirement:</strong> Indonesian regulatory authorities (including Badan PDP, Kominfo/Komdigi, or law enforcement) if required by applicable law.</li>
               </ul>
             </div>
@@ -84,14 +87,14 @@ export default function PrivacyPolicy() {
                 <li><strong className="text-slate-900">Right to object (Pasal 37):</strong> Object to processing in specific circumstances.</li>
               </ul>
               <p className="mt-3">
-                To exercise any of these rights, contact us at <a href="mailto:privacy@patuhdata.id" className="text-primary-600 hover:underline">privacy@patuhdata.id</a>. We will respond within 72 hours in accordance with UU PDP requirements.
+                To exercise these rights, contact <a href="mailto:privacy@patuhdata.id" className="text-primary-600 hover:underline">privacy@patuhdata.id</a>. We will verify and respond within the period required by applicable law.
               </p>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">8. Cookies</h2>
               <p>
-                We use essential cookies (required for site functionality) and, with your consent, optional analytics cookies. See our <a href="#/cookies" className="text-primary-600 hover:underline">Cookie Policy</a> for full details.
+                We use essential storage for site functionality and consent evidence. Optional analytics cookies remain disabled until consent. Reopen the preference center through “Cookie Settings.” See our <a href="/cookies" className="text-primary-600 hover:underline">Cookie Policy</a>.
               </p>
             </div>
 
@@ -105,7 +108,7 @@ export default function PrivacyPolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">10. Changes to This Policy</h2>
               <p>
-                We may update this Privacy Policy from time to time. Material changes will be notified to active clients by email. The current version is always available at patuhdata.id/#/privacy with the effective date noted at the top.
+                We may update this Privacy Policy from time to time. The current version is always available at patuhdata.id/privacy with its effective date.
               </p>
             </div>
 

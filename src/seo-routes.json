@@ -1,0 +1,52 @@
+{
+  "/": {
+    "title": "Konsultan & Implementasi UU PDP Indonesia | PatuhData",
+    "description": "PatuhData membantu organisasi Indonesia menilai kesiapan, mengimplementasikan, dan mengelola kepatuhan UU Pelindungan Data Pribadi secara operasional.",
+    "type": "WebPage"
+  },
+  "/contact": {
+    "title": "Konsultasi UU PDP Indonesia | PatuhData",
+    "description": "Diskusikan kebutuhan assessment, implementasi, DPIA, respons insiden, atau dukungan DPO organisasi Anda bersama PatuhData.",
+    "type": "ContactPage"
+  },
+  "/privacy": {
+    "title": "Privacy Policy | PatuhData",
+    "description": "How PatuhData collects, uses, retains, protects, and shares personal data submitted through patuhdata.id.",
+    "type": "WebPage"
+  },
+  "/terms": {
+    "title": "Terms of Service | PatuhData",
+    "description": "Terms governing the PatuhData website, downloadable resources, consultation requests, and professional PDP services.",
+    "type": "WebPage"
+  },
+  "/cookies": {
+    "title": "Cookie Policy | PatuhData",
+    "description": "How PatuhData uses necessary storage and consent-based Google Analytics cookies on patuhdata.id.",
+    "type": "WebPage"
+  },
+  "/services/pdp-readiness-assessment": {
+    "title": "PDP Readiness Assessment Indonesia | PatuhData",
+    "description": "Assessment terstruktur untuk mengidentifikasi gap UU PDP, memetakan risiko, dan menyusun roadmap implementasi prioritas.",
+    "type": "Service"
+  },
+  "/services/pdp-implementation": {
+    "title": "Implementasi Program PDP Indonesia | PatuhData",
+    "description": "Pendampingan implementasi kebijakan, proses, kontrol, pelatihan, dan bukti operasional program pelindungan data pribadi.",
+    "type": "Service"
+  },
+  "/services/dpo-as-a-service": {
+    "title": "DPO as a Service Indonesia | PatuhData",
+    "description": "Dukungan fungsi DPO berkelanjutan untuk advisory, monitoring, review risiko, dan koordinasi program privasi organisasi.",
+    "type": "Service"
+  },
+  "/services/dpia-data-mapping": {
+    "title": "DPIA & Data Mapping Indonesia | PatuhData",
+    "description": "Pemetaan aliran data, ROPA, dan DPIA untuk membantu organisasi memahami serta mengendalikan risiko privasi.",
+    "type": "Service"
+  },
+  "/services/incident-breach-response": {
+    "title": "Respons Insiden Data Pribadi | PatuhData",
+    "description": "Kesiapan dan pendampingan respons insiden data pribadi, dari triage dan impact assessment hingga dokumentasi dan tindakan korektif.",
+    "type": "Service"
+  }
+}
