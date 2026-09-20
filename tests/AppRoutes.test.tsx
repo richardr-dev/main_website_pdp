@@ -12,11 +12,13 @@ describe('application routes', () => {
   })
 
   it.each([
-    ['/contact', 'Ceritakan kebutuhan PDP Anda', 'Konsultasi UU PDP Indonesia | PatuhData'],
+    ['/services/uu-pdp', 'UU PDP', 'UU PDP Indonesia | PatuhData'],
+    ['/services/patuhdata-academy', 'PatuhData Academy', 'PatuhData Academy Indonesia | PatuhData'],
+    ['/contact', 'Tell us what your business needs', 'Request an IT Services Quotation | PatuhData Jakarta'],
     ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
     ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
     ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],
-    ['/services/dpia-data-mapping', 'DPIA & Data Mapping', 'DPIA & Data Mapping Indonesia | PatuhData'],
+    ['/services/managed-infrastructure', 'Managed Infrastructure', 'Managed Infrastructure Indonesia | PatuhData'],
   ])('renders %s directly with route metadata', (path, heading, title) => {
     window.history.replaceState({}, '', path)
     render(<App />)
