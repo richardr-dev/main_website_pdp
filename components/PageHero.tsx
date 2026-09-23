@@ -1,0 +1,2 @@
+import { Button } from './Button'
+export function PageHero({eyebrow,title,lead,children,cta='Discuss Your Requirement'}:{eyebrow:string;title:string;lead:string;children?:React.ReactNode;cta?:string}){return <section className="page-hero"><div className="shell"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p className="lead">{lead}</p>{children}<Button href="/contact">{cta}</Button></div></section>}

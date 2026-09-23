@@ -1,12 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Barlow Condensed', 'Inter', 'system-ui', 'sans-serif'],
-      },
+      fontFamily: { sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'] },
       colors: {
         primary: {
           50:  '#eff6ff',
@@ -21,11 +18,7 @@ export default {
           900: '#1e3a8a',
           950: '#172554',
         },
-        navy: {
-          DEFAULT: '#0f2d5c',
-          light: '#1a3d7a',
-          dark:  '#0a1f3e',
-        },
+        navy: { DEFAULT: '#0B1F3A', light: '#17365f', dark: '#071426' },
       },
       boxShadow: {
         card: '0 1px 3px 0 rgb(0 0 0 / 0.05), 0 8px 24px -4px rgb(0 0 0 / 0.08)',
