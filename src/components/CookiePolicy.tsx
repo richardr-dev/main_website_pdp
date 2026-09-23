@@ -5,7 +5,7 @@ export default function CookiePolicy() {
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Cookie Policy</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 July 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 1 September 2026</p>
         </div>
       </section>
 
@@ -16,7 +16,7 @@ export default function CookiePolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">1. What Are Cookies</h2>
               <p>
-                Cookies are small text files placed on your device by websites you visit. They are widely used to make websites work, to improve efficiency, and to provide information to the owners of the site. PatuhData uses cookies in accordance with this Cookie Policy and our <a href="#/privacy" className="text-primary-600 hover:underline">Privacy Policy</a>.
+                Cookies are small text files placed on your device by websites you visit. They are widely used to make websites work, to improve efficiency, and to provide information to the owners of the site. PatuhData uses cookies in accordance with this Cookie Policy and our <a href="/privacy" className="text-primary-600 hover:underline">Privacy Policy</a>.
               </p>
             </div>
 
@@ -35,8 +35,12 @@ export default function CookiePolicy() {
                 </div>
                 <div className="px-5 py-4 space-y-4">
                   <div>
-                    <p className="font-semibold text-slate-800">patuhdata_cookie_consent</p>
-                    <p className="text-slate-500 mt-1">Stores your cookie consent preference (accepted/declined) so the consent banner is not shown on every page visit. Retained for 1 year.</p>
+                    <p className="font-semibold text-slate-800">patuhdata_consent_v1</p>
+                    <p className="text-slate-500 mt-1">Stores a consent ID, timestamp, policy version, method, and category choices. Retained for 1 year.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-slate-800">patuhdata-language and browser consent history</p>
+                    <p className="text-slate-500 mt-1">Stores language preferences, the current record, and up to 20 recent browser-side consent decisions.</p>
                   </div>
                 </div>
               </div>
@@ -53,8 +57,8 @@ export default function CookiePolicy() {
                 </div>
                 <div className="px-5 py-4 space-y-4">
                   <div>
-                    <p className="font-semibold text-slate-800">Analytics tooling cookies</p>
-                    <p className="text-slate-500 mt-1">Used to understand which pages are visited, how long visitors stay, and how they navigate the site. This data is anonymised and used solely to improve the website. No personally identifiable information is collected through analytics cookies. We do not sell analytics data to third parties.</p>
+                    <p className="font-semibold text-slate-800">_ga and _ga_5QYE9SJ0CX</p>
+                    <p className="text-slate-500 mt-1">Set by Google Analytics only after analytics consent to understand website usage and conversions. Typical maximum retention: 2 years.</p>
                   </div>
                 </div>
               </div>
@@ -63,10 +67,10 @@ export default function CookiePolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">3. Managing Your Cookie Preferences</h2>
               <p>
-                When you first visit patuhdata.id, a cookie consent banner is displayed. You can accept all cookies or decline optional (analytics) cookies. You can change your preference at any time by clearing your browser's cookies and revisiting the site — the consent banner will reappear.
+                On your first visit, you may accept all, reject optional cookies, or manage categories. Reopen the Privacy Preference Center at any time using the “Cookie Settings” button.
               </p>
               <p className="mt-3">
-                You can also manage cookies through your browser settings. Most browsers allow you to refuse all cookies, delete existing cookies, or be notified when a cookie is set. Disabling essential cookies may affect site functionality.
+                If you withdraw analytics consent, PatuhData instructs Google Analytics to stop collection, removes its script, and deletes Google Analytics cookies accessible from patuhdata.id. You can also manage cookies through your browser settings. Most browsers allow you to refuse all cookies, delete existing cookies, or be notified when a cookie is set. Disabling essential storage may affect site functionality.
               </p>
             </div>
 
@@ -87,7 +91,7 @@ export default function CookiePolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">6. Updates to This Policy</h2>
               <p>
-                We may update this Cookie Policy when we add or remove cookies from our site. The current version is always available at patuhdata.id/#/cookies with the effective date noted at the top. Material changes will be notified to active clients.
+                We may update this Cookie Policy when technologies change. The current version is available at patuhdata.id/cookies. A new policy version may trigger the consent banner again.
               </p>
             </div>
 

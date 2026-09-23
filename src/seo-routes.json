@@ -1,0 +1,72 @@
+{
+  "/": {
+    "title": "Managed IT Services, Cloud & Data Protection Indonesia | PatuhData",
+    "description": "PatuhData manages servers, AWS cloud, backup, recovery, networks and multi-branch IT infrastructure for Indonesian businesses.",
+    "type": "WebPage"
+  },
+  "/contact": {
+    "title": "Request an IT Services Quotation | PatuhData Jakarta",
+    "description": "Discuss managed IT, server colocation, AWS cloud, backup, recovery or multi-branch infrastructure with the PatuhData team in Jakarta.",
+    "type": "ContactPage"
+  },
+  "/insights/managed-it": {
+    "title": "Why Growing Businesses Need a Managed Service Provider | PatuhData",
+    "description": "Learn when an Indonesian business should use an MSP to manage networks, servers, endpoints, backups and branch infrastructure.",
+    "type": "Article"
+  },
+  "/insights/uu-pdp-data-residency": {
+    "title": "UU PDP and Data Residency in Indonesia | PatuhData",
+    "description": "A practical guide for business leaders evaluating Indonesian data residency, cross-border transfers, local hosting and operational resilience.",
+    "type": "Article"
+  },
+  "/privacy": {
+    "title": "Privacy Policy | PatuhData",
+    "description": "How PatuhData collects, uses, protects and manages personal data.",
+    "type": "WebPage"
+  },
+  "/terms": {
+    "title": "Terms of Service | PatuhData",
+    "description": "Terms governing the use of the PatuhData website and services.",
+    "type": "WebPage"
+  },
+  "/cookies": {
+    "title": "Cookie Policy | PatuhData",
+    "description": "Information about cookies used on the PatuhData website.",
+    "type": "WebPage"
+  },
+  "/services/colocation-server": {
+    "title": "Colocation & Server Deployment Indonesia | PatuhData",
+    "description": "We manage the complete server deployment lifecycle\u2014from assessment and rack installation to hardening, migration, and handover. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/backup-restore": {
+    "title": "Backup & Restore Indonesia | PatuhData",
+    "description": "We design measurable data protection based on business needs and workload criticality. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/data-recovery": {
+    "title": "Data Recovery Indonesia | PatuhData",
+    "description": "When data is lost, corrupted, or affected by ransomware, our team supports controlled triage and recovery. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/managed-infrastructure": {
+    "title": "Managed Infrastructure Indonesia | PatuhData",
+    "description": "An on-demand infrastructure team for servers, networks, endpoints, and branch locations. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/cloud-aws": {
+    "title": "Cloud Infrastructure & AWS Indonesia | PatuhData",
+    "description": "We design and operate AWS environments from landing zone to production with clear ownership. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/uu-pdp": {
+    "title": "UU PDP Indonesia | PatuhData",
+    "description": "Build a practical personal data protection program, from data mapping and readiness assessment to policies, processes, and implementation evidence. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "Service"
+  },
+  "/services/patuhdata-academy": {
+    "title": "PatuhData Academy Indonesia | PatuhData",
+    "description": "PatuhData Academy is being developed as a training product for business and IT teams. Schedules, formats, and pricing will be announced when programs become available. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "type": "WebPage"
+  }
+}

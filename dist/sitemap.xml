@@ -12,4 +12,6 @@
   <url><loc>https://patuhdata.id/privacy</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://patuhdata.id/terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://patuhdata.id/cookies</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://patuhdata.id/services/uu-pdp</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://patuhdata.id/services/patuhdata-academy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

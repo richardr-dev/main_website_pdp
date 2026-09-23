@@ -14,6 +14,8 @@ type FormState = {
 }
 
 const interests = [
+  'UU PDP — Assessment & Implementation',
+  'PatuhData Academy — Training Interest (Coming Soon)',
   'Managed Infrastructure & IT Operations',
   'Colocation & Server Deployment',
   'Cloud Infrastructure & AWS',
