@@ -5,7 +5,7 @@ export default function TermsOfService() {
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Terms of Service</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 July 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 24 September 2026</p>
         </div>
       </section>
 
@@ -16,7 +16,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">1. Parties and Agreement</h2>
               <p>
-                These Terms of Service ("Terms") govern the use of the patuhdata.id website and the professional services provided by PT PatuhData Solusi Nusantara ("PatuhData"), a registered PT PMDN entity in Indonesia. By using this website or engaging PatuhData services, you agree to these Terms.
+                These Terms of Service ("Terms") govern the use of the patuhdata.id website and the professional services provided by PT PatuhData Solusi Nusantara ("PatuhData"), a registered PT PMDN entity in Indonesia. Use of the website does not constitute consent to optional cookies, analytics, or marketing. Personal data is handled as described in our Privacy Policy; cookie choices are managed separately.
               </p>
               <p className="mt-3">
                 Professional services engagements are additionally governed by a written Service Agreement executed between PatuhData and the client. In the event of any conflict, the executed Service Agreement prevails.
@@ -26,7 +26,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Services</h2>
               <p>
-                PatuhData provides cloud infrastructure engineering, AI-powered operational automation, and UU PDP compliance services to Indonesian businesses. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
+                PatuhData provides business continuity and disaster recovery, managed cybersecurity, and technology governance and compliance readiness services under PatuhData Recover, PatuhData Secure, and PatuhData Govern. We support Indonesian businesses and international companies preparing for Indonesian enterprise requirements. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
               </p>
               <p className="mt-3">
                 Website content (including service descriptions, pricing models, and SLA commitments) constitutes general information only and does not constitute a binding offer unless confirmed in a written Service Agreement.
@@ -36,7 +36,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">3. Limitation of Liability</h2>
               <p>
-                For professional services engagements, PatuhData's total aggregate liability to a client for any claim arising from or in connection with a service engagement is capped at six (6) months of the total contract value applicable to the relevant engagement. This limitation applies whether the claim arises in contract, tort, or otherwise.
+                For professional services engagements, PatuhData's total aggregate liability to a client for any claim arising from or in connection with a service engagement is capped at six (6) months of the total contract value applicable to the relevant engagement. This limitation applies whether the claim arises in contract, tort, or otherwise, only to the extent permitted by applicable law. Nothing in these Terms excludes mandatory personal-data rights, statutory remedies, or liability that cannot lawfully be excluded.
               </p>
               <p className="mt-3">
                 PatuhData is not liable for: indirect, consequential, or punitive damages; loss of revenue or profits not directly caused by our breach; losses arising from the client's failure to implement recommended changes; or regulatory penalties arising from pre-existing compliance deficiencies.

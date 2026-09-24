@@ -5,16 +5,22 @@ import App from '../src/App'
 describe('application routes', () => {
   beforeEach(() => {
     localStorage.setItem('patuhdata-language', 'id')
-    localStorage.setItem('patuhdata_consent_record', JSON.stringify({ consentId: 'test', policyVersion: '2026-09-01', timestamp: '2026-09-01T00:00:00.000Z', method: 'reject_optional', necessary: true, analytics: false }))
+    localStorage.setItem('patuhdata_consent_record', JSON.stringify({ consentId: 'test', policyVersion: '2026-09-24', timestamp: new Date().toISOString(), method: 'reject_optional', necessary: true, analytics: false }))
     window.dataLayer = []
     window.gtag = vi.fn()
     window.scrollTo = vi.fn()
   })
 
   it.each([
+    ['/', 'Critical IT Shouldn’t Become a Business Risk.', 'Recover, Secure & Govern | PatuhData'],
+    ['/solutions/recover', 'PatuhData Recover', 'PatuhData Recover | Business Continuity & Disaster Recovery'],
+    ['/solutions/secure', 'PatuhData Secure', 'PatuhData Secure | Managed Cybersecurity'],
+    ['/solutions/govern', 'PatuhData Govern', 'PatuhData Govern | Technology Governance & Compliance'],
+    ['/resources/can-you-restore-your-backup', 'Your backup completed successfully. Can you actually restore it?', 'Your backup completed successfully. Can you actually restore it? | PatuhData'],
+    ['/resources/rpo-rto-business-guide', 'What RPO and RTO actually mean for a business', 'What RPO and RTO actually mean for a business | PatuhData'],
     ['/services/uu-pdp', 'UU PDP', 'UU PDP Indonesia | PatuhData'],
     ['/services/patuhdata-academy', 'PatuhData Academy', 'PatuhData Academy Indonesia | PatuhData'],
-    ['/contact', 'Tell us what your business needs', 'Request an IT Services Quotation | PatuhData Jakarta'],
+    ['/contact', 'Talk to a Solution Architect', 'Talk to a Solution Architect | PatuhData'],
     ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
     ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
     ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],

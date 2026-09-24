@@ -5,7 +5,7 @@ export default function CookiePolicy() {
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Cookie Policy</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 September 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 24 September 2026</p>
         </div>
       </section>
 
@@ -36,11 +36,11 @@ export default function CookiePolicy() {
                 <div className="px-5 py-4 space-y-4">
                   <div>
                     <p className="font-semibold text-slate-800">patuhdata_consent_v1</p>
-                    <p className="text-slate-500 mt-1">Stores a consent ID, timestamp, policy version, method, and category choices. Retained for 1 year.</p>
+                    <p className="text-slate-500 mt-1">Stores a consent ID, timestamp, policy version, method, and category choices. Retained for 180 days; an expired or changed policy requires a new choice.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-800">patuhdata-language and browser consent history</p>
-                    <p className="text-slate-500 mt-1">Stores language preferences, the current record, and up to 20 recent browser-side consent decisions.</p>
+                    <p className="font-semibold text-slate-800">patuhdata_consent_record (local storage)</p>
+                    <p className="text-slate-500 mt-1">Stores a browser-local copy of your current choice for up to 180 days. Expiry is checked when the site is used. Older consent history is removed. Clearing browser storage removes this record.</p>
                   </div>
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function CookiePolicy() {
                 <div className="px-5 py-4 space-y-4">
                   <div>
                     <p className="font-semibold text-slate-800">_ga and _ga_5QYE9SJ0CX</p>
-                    <p className="text-slate-500 mt-1">Set by Google Analytics only after analytics consent to understand website usage and conversions. Typical maximum retention: 2 years.</p>
+                    <p className="text-slate-500 mt-1">Set by Google Analytics only after analytics consent to understand website usage and conversions. Cookie lifetime is configured to 180 days without automatic renewal. Provider: Google. These first-party cookies distinguish browsers and sessions; identifiers and usage information are personal data, not anonymous data.</p>
                   </div>
                 </div>
               </div>
@@ -69,29 +69,30 @@ export default function CookiePolicy() {
               <p>
                 On your first visit, you may accept all, reject optional cookies, or manage categories. Reopen the Privacy Preference Center at any time using the “Cookie Settings” button.
               </p>
+              <button className="button primary mt-4" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button>
               <p className="mt-3">
-                If you withdraw analytics consent, PatuhData instructs Google Analytics to stop collection, removes its script, and deletes Google Analytics cookies accessible from patuhdata.id. You can also manage cookies through your browser settings. Most browsers allow you to refuse all cookies, delete existing cookies, or be notified when a cookie is set. Disabling essential storage may affect site functionality.
+                If you withdraw analytics consent, PatuhData instructs Google Analytics to stop collection, removes its script, and deletes Google Analytics cookies accessible from patuhdata.id. Withdrawal does not undo processing before withdrawal; contact us to request deletion of previously collected personal data. You can also manage cookies through your browser settings. Most browsers allow you to refuse all cookies, delete existing cookies, or be notified when a cookie is set. Disabling essential storage may affect site functionality.
               </p>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">4. Third-Party Cookies</h2>
               <p>
-                We do not permit third-party advertising networks to place cookies on patuhdata.id. Analytics cookies, if accepted, may be processed by our analytics provider under a data processing agreement. We use the anonymisation features of any analytics tooling to prevent personal data from being transmitted.
+                We do not permit third-party advertising networks to place cookies on patuhdata.id. Analytics cookies, if accepted, may be processed by our analytics provider under a data processing agreement. Google receives online identifiers, device and usage information, and network information when analytics is enabled. Advertising storage, Google signals, and advertising personalization are disabled. We do not currently use marketing cookies or optional preference cookies.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 mb-3">5. UU PDP Compliance</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">5. Consent and Applicable Law</h2>
               <p>
-                Our cookie consent mechanism is designed in compliance with UU PDP No. 27/2022, which requires that consent be freely given, specific, informed, and unambiguous. Optional cookies are not activated until you explicitly accept them. Declining optional cookies has no negative effect on your ability to use this website.
+                Our controls support explicit, informed consent under UU PDP No. 27/2022 and, where applicable, GDPR and European ePrivacy cookie rules. Optional cookies are not activated until you explicitly accept them. Declining optional cookies has no negative effect on your ability to use this website.
               </p>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">6. Updates to This Policy</h2>
               <p>
-                We may update this Cookie Policy when technologies change. The current version is available at patuhdata.id/cookies. A new policy version may trigger the consent banner again.
+                We may update this Cookie Policy when technologies change. The current version is available at patuhdata.id/cookies. A changed consent-policy version or expiry triggers a fresh choice. Closing the panel or continuing to browse does not grant consent.
               </p>
             </div>
 

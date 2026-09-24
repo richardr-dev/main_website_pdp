@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import CookieConsent from '../src/components/CookieConsent'
 
 const STORAGE_KEY = 'patuhdata_consent_record'
-const POLICY_VERSION = '2026-09-01'
+const POLICY_VERSION = '2026-09-24'
 
 function clearCookies() {
   document.cookie.split(';').forEach((item) => {
@@ -16,7 +16,7 @@ function storedConsent(analytics: boolean) {
   return JSON.stringify({
     consentId: 'existing-consent',
     policyVersion: POLICY_VERSION,
-    timestamp: '2026-09-01T00:00:00.000Z',
+    timestamp: new Date().toISOString(),
     method: analytics ? 'accept_all' : 'reject_optional',
     necessary: true,
     analytics,
@@ -38,7 +38,7 @@ describe('CookieConsent', () => {
     render(<CookieConsent lang="en" />)
     act(() => vi.advanceTimersByTime(500))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Deny analytics' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Reject optional' }))
 
     expect(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}').analytics).toBe(false)
     expect(document.querySelector('script[src*="googletagmanager.com"]')).not.toBeInTheDocument()
@@ -80,4 +80,49 @@ describe('CookieConsent', () => {
     expect(opener).toHaveFocus()
     opener.remove()
   })
+  it('never loads analytics before a choice and supports keyboard tab navigation', () => {
+    vi.useFakeTimers()
+    render(<CookieConsent lang="en" />)
+    act(() => vi.advanceTimersByTime(500))
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Consent' }), { key: 'ArrowRight' })
+    expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('checkbox', { name: 'Allow analytics cookies' })).not.toBeChecked()
+    fireEvent.click(screen.getByRole('checkbox', { name: 'Allow analytics cookies' }))
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: /Save selection/ }))
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
+  it.each(['expired', 'malformed', 'old-policy', 'future'])('rejects %s consent', (kind) => {
+    const record = JSON.parse(storedConsent(true))
+    if (kind === 'expired') record.timestamp = new Date(Date.now() - 181 * 86400000).toISOString()
+    if (kind === 'malformed') record.analytics = 'true'
+    if (kind === 'old-policy') record.policyVersion = '2026-09-01'
+    if (kind === 'future') record.timestamp = new Date(Date.now() + 86400000).toISOString()
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(record))
+    render(<CookieConsent lang="en" />)
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+  })
+
+  it('withdraws even when browser storage is blocked', () => {
+    localStorage.setItem(STORAGE_KEY, storedConsent(true))
+    render(<CookieConsent lang="en" />)
+    act(() => window.dispatchEvent(new Event('patuhdata:open-consent')))
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => { throw new Error('blocked') })
+    fireEvent.click(screen.getByRole('button', { name: 'Reject optional' }))
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect((window as unknown as Record<string, unknown>)['ga-disable-G-5QYE9SJ0CX']).toBe(true)
+  })
+
+  it('honors withdrawal from another tab', () => {
+    localStorage.setItem(STORAGE_KEY, storedConsent(true))
+    render(<CookieConsent lang="en" />)
+    localStorage.setItem(STORAGE_KEY, storedConsent(false))
+    act(() => window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY })))
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+    expect((window as unknown as Record<string, unknown>)['ga-disable-G-5QYE9SJ0CX']).toBe(true)
+  })
+
 })

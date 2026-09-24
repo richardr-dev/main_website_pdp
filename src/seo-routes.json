@@ -1,12 +1,12 @@
 {
   "/": {
-    "title": "Managed IT Services, Cloud & Data Protection Indonesia | PatuhData",
-    "description": "PatuhData manages servers, AWS cloud, backup, recovery, networks and multi-branch IT infrastructure for Indonesian businesses.",
+    "title": "Recover, Secure & Govern | PatuhData",
+    "description": "PatuhData keeps critical business systems secure, recoverable, and ready for compliance. Recovery, cybersecurity, and governance for Indonesian and international businesses.",
     "type": "WebPage"
   },
   "/contact": {
-    "title": "Request an IT Services Quotation | PatuhData Jakarta",
-    "description": "Discuss managed IT, server colocation, AWS cloud, backup, recovery or multi-branch infrastructure with the PatuhData team in Jakarta.",
+    "title": "Talk to a Solution Architect | PatuhData",
+    "description": "Discuss your critical systems, technology risks, recovery needs, cybersecurity, and compliance readiness with PatuhData.",
     "type": "ContactPage"
   },
   "/insights/managed-it": {
@@ -36,37 +36,62 @@
   },
   "/services/colocation-server": {
     "title": "Colocation & Server Deployment Indonesia | PatuhData",
-    "description": "We manage the complete server deployment lifecycle\u2014from assessment and rack installation to hardening, migration, and handover. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "We manage the complete server deployment lifecycle—from assessment and rack installation to hardening, migration, and handover. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/backup-restore": {
     "title": "Backup & Restore Indonesia | PatuhData",
-    "description": "We design measurable data protection based on business needs and workload criticality. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "We design measurable data protection based on business needs and workload criticality. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/data-recovery": {
     "title": "Data Recovery Indonesia | PatuhData",
-    "description": "When data is lost, corrupted, or affected by ransomware, our team supports controlled triage and recovery. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "When data is lost, corrupted, or affected by ransomware, our team supports controlled triage and recovery. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/managed-infrastructure": {
     "title": "Managed Infrastructure Indonesia | PatuhData",
-    "description": "An on-demand infrastructure team for servers, networks, endpoints, and branch locations. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "An on-demand infrastructure team for servers, networks, endpoints, and branch locations. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/cloud-aws": {
     "title": "Cloud Infrastructure & AWS Indonesia | PatuhData",
-    "description": "We design and operate AWS environments from landing zone to production with clear ownership. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "We design and operate AWS environments from landing zone to production with clear ownership. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/uu-pdp": {
     "title": "UU PDP Indonesia | PatuhData",
-    "description": "Build a practical personal data protection program, from data mapping and readiness assessment to policies, processes, and implementation evidence. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "Build a practical personal data protection program, from data mapping and readiness assessment to policies, processes, and implementation evidence. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/patuhdata-academy": {
     "title": "PatuhData Academy Indonesia | PatuhData",
-    "description": "PatuhData Academy is being developed as a training product for business and IT teams. Schedules, formats, and pricing will be announced when programs become available. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "description": "PatuhData Academy is being developed as a training product for business and IT teams. Schedules, formats, and pricing will be announced when programs become available. Talk to a Solution Architect about your environment and business priorities.",
     "type": "WebPage"
+  },
+  "/solutions/recover": {
+    "title": "PatuhData Recover | Business Continuity & Disaster Recovery",
+    "description": "Backup architecture, immutable backups, disaster recovery planning, RPO/RTO design, recovery testing, and managed recovery.",
+    "type": "Service"
+  },
+  "/solutions/secure": {
+    "title": "PatuhData Secure | Managed Cybersecurity",
+    "description": "Endpoint, network, and cloud security, vulnerability and patch management, security monitoring, and incident coordination.",
+    "type": "Service"
+  },
+  "/solutions/govern": {
+    "title": "PatuhData Govern | Technology Governance & Compliance",
+    "description": "UU PDP readiness, DPO support, ISO 27001 / 27701 readiness, security questionnaires, third-party risk, and evidence management.",
+    "type": "Service"
+  },
+  "/resources/can-you-restore-your-backup": {
+    "title": "Your backup completed successfully. Can you actually restore it? | PatuhData",
+    "description": "A practical guide to validating backups with business workflows, isolated restores, recovery measurements, and repeatable testing.",
+    "type": "Article"
+  },
+  "/resources/rpo-rto-business-guide": {
+    "title": "What RPO and RTO actually mean for a business | PatuhData",
+    "description": "Translate acceptable data loss and downtime into practical, testable recovery objectives for your critical systems.",
+    "type": "Article"
   }
 }
