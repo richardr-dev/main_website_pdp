@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Data We Collect</h2>
               <p className="mb-3">We collect personal data in the following circumstances:</p>
               <ul className="space-y-2 ml-5 list-disc">
-                <li><strong className="text-slate-900">Consultation forms:</strong> Name, company, role, business email, WhatsApp number, organization details, interests, timeline, and message.</li>
+                <li><strong className="text-slate-900">Consultation forms:</strong> Name, company, role, business email, WhatsApp number, staff count, service interest, critical system or requirement description, optional deadline and current environment, and other organization details supplied in an inquiry.</li>
                 <li><strong className="text-slate-900">Free resource requests:</strong> Name, company, business email, role, optional WhatsApp number, and requested resource.</li>
                 <li><strong className="text-slate-900">Consent records:</strong> A random consent ID, timestamp, policy version, consent method, and selected cookie categories. Browser-side consent records do not intentionally contain your name or email.</li>
                 <li><strong className="text-slate-900">Analytics:</strong> If you accept optional analytics cookies, Google Analytics processes browser identifiers, pages visited, session events, device/browser information, and network information. These can constitute personal data; analytics is not described as anonymous.</li>

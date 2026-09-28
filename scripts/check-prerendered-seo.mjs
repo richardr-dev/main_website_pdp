@@ -23,3 +23,19 @@ for (const [route, meta] of Object.entries(routes)) {
 }
 
 console.log(`Verified prerendered metadata for ${Object.keys(routes).length} routes.`)
+
+for (const [path, lang, heading] of [['index.html', 'id', 'Backup Anda berhasil. Tapi apakah bisnis Anda benar-benar bisa pulih?'], ['en/index.html', 'en', 'Your backup says SUCCESS. Can your business actually recover?']]) {
+  const html = await readFile(join(projectRoot, 'dist', path), 'utf8')
+  for (const marker of [`<html lang="${lang}">`, heading, 'PatuhData Recovery Health Check', '2h 37m', '3h 12m', 'id="vendor-readiness"', 'PatuhData Financial Vendor Readiness', 'Security Baseline Hardening', 'Managed Resilience', 'id="assessments"', '<table>', 'id="offers"', 'id="contact"', 'hreflang="id"', 'hreflang="en"', 'hreflang="x-default"']) {
+    if (!html.includes(marker)) throw new Error(`Missing landing content ${marker} in ${path}`)
+  }
+}
+console.log('Verified full landing-page HTML and language alternates for ID and EN.')
+
+for (const [path, language] of [['insights/uu-pdp-backup-recovery/index.html', 'id'], ['en/insights/uu-pdp-backup-recovery/index.html', 'en']]) {
+  const html = await readFile(join(projectRoot, 'dist', path), 'utf8')
+  for (const marker of [`<html lang="${language}">`, '<article>', '3 × 24', 'jdih.komdigi.go.id', 'hreflang="id"', 'hreflang="en"', 'Recovery Health Check']) {
+    if (!html.includes(marker)) throw new Error(`Missing article content ${marker} in ${path}`)
+  }
+}
+console.log('Verified bilingual UU PDP recovery article HTML and sources.')

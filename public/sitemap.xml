@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://patuhdata.id/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://patuhdata.id/en</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://patuhdata.id/contact</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://patuhdata.id/insights/managed-it</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://patuhdata.id/insights/uu-pdp-data-residency</loc><changefreq>monthly</changefreq></url>
@@ -19,4 +20,6 @@
   <url><loc>https://patuhdata.id/solutions/govern</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://patuhdata.id/resources/can-you-restore-your-backup</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://patuhdata.id/resources/rpo-rto-business-guide</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://patuhdata.id/insights/uu-pdp-backup-recovery</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://patuhdata.id/en/insights/uu-pdp-backup-recovery</loc><changefreq>monthly</changefreq></url>
  </urlset>

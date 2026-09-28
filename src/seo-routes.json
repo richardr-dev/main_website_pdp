@@ -1,7 +1,7 @@
 {
   "/": {
-    "title": "Recover, Secure & Govern | PatuhData",
-    "description": "PatuhData keeps critical business systems secure, recoverable, and ready for compliance. Recovery, cybersecurity, and governance for Indonesian and international businesses.",
+    "title": "PatuhData | Recovery Assurance & Ketahanan Operasional Indonesia",
+    "description": "PatuhData membantu bisnis Indonesia menguji pemulihan backup, menemukan celah kesiapan, memperbaiki kemampuan pulih, dan menyiapkan bukti IT untuk klien sektor keuangan.",
     "type": "WebPage"
   },
   "/contact": {
@@ -36,7 +36,7 @@
   },
   "/services/colocation-server": {
     "title": "Colocation & Server Deployment Indonesia | PatuhData",
-    "description": "We manage the complete server deployment lifecycle—from assessment and rack installation to hardening, migration, and handover. Talk to a Solution Architect about your environment and business priorities.",
+    "description": "We manage the complete server deployment lifecycle\u2014from assessment and rack installation to hardening, migration, and handover. Talk to a Solution Architect about your environment and business priorities.",
     "type": "Service"
   },
   "/services/backup-restore": {
@@ -92,6 +92,21 @@
   "/resources/rpo-rto-business-guide": {
     "title": "What RPO and RTO actually mean for a business | PatuhData",
     "description": "Translate acceptable data loss and downtime into practical, testable recovery objectives for your critical systems.",
+    "type": "Article"
+  },
+  "/en": {
+    "title": "PatuhData | Recovery Assurance & Operational Resilience Indonesia",
+    "description": "PatuhData helps Indonesian businesses test backup recovery, identify resilience gaps, improve recovery capability, and prepare IT and security evidence for financial-sector customers.",
+    "type": "WebPage"
+  },
+  "/insights/uu-pdp-backup-recovery": {
+    "title": "UU PDP, Backup, dan Recovery: Mengapa Perlu Bukti? | PatuhData",
+    "description": "Hubungan UU PDP dengan backup, uji restore, dan kesiapan bisnis. Pahami mengapa bukti pemulihan perlu disiapkan sebelum gangguan terjadi.",
+    "type": "Article"
+  },
+  "/en/insights/uu-pdp-backup-recovery": {
+    "title": "UU PDP, Backup & Recovery: Why Evidence Matters | PatuhData",
+    "description": "How UU PDP relates to backups, restore testing, and business readiness. Learn why recovery evidence matters before disruption occurs.",
     "type": "Article"
   }
 }

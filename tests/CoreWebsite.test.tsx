@@ -23,14 +23,14 @@ describe('solution architecture positioning', () => {
     })
   })
 
-  it('keeps navigation focused on the three solutions', () => {
+  it('keeps the recovery navigation accessible on mobile', () => {
     render(<App />)
-    const nav = screen.getByRole('navigation', { name: 'Main navigation' })
-    const toggle = within(nav).getByRole('button', { name: /Solutions/ })
-    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    const nav = screen.getByRole('navigation', { name: 'Navigasi utama' })
+    expect(within(nav).getAllByRole('link')).toHaveLength(5)
+    const toggle = screen.getByRole('button', { name: 'Menu navigasi' })
     fireEvent.click(toggle)
-    coreSolutions.forEach(solution => expect(within(nav).getByRole('link', { name: new RegExp(solution.label) })).toHaveAttribute('href', '/solutions/' + solution.slug))
-    fireEvent.keyDown(toggle, { key: 'Escape' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    fireEvent.keyDown(nav, { key: 'Escape' })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 

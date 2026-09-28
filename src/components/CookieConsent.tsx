@@ -26,7 +26,7 @@ export const POLICY_VERSION = '2026-09-24'
 const MAX_AGE = 180 * 24 * 60 * 60
 const GA_ID = 'G-5QYE9SJ0CX'
 
-function readRecord(): ConsentRecord | null {
+export function readRecord(): ConsentRecord | null {
   try {
     const cookie = document.cookie.split('; ').find((item) => item.startsWith(`${COOKIE_NAME}=`))
     const value = cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : localStorage.getItem(STORAGE_KEY)
@@ -125,8 +125,7 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
       applyConsent(record)
     } else {
       removeAnalytics()
-      const timer = window.setTimeout(() => setBanner(true), 500)
-      return () => window.clearTimeout(timer)
+      setBanner(true)
     }
   }, [])
 

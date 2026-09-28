@@ -1,3 +1,8 @@
+import PdpRecoveryArticle from './components/PdpRecoveryArticle'
+import { pdpInsightPaths } from './data/pdpRecoveryInsight'
+import RecoveryLanding from './components/RecoveryLanding'
+import './recovery.css'
+import './corporate.css'
 import { useEffect, useState } from 'react'
 import './index.css'
 import './core-website.css'
@@ -36,7 +41,19 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
     const canonical = `${siteUrl}${path === '/' ? '' : path}`
     const image = data.image || `${siteUrl}/patuhdata.png`
 
-    document.documentElement.lang = 'en-ID'
+    const isIndonesian = path === '/' || path === pdpInsightPaths.id
+    document.documentElement.lang = isIndonesian ? 'id' : 'en'
+    document.head.querySelectorAll('link[hreflang]').forEach(link => link.remove())
+    if (path === '/' || path === '/en' || Object.values(pdpInsightPaths).includes(path)) {
+      const article = Object.values(pdpInsightPaths).includes(path)
+      const idUrl = siteUrl + (article ? pdpInsightPaths.id : '')
+      const enUrl = siteUrl + (article ? pdpInsightPaths.en : '/en')
+      for (const [language, href] of [['id', idUrl], ['en', enUrl], ['x-default', idUrl]]) {
+        const link = document.createElement('link')
+        link.rel = 'alternate'; link.hreflang = language; link.href = href
+        document.head.appendChild(link)
+      }
+    }
     document.title = data.title
     setMeta('meta[name="description"]', { name: 'description', content: data.description })
     setMeta('meta[name="robots"]', { name: 'robots', content: 'index, follow, max-image-preview:large' })
@@ -47,7 +64,7 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
     setMeta('meta[property="og:url"]', { property: 'og:url', content: canonical })
     setMeta('meta[property="og:image"]', { property: 'og:image', content: image })
     setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'PatuhData Recover, Secure, Govern' })
-    setMeta('meta[property="og:locale"]', { property: 'og:locale', content: 'en_ID' })
+    setMeta('meta[property="og:locale"]', { property: 'og:locale', content: isIndonesian ? 'id_ID' : 'en_ID' })
     setMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: data.title })
     setMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: data.description })
@@ -76,7 +93,7 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
           image,
           author: { '@id': `${siteUrl}/#organization` },
           publisher: { '@id': `${siteUrl}/#organization` },
-          inLanguage: 'en-ID',
+          inLanguage: isIndonesian ? 'id' : 'en',
         }
       : (service || registered.type === 'Service')
         ? {
@@ -95,7 +112,7 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
             name: data.title,
             description: data.description,
             isPartOf: { '@id': `${siteUrl}/#website` },
-            inLanguage: 'en-ID',
+            inLanguage: isIndonesian ? 'id' : 'en',
           }
     schema.text = JSON.stringify({ '@context': 'https://schema.org', '@graph': [pageSchema] })
     document.head.appendChild(schema)
@@ -175,6 +192,8 @@ export default function App() {
     return () => cancelAnimationFrame(frame)
   }, [route])
   useSeo(route, servicesEn)
+  if (route === '/' || route === '/en') return <RecoveryLanding lang={route === '/' ? 'id' : 'en'} />
+  if (route === pdpInsightPaths.id || route === pdpInsightPaths.en) return <PdpRecoveryArticle lang={route === pdpInsightPaths.id ? 'id' : 'en'} />
   const solution = coreSolutions.find(item => route === '/solutions/' + item.slug)
   const article = resourceArticles.find(item => route === '/resources/' + item.slug)
   const legacyService = route.startsWith('/services/') && servicesEn.find(item => route === '/services/' + item.slug)

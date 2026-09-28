@@ -12,7 +12,8 @@ describe('application routes', () => {
   })
 
   it.each([
-    ['/', 'Critical IT Shouldn’t Become a Business Risk.', 'Recover, Secure & Govern | PatuhData'],
+    ['/', 'Backup Anda berhasil. Tapi apakah bisnis Anda benar-benar bisa pulih?', 'PatuhData | Recovery Assurance & Ketahanan Operasional Indonesia'],
+    ['/en', 'Your backup says SUCCESS. Can your business actually recover?', 'PatuhData | Recovery Assurance & Operational Resilience Indonesia'],
     ['/solutions/recover', 'PatuhData Recover', 'PatuhData Recover | Business Continuity & Disaster Recovery'],
     ['/solutions/secure', 'PatuhData Secure', 'PatuhData Secure | Managed Cybersecurity'],
     ['/solutions/govern', 'PatuhData Govern', 'PatuhData Govern | Technology Governance & Compliance'],

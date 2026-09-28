@@ -33,6 +33,25 @@ describe('CookieConsent', () => {
     document.body.style.overflow = ''
   })
 
+  it('opens immediately on a first visit without loading analytics', () => {
+    render(<CookieConsent lang="id" />)
+    expect(screen.getByRole('dialog', { name: 'Preferensi cookie' })).toBeInTheDocument()
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+    expect(localStorage.getItem(STORAGE_KEY)).toBeNull()
+  })
+
+  it('stores the same choice in the cookie and localStorage and remembers it on reopening', () => {
+    const { unmount } = render(<CookieConsent lang="en" />)
+    fireEvent.click(screen.getByRole('button', { name: 'Reject optional' }))
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+    const cookie = document.cookie.split('; ').find(value => value.startsWith('patuhdata_consent_v1='))!
+    expect(JSON.parse(decodeURIComponent(cookie.slice(cookie.indexOf('=') + 1)))).toEqual(stored)
+    expect(stored).toMatchObject({ necessary: true, analytics: false, method: 'reject_optional', policyVersion: POLICY_VERSION })
+    unmount()
+    render(<CookieConsent lang="en" />)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
   it('keeps analytics disabled when the visitor denies it', () => {
     vi.useFakeTimers()
     render(<CookieConsent lang="en" />)
@@ -104,6 +123,7 @@ describe('CookieConsent', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(record))
     render(<CookieConsent lang="en" />)
     expect(document.querySelector('script[src*="googletagmanager.com"]')).toBeNull()
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
   it('withdraws even when browser storage is blocked', () => {
