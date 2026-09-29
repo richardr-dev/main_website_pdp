@@ -26,7 +26,7 @@ export default function ResilienceNav() {
       </div>
       <a href="/#approach" onClick={close}>Our Approach</a><a href="/#insights" onClick={close}>Insights</a><a href="/#about" onClick={close}>About Us</a>
     </nav>
-    <a className="cr-button cr-nav-cta" href="/contact" onClick={close}>Consult an Expert <span aria-hidden="true">↗</span></a>
+    <a className="cr-button cr-nav-cta" href="/contact" onClick={close}>Discuss Your Recovery Needs <span aria-hidden="true">↗</span></a>
     <button ref={menuButton} type="button" className="cr-menu-toggle" aria-label={menu ? 'Close navigation' : 'Open navigation'} aria-expanded={menu} aria-controls="primary-navigation" onClick={() => { setMenu(!menu); setServices(false) }}>{menu ? 'Close' : 'Menu'} <span aria-hidden="true">{menu ? '×' : '☰'}</span></button>
   </header>
 }

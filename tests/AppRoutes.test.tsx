@@ -14,7 +14,7 @@ describe('application routes', () => {
   it.each([
     ['/services/uu-pdp', 'UU PDP', 'UU PDP Indonesia | PatuhData'],
     ['/services/patuhdata-academy', 'PatuhData Academy', 'PatuhData Academy Indonesia | PatuhData'],
-    ['/contact', 'Let’s talk about your recovery readiness', 'Consult a Cyber Resilience Expert | PatuhData'],
+    ['/contact', 'Let’s prepare for what happens next.', 'Discuss Your Recovery Needs | PatuhData'],
     ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
     ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
     ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],

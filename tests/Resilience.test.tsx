@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../src/App'
 import { resilienceServices } from '../src/data/resilienceServices'
 
@@ -11,13 +11,14 @@ describe('cyber resilience experience', () => {
     window.dataLayer = []
     localStorage.setItem('patuhdata_consent_record', JSON.stringify({ consentId: 'test', policyVersion: '2026-09-01', timestamp: new Date().toISOString(), method: 'reject_optional', necessary: true, analytics: false }))
   })
+  afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs() })
   it('connects each core service to its page and every consultation to the form', () => {
     render(<App />)
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Keep your business running.Be ready to recover.')
     for (const service of resilienceServices) {
       expect(screen.getByRole('link', { name: `Explore ${service.title}` })).toHaveAttribute('href', `/services/${service.slug}`)
     }
-    for (const cta of screen.getAllByRole('link', { name: /Consult an Expert/ })) expect(cta).toHaveAttribute('href', '/contact')
+    for (const cta of screen.getAllByRole('link', { name: /Discuss Your Recovery Needs/ })) expect(cta).toHaveAttribute('href', '/contact')
     expect(document.body).not.toHaveTextContent(/Rp5|Request a Quotation|RECOMMENDED|sub-15/)
     const sectionNav = screen.getByRole('navigation', { name: 'On this page' })
     for (const link of within(sectionNav).getAllByRole('link')) expect(document.querySelector(link.getAttribute('href')!)).not.toBeNull()
@@ -55,9 +56,29 @@ describe('cyber resilience experience', () => {
   it('offers the four resilience services in the accessible consultation form', () => {
     window.history.replaceState({}, '', '/contact')
     render(<App />)
-    const field = screen.getByLabelText('What do you need? *')
+    const field = screen.getByLabelText(/How can we help/)
     for (const service of resilienceServices) expect(within(field).getByRole('option', { name: service.title })).toBeInTheDocument()
-    expect(screen.getByLabelText('Business Email *')).toBeRequired()
-    expect(screen.getByRole('button', { name: 'Request a Consultation' })).toBeInTheDocument()
+    expect(screen.getByLabelText(/Work email/)).toBeRequired()
+    expect(screen.getByRole('button', { name: 'Send my inquiry' })).toBeInTheDocument()
+    expect(screen.queryByLabelText('Organization Size *')).not.toBeInTheDocument()
+    expect(screen.getByLabelText(/Which systems or operations matter most/)).not.toBeRequired()
   })
+  it('preselects the service from a service page and submits useful context', async () => {
+    window.history.replaceState({}, '', '/contact?service=business-continuity')
+    vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-key')
+    const send = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ success: true }) })
+    vi.stubGlobal('fetch', send)
+    render(<App />)
+    expect(screen.getByLabelText(/How can we help/)).toHaveValue('Business Continuity')
+    fireEvent.change(screen.getByLabelText(/Full name/), { target: { value: 'Test Person' } })
+    fireEvent.change(screen.getByLabelText(/Work email/), { target: { value: 'test@example.com' } })
+    fireEvent.change(screen.getByLabelText(/Company/), { target: { value: 'Test Company' } })
+    fireEvent.change(screen.getByLabelText(/Which systems or operations matter most/), { target: { value: 'Keep order processing available' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Send my inquiry' }))
+    expect(await screen.findByRole('status')).toHaveTextContent('Your inquiry was sent')
+    const body = JSON.parse(send.mock.calls[0][1].body)
+    expect(body).toMatchObject({ interest: 'Business Continuity', message: 'Keep order processing available', company: 'Test Company' })
+    expect(body).not.toHaveProperty('company_size')
+  })
+
 })
