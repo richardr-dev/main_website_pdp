@@ -33,6 +33,44 @@ describe('CookieConsent', () => {
     document.body.style.overflow = ''
   })
 
+  it('shows the first-visit popup and does not load analytics before a choice', () => {
+    vi.useFakeTimers()
+    render(<CookieConsent lang="en" />)
+    act(() => vi.advanceTimersByTime(500))
+    expect(screen.getByRole('dialog', { name: 'Cookie preferences' })).toBeInTheDocument()
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Deny analytics' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
+  it('respects a valid saved choice until settings are reopened', () => {
+    localStorage.setItem(STORAGE_KEY, storedConsent(false))
+    render(<CookieConsent lang="en" />)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    act(() => window.dispatchEvent(new Event('patuhdata:open-consent')))
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+  })
+
+  it('asks again when stored consent has expired', () => {
+    vi.useFakeTimers()
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...JSON.parse(storedConsent(true)), timestamp: '2020-01-01T00:00:00Z' }))
+    render(<CookieConsent lang="en" />)
+    act(() => vi.advanceTimersByTime(500))
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    expect(document.querySelector('script[src*="googletagmanager.com"]')).not.toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
+  it('supports keyboard navigation between preference tabs', () => {
+    localStorage.setItem(STORAGE_KEY, storedConsent(false))
+    render(<CookieConsent lang="en" />)
+    act(() => window.dispatchEvent(new Event('patuhdata:open-consent')))
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Details' }), { key: 'ArrowRight' })
+    expect(screen.getByRole('tab', { name: 'About' })).toHaveFocus()
+    expect(screen.getByRole('tab', { name: 'About' })).toHaveAttribute('aria-selected', 'true')
+  })
+
   it('keeps analytics disabled when the visitor denies it', () => {
     vi.useFakeTimers()
     render(<CookieConsent lang="en" />)

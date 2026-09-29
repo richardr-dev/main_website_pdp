@@ -1,12 +1,12 @@
 {
   "/": {
-    "title": "Managed IT Services, Cloud & Data Protection Indonesia | PatuhData",
-    "description": "PatuhData manages servers, AWS cloud, backup, recovery, networks and multi-branch IT infrastructure for Indonesian businesses.",
+    "title": "Cyber Resilience, Backup & Business Continuity | PatuhData",
+    "description": "Protect critical data and prepare for disruption with managed backup, restore testing, disaster recovery, and business continuity services from PatuhData Indonesia.",
     "type": "WebPage"
   },
   "/contact": {
-    "title": "Request an IT Services Quotation | PatuhData Jakarta",
-    "description": "Discuss managed IT, server colocation, AWS cloud, backup, recovery or multi-branch infrastructure with the PatuhData team in Jakarta.",
+    "title": "Consult a Cyber Resilience Expert | PatuhData",
+    "description": "Discuss backup, restore testing, disaster recovery, and business continuity with the PatuhData team in Jakarta.",
     "type": "ContactPage"
   },
   "/insights/managed-it": {
@@ -40,8 +40,8 @@
     "type": "Service"
   },
   "/services/backup-restore": {
-    "title": "Backup & Restore Indonesia | PatuhData",
-    "description": "We design measurable data protection based on business needs and workload criticality. Request a tailored quotation from our Jakarta-based managed IT team.",
+    "title": "Managed Backup & Restore Indonesia | PatuhData",
+    "description": "Managed backup policies, protected copies, and scheduled restore tests built around the systems your business depends on. Consult an expert about your requirements.",
     "type": "Service"
   },
   "/services/data-recovery": {
@@ -68,5 +68,20 @@
     "title": "PatuhData Academy Indonesia | PatuhData",
     "description": "PatuhData Academy is being developed as a training product for business and IT teams. Schedules, formats, and pricing will be announced when programs become available. Request a tailored quotation from our Jakarta-based managed IT team.",
     "type": "WebPage"
+  },
+  "/services/disaster-recovery": {
+    "title": "Disaster Recovery Indonesia | PatuhData",
+    "description": "Plan how critical applications and infrastructure recover, with agreed recovery-time and data-loss targets, clear dependencies, and practical exercises. Consult an expert about your requirements.",
+    "type": "Service"
+  },
+  "/services/business-continuity": {
+    "title": "Business Continuity Indonesia | PatuhData",
+    "description": "Prepare your team to work through disruption with business impact analysis, operational priorities, response responsibilities, and continuity procedures. Consult an expert about your requirements.",
+    "type": "Service"
+  },
+  "/services/managed-cyber-resilience": {
+    "title": "Managed Cyber Resilience Indonesia | PatuhData",
+    "description": "Bring backup monitoring, recovery exercises, reporting, and improvement planning into an ongoing service shaped around your environment. Consult an expert about your requirements.",
+    "type": "Service"
   }
 }

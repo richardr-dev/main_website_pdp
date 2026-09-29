@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import './cookie-consent.css'
 
 type Lang = 'id' | 'en'
 type ConsentMethod = 'accept_all' | 'reject_optional' | 'save_preferences'
@@ -31,10 +33,20 @@ function readRecord(): ConsentRecord | null {
     const value = cookie ? decodeURIComponent(cookie.split('=').slice(1).join('=')) : localStorage.getItem(STORAGE_KEY)
     if (!value) return null
     const record = JSON.parse(value) as ConsentRecord
-    return record.policyVersion === POLICY_VERSION ? record : null
+    const age = Date.now() - Date.parse(record.timestamp)
+    return record.policyVersion === POLICY_VERSION && record.necessary === true &&
+      typeof record.analytics === 'boolean' && typeof record.consentId === 'string' &&
+      ['accept_all', 'reject_optional', 'save_preferences'].includes(record.method) &&
+      Number.isFinite(age) && age >= 0 && age < 31536000000 ? record : null
   } catch {
     return null
   }
+}
+
+function sendConsent(...args: unknown[]) {
+  window.dataLayer = window.dataLayer || []
+  window.gtag = window.gtag || function (..._args: unknown[]) { window.dataLayer.push(arguments) }
+  window.gtag(...args)
 }
 
 function loadAnalytics() {
@@ -45,9 +57,9 @@ function loadAnalytics() {
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
     document.head.appendChild(script)
   }
-  window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
-  window.gtag('js', new Date())
-  window.gtag('config', GA_ID, { anonymize_ip: true })
+  sendConsent('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
+  sendConsent('js', new Date())
+  sendConsent('config', GA_ID, { anonymize_ip: true })
 }
 
 function removeAnalytics() {
@@ -67,7 +79,7 @@ function removeAnalytics() {
 }
 
 function applyConsent(record: ConsentRecord) {
-  window.gtag('consent', 'update', {
+  sendConsent('consent', 'update', {
     analytics_storage: record.analytics ? 'granted' : 'denied',
     ad_storage: 'denied',
     ad_user_data: 'denied',
@@ -79,14 +91,15 @@ function applyConsent(record: ConsentRecord) {
 
 function persistRecord(record: ConsentRecord) {
   const serialized = JSON.stringify(record)
-  document.cookie = `${COOKIE_NAME}=${encodeURIComponent(serialized)}; Max-Age=31536000; Path=/; SameSite=Lax; Secure`
-  localStorage.setItem(STORAGE_KEY, serialized)
   try {
-    const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]') as ConsentRecord[]
+    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(serialized)}; Max-Age=31536000; Path=/; SameSite=Lax${window.location.protocol === 'https:' ? '; Secure' : ''}`
+  } catch { /* Consent still applies for this page when storage is unavailable. */ }
+  try {
+    localStorage.setItem(STORAGE_KEY, serialized)
+    const stored = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]')
+    const history = Array.isArray(stored) ? stored : []
     localStorage.setItem(HISTORY_KEY, JSON.stringify([...history, record].slice(-20)))
-  } catch {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify([record]))
-  }
+  } catch { /* Browsers may block persistent storage. */ }
   applyConsent(record)
 }
 
@@ -108,6 +121,8 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
       setLastRecord(record)
       applyConsent(record)
     } else {
+      sendConsent('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
+      removeAnalytics()
       const timer = window.setTimeout(() => setBanner(true), 500)
       return () => window.clearTimeout(timer)
     }
@@ -135,8 +150,11 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const dialog = dialogRef.current
-    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>('button, a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])') || []).filter((element) => !element.hasAttribute('disabled'))
-    window.setTimeout(() => focusables()[0]?.focus(), 0)
+    const focusables = () => Array.from(dialog?.querySelectorAll<HTMLElement>('button, a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])') || []).filter((element) => !element.hasAttribute('disabled') && element.tabIndex !== -1)
+    const focusTimer = window.setTimeout(() => focusables()[0]?.focus(), 0)
+    const root = document.getElementById('root')
+    const wasInert = root?.hasAttribute('inert') ?? false
+    root?.setAttribute('inert', '')
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && preferencesRef.current) {
@@ -155,6 +173,8 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
     }
     document.addEventListener('keydown', onKeyDown)
     return () => {
+      window.clearTimeout(focusTimer)
+      if (!wasInert) root?.removeAttribute('inert')
       document.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = previousOverflow
       previousFocus?.focus()
@@ -200,10 +220,15 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
 
   if (!banner && !preferences) return null
 
-  return <div className="consent-backdrop consent-suite-wrap" role="dialog" aria-modal="true" aria-label={en ? 'Cookie preferences' : 'Preferensi cookie'} ref={dialogRef}>
+  return createPortal(<div className="consent-backdrop consent-suite-wrap" role="dialog" aria-modal="true" aria-label={en ? 'Cookie preferences' : 'Preferensi cookie'} ref={dialogRef}>
     <div className="consent-suite">
       {preferences && <button className="consent-suite-close" aria-label={en ? 'Close cookie settings' : 'Tutup pengaturan cookie'} onClick={closePreferences}>×</button>}
-      <div className="consent-suite-tabs" role="tablist">
+      <div className="consent-suite-tabs" role="tablist" aria-label={en ? 'Cookie information' : 'Informasi cookie'} onKeyDown={event => {
+        const tabs = ['consent', 'details', 'about'] as const
+        const index = tabs.indexOf(tab)
+        const next = event.key === 'ArrowRight' ? (index + 1) % 3 : event.key === 'ArrowLeft' ? (index + 2) % 3 : event.key === 'Home' ? 0 : event.key === 'End' ? 2 : -1
+        if (next >= 0) { event.preventDefault(); setTab(tabs[next]); document.getElementById(`${tabs[next]}-tab`)?.focus() }
+      }}>
         <button id="consent-tab" role="tab" aria-selected={tab === 'consent'} aria-controls="consent-panel" tabIndex={tab === 'consent' ? 0 : -1} className={tab === 'consent' ? 'active' : ''} onClick={() => setTab('consent')}>{en ? 'Consent' : 'Persetujuan'}</button>
         <button id="details-tab" role="tab" aria-selected={tab === 'details'} aria-controls="details-panel" tabIndex={tab === 'details' ? 0 : -1} className={tab === 'details' ? 'active' : ''} onClick={() => setTab('details')}>{en ? 'Details' : 'Detail'}</button>
         <button id="about-tab" role="tab" aria-selected={tab === 'about'} aria-controls="about-panel" tabIndex={tab === 'about' ? 0 : -1} className={tab === 'about' ? 'active' : ''} onClick={() => setTab('about')}>{en ? 'About' : 'Tentang'}</button>
@@ -225,7 +250,6 @@ export default function CookieConsent({ lang }: { lang: Lang }) {
         <button onClick={() => tab === 'details' ? save('save_preferences', analytics) : setTab('details')}>{tab === 'details' ? (en ? 'Save selection' : 'Simpan pilihan') : (en ? 'Review details' : 'Lihat detail')} <span>›</span></button>
         <button onClick={() => save('accept_all', true)}>{en ? 'Allow analytics' : 'Izinkan analitik'}</button>
       </div>
-      <div className="consent-suite-logo"><img src="/logobluee.png" alt="PatuhData" /></div>
     </div>
-  </div>
+  </div>, document.body)
 }

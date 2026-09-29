@@ -14,17 +14,12 @@ type FormState = {
 }
 
 const interests = [
-  'UU PDP — Assessment & Implementation',
-  'PatuhData Academy — Training Interest (Coming Soon)',
-  'Managed Infrastructure & IT Operations',
-  'Colocation & Server Deployment',
-  'Cloud Infrastructure & AWS',
-  'Backup, Restore & Disaster Recovery',
-  'Data Recovery & Incident Response',
-  'Multi-Branch Network Management',
-  'Infrastructure Risk Assessment',
-  'Starter Managed IT Package',
-  'Custom Enterprise Requirement',
+  'Managed Backup & Restore',
+  'Disaster Recovery',
+  'Business Continuity',
+  'Managed Cyber Resilience',
+  'Supporting Infrastructure & Cloud',
+  'Other / Help me decide',
 ]
 
 export default function Contact() {
@@ -60,7 +55,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
-          subject: `New IT Partner Inquiry — ${form.interest || 'General'}`,
+          subject: `Cyber Resilience Consultation — ${form.interest || 'General'}`,
           from_name: form.name,
           name: form.name,
           company: form.company,
@@ -75,7 +70,7 @@ export default function Contact() {
         }),
       })
       const data = await res.json()
-      if (data.success) {
+      if (res.ok && data.success) {
         setSubmitted(true)
       } else {
         setError('Something went wrong. Please email us directly at hello@patuhdata.id')
@@ -99,12 +94,12 @@ export default function Contact() {
       <div className="container relative">
         <div className="grid lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-card border border-slate-200">
           <div className="bg-gradient-to-br from-primary-900 to-primary-700 p-10 lg:p-14 text-white">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">Request for Quotation</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-3">Consult an Expert</p>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Tell us what your business needs
+              Let’s talk about your recovery readiness
             </h2>
             <p className="mt-5 text-base text-white/70 leading-relaxed">
-              Share your current environment, priorities, and timeline. Our team will review the scope and respond with the right next step for a clear, relevant quotation.
+              Tell us about your critical systems, backups, and continuity priorities. We’ll discuss your needs and agree a practical next step.
             </p>
 
             <div className="mt-8">
@@ -166,7 +161,7 @@ export default function Contact() {
 
           <div className="bg-white p-10 lg:p-14">
             {submitted ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
+              <div role="status" className="flex flex-col items-center justify-center py-12 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 text-primary-600 mb-4">
                   <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -174,17 +169,17 @@ export default function Contact() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900">Message Sent!</h3>
                 <p className="mt-2 text-sm text-slate-600">
-                  Our team will contact you within one business day.
+                  Thank you. Our team will review your requirements and contact you.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Full Name *</label>
+                    <label htmlFor="consult-name" className="block text-xs font-semibold text-slate-700 mb-1.5">Full Name *</label>
                     <input
                       type="text"
-                      name="name"
+                      id="consult-name" name="name"
                       required
                       value={form.name}
                       onChange={handleChange}
@@ -193,10 +188,10 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Company Name *</label>
+                    <label htmlFor="consult-company" className="block text-xs font-semibold text-slate-700 mb-1.5">Company Name *</label>
                     <input
                       type="text"
-                      name="company"
+                      id="consult-company" name="company"
                       required
                       value={form.company}
                       onChange={handleChange}
@@ -207,39 +202,39 @@ export default function Contact() {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Your Role *</label>
-                    <select name="role" required value={form.role} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                    <label htmlFor="consult-role" className="block text-xs font-semibold text-slate-700 mb-1.5">Your Role *</label>
+                    <select id="consult-role" name="role" required value={form.role} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
                       <option value="">Select your role...</option>
                       <option>Owner / Founder</option><option>Director / C-Level</option><option>IT Manager / Lead</option><option>Procurement</option><option>Other</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Organization Size *</label>
-                    <select name="companySize" required value={form.companySize} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                    <label htmlFor="consult-companySize" className="block text-xs font-semibold text-slate-700 mb-1.5">Organization Size *</label>
+                    <select id="consult-companySize" name="companySize" required value={form.companySize} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
                       <option value="">Select size...</option><option>1–10 employees</option><option>11–50 employees</option><option>51–200 employees</option><option>201–500 employees</option><option>500+ employees</option>
                     </select>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Number of Locations *</label>
-                    <select name="locations" required value={form.locations} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                    <label htmlFor="consult-locations" className="block text-xs font-semibold text-slate-700 mb-1.5">Number of Locations *</label>
+                    <select id="consult-locations" name="locations" required value={form.locations} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
                       <option value="">Select locations...</option><option>1 location</option><option>2–5 locations</option><option>6–20 locations</option><option>21+ locations</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Preferred Timeline</label>
-                    <select name="timeline" value={form.timeline} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                    <label htmlFor="consult-timeline" className="block text-xs font-semibold text-slate-700 mb-1.5">Preferred Timeline</label>
+                    <select id="consult-timeline" name="timeline" value={form.timeline} onChange={handleChange} className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
                       <option value="">Select timeline...</option><option>Urgent / Incident</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option><option>Exploring options</option>
                     </select>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">Business Email *</label>
+                    <label htmlFor="consult-email" className="block text-xs font-semibold text-slate-700 mb-1.5">Business Email *</label>
                     <input
                       type="email"
-                      name="email"
+                      id="consult-email" name="email"
                       required
                       value={form.email}
                       onChange={handleChange}
@@ -248,10 +243,10 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">WhatsApp Number</label>
+                    <label htmlFor="consult-phone" className="block text-xs font-semibold text-slate-700 mb-1.5">WhatsApp Number</label>
                     <input
                       type="tel"
-                      name="phone"
+                      id="consult-phone" name="phone"
                       value={form.phone}
                       onChange={handleChange}
                       className="w-full rounded border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
@@ -260,9 +255,9 @@ export default function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">What do you need? *</label>
+                  <label htmlFor="consult-interest" className="block text-xs font-semibold text-slate-700 mb-1.5">What do you need? *</label>
                   <select
-                    name="interest"
+                    id="consult-interest" name="interest"
                     required
                     value={form.interest}
                     onChange={handleChange}
@@ -275,9 +270,9 @@ export default function Contact() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1.5">Priority or risk you want to address</label>
+                  <label htmlFor="consult-message" className="block text-xs font-semibold text-slate-700 mb-1.5">Priority or risk you want to address</label>
                   <textarea
-                    name="message"
+                    id="consult-message" name="message"
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
@@ -286,10 +281,10 @@ export default function Contact() {
                   />
                 </div>
                 {error && (
-                  <p className="text-sm text-red-600 text-center">{error}</p>
+                  <p role="alert" className="text-sm text-red-600 text-center">{error}</p>
                 )}
                 <button type="submit" disabled={loading} className="contact-submit">
-                  {loading ? 'Submitting…' : 'Request a Quotation'}
+                  {loading ? 'Submitting…' : 'Request a Consultation'}
                   {!loading && (
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -297,7 +292,7 @@ export default function Contact() {
                   )}
                 </button>
                 <p className="text-xs text-slate-500 text-center">
-                  We respond within one business day. No spam or unsolicited calls.
+                  Your details are used to respond to your consultation request. Please do not include passwords or sensitive data.
                 </p>
               </form>
             )}
