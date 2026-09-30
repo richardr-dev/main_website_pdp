@@ -10,6 +10,8 @@ import CookiePolicy from './components/CookiePolicy'
 import Contact from './components/Contact'
 import CookieConsent from './components/CookieConsent'
 import WhatsAppButton from './components/WhatsAppButton'
+import { InsightArticle, InsightsIndex } from './components/Insights'
+import { getBlogPost } from './data/blogContent'
 
 const siteUrl = 'https://patuhdata.id'
 
@@ -38,6 +40,10 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
         title: 'Discuss Your Recovery Needs | PatuhData',
         description: 'Discuss backup, restore testing, disaster recovery, and business continuity with the PatuhData team in Jakarta.',
       },
+      '/insights': {
+        title: 'Insights on Cyber Resilience & Data Governance | PatuhData',
+        description: 'Practical perspectives from PatuhData on infrastructure, recovery, security, and Indonesian data governance.',
+      },
       '/insights/managed-it': {
         title: 'Why Growing Businesses Need a Managed Service Provider | PatuhData',
         description: 'Learn when an Indonesian business should use an MSP to manage networks, servers, endpoints, backups and branch infrastructure.',
@@ -52,8 +58,10 @@ function useSeo(path: string, servicesList: typeof servicesEn) {
       '/terms': { title: 'Terms of Service | PatuhData', description: 'Terms governing the use of the PatuhData website and services.' },
       '/cookies': { title: 'Cookie Policy | PatuhData', description: 'Information about cookies used on the PatuhData website.' },
     }
-    const data: SeoData = service
-      ? {
+    const blogPost = path.startsWith('/insights/') ? getBlogPost(path.replace('/insights/', '')) : undefined
+    const data: SeoData = blogPost
+      ? { title: `${blogPost.title} | PatuhData`, description: blogPost.excerpt, image: blogPost.image, type: 'article' }
+      : service ? {
           title: `${service.title} Indonesia | PatuhData`,
           description: `${service.intro} Consult an expert about your requirements.`,
         }
@@ -180,6 +188,10 @@ function UUPDPArticle() {
   return <main id="main-content" className="article-page"><section className="article-hero"><span className="kicker">DATA GOVERNANCE · 9 MIN READ</span><h1>UU PDP and Data Residency: Should Your Company Keep Data in Indonesia?</h1><p>A practical guide to cross-border transfers, local hosting, regulatory risk, and operational resilience.</p></section><figure className="article-photo"><img src="https://blog.equinix.com/wp-content/uploads/2025/05/Data-center-racks.jpg" alt="Server racks inside the Equinix JK1 data center in Jakarta"/><figcaption>Equinix JK1 data center, Jakarta · <a href="https://blog.equinix.com/blog/2025/06/11/jakartas-digital-transformation-begins-here-12-photos-from-equinix-jk1-data-center/" target="_blank" rel="noreferrer">Official facility gallery</a></figcaption></figure><article className="article-content"><p className="lead">Indonesia's Personal Data Protection Law does not create a blanket rule that every company must store all data inside Indonesia. It does, however, make organizations accountable for how personal data is protected—including when it crosses national borders.</p><h2>What UU PDP actually requires</h2><p>Article 56 of Law No. 27 of 2022 permits a controller to transfer personal data outside Indonesia. The controller must first ensure the destination provides an equal or higher level of protection. If that condition is not met, the controller must establish adequate and binding safeguards. If neither condition can be satisfied, consent from the data subject is required.</p><p>This means “we use an overseas cloud provider” is not automatically non-compliant. The important questions are where the data goes, which entities can access it, what contractual safeguards apply, how incidents are handled, and whether the organization can demonstrate accountability.</p><h2>Why local data infrastructure can still be the better decision</h2><ul><li><strong>Simpler transfer governance:</strong> fewer international data flows to map, assess, and document.</li><li><strong>Lower latency:</strong> applications serving Indonesian users can respond faster when workloads are closer.</li><li><strong>Operational resilience:</strong> local backup or disaster-recovery capability reduces dependency on one region.</li><li><strong>Audit readiness:</strong> data location, access, retention, and recovery evidence can be easier to explain.</li><li><strong>Sector alignment:</strong> financial services and other regulated industries may face additional OJK or sector-specific requirements.</li></ul><h2>Public and private electronic systems are treated differently</h2><p>Government Regulation No. 71 of 2019 distinguishes public-sector and private-sector electronic system operators. Companies should not rely on a generic “localization” statement; they need to identify their operator classification and then check any rules issued by their own regulator.</p><h2>Local hosting is not the same as compliance</h2><p>A Jakarta server does not automatically make an organization compliant. Weak access control, excessive retention, missing consent records, untested backups, and poor incident response remain serious risks regardless of location. Data residency is one architectural control within a broader privacy and security program.</p><h2>A practical decision framework</h2><ol><li>Inventory personal and sensitive data.</li><li>Map every storage, processing, backup, and support location.</li><li>Identify cross-border transfers and subprocessors.</li><li>Check UU PDP safeguards and applicable sector regulations.</li><li>Define recovery objectives and test restore procedures.</li><li>Document why each workload is hosted locally, overseas, or in a hybrid model.</li></ol><aside>This article provides general information, not legal advice. Regulatory requirements vary by industry and may change. Obtain qualified legal advice before making a compliance determination.</aside><h2>How PatuhData can help</h2><p>PatuhData can assess your current environment, map data flows, design local or hybrid infrastructure, deploy workloads on AWS, establish backup and disaster recovery, and document the operational controls required for ongoing governance.</p><p><a href="https://jdih.komdigi.go.id/produk_hukum/view/id/832/t/undangundang%2Bnomor%2B27%2Btahun%2B2022" target="_blank" rel="noreferrer">Read UU PDP No. 27/2022</a> · <a href="https://peraturan.bpk.go.id/Details/122030/pp-no-71-tahun-2019" target="_blank" rel="noreferrer">Read PP No. 71/2019</a></p><a className="button primary" href="#contact">Discuss Your Data Infrastructure <Arrow/></a></article></main>
 }
 
+// Kept temporarily as migration references for the original article markup.
+void MSPArticle
+void UUPDPArticle
+
 export default function App() {
   const lang: 'en' = 'en'
   const [route, setRoute] = useState(window.location.pathname)
@@ -207,12 +219,13 @@ export default function App() {
     })
   }, [route])
   const serviceSlug = route.startsWith('/services/') ? route.replace('/services/', '') : ''
+  const insightSlug = route.startsWith('/insights/') ? route.replace('/insights/', '') : ''
   useSeo(route, servicesEn)
   return <div className="site-shell cr-site">
     <a className="cr-skip" href="#main-content">Skip to content</a>
     <ResilienceNav />
-    {route === '/contact' ? <main id="main-content" className="contact-page"><Contact/></main> : route === '/privacy' ? <main id="main-content"><PrivacyPolicy/></main> : route === '/terms' ? <main id="main-content"><TermsOfService/></main> : route === '/cookies' ? <main id="main-content"><CookiePolicy/></main> : route === '/insights/managed-it' ? <MSPArticle/> : route === '/insights/uu-pdp-data-residency' ? <UUPDPArticle/> : serviceSlug ? <ServicePage slug={serviceSlug} lang={lang}/> : <ResilienceHome />}
-    <footer className="enterprise-footer"><div className="footer-main"><div className="footer-intro"><img src="/logo-white.png" alt="PatuhData"/><p>Cyber resilience for Indonesian businesses. Protect critical data, prepare for disruption, and build confidence in recovery.</p></div><div><strong>Cyber Resilience</strong>{resilienceServices.map(service => <a key={service.slug} href={`/services/${service.slug}`}>{service.title}</a>)}<a href="/services/managed-infrastructure">Supporting Infrastructure</a></div><div><strong>Company</strong><a href="/#about">About Us</a><a href="/insights/managed-it">Insight</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/patuhdata-id" target="_blank" rel="noreferrer">LinkedIn</a></div><div><strong>Contact Us</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><a className="footer-address" href="https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630" target="_blank" rel="noreferrer">INFINITI OFFICE<br/>Jl. Permata Regency, Jl. H. Kelik<br/>RT.1/RW.6, Srengseng, Kembangan<br/>West Jakarta, DKI Jakarta 11630</a></div></div><div className="footer-bottom"><p>© 2026 PT PatuhData Solusi Nusantara. All rights reserved.</p><div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a><button type="button" className="cr-cookie-settings" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button><a href="#main-content">Back to top ↑</a></div></div></footer>
+    {route === '/contact' ? <main id="main-content" className="contact-page"><Contact/></main> : route === '/privacy' ? <main id="main-content"><PrivacyPolicy/></main> : route === '/terms' ? <main id="main-content"><TermsOfService/></main> : route === '/cookies' ? <main id="main-content"><CookiePolicy/></main> : route === '/insights' ? <InsightsIndex/> : insightSlug ? <InsightArticle slug={insightSlug}/> : serviceSlug ? <ServicePage slug={serviceSlug} lang={lang}/> : <ResilienceHome />}
+    <footer className="enterprise-footer"><div className="footer-main"><div className="footer-intro"><img src="/logo-white.png" alt="PatuhData"/><p>Cyber resilience for Indonesian businesses. Protect critical data, prepare for disruption, and build confidence in recovery.</p></div><div><strong>Cyber Resilience</strong>{resilienceServices.map(service => <a key={service.slug} href={`/services/${service.slug}`}>{service.title}</a>)}<a href="/services/managed-infrastructure">Supporting Infrastructure</a></div><div><strong>Company</strong><a href="/#about">About Us</a><a href="/insights">Insights</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/patuhdata-id" target="_blank" rel="noreferrer">LinkedIn</a></div><div><strong>Contact Us</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><a className="footer-address" href="https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630" target="_blank" rel="noreferrer">INFINITI OFFICE<br/>Jl. Permata Regency, Jl. H. Kelik<br/>RT.1/RW.6, Srengseng, Kembangan<br/>West Jakarta, DKI Jakarta 11630</a></div></div><div className="footer-bottom"><p>© 2026 PT PatuhData Solusi Nusantara. All rights reserved.</p><div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a><button type="button" className="cr-cookie-settings" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button><a href="#main-content">Back to top ↑</a></div></div></footer>
     <CookieConsent lang={lang} />
     <WhatsAppButton />
   </div>

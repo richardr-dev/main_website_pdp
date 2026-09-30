@@ -9,6 +9,11 @@
     "description": "Discuss backup, restore testing, disaster recovery, and business continuity with the PatuhData team in Jakarta.",
     "type": "ContactPage"
   },
+  "/insights": {
+    "title": "Insights on Cyber Resilience & Data Governance | PatuhData",
+    "description": "Practical perspectives from PatuhData on infrastructure, recovery, security, and Indonesian data governance.",
+    "type": "CollectionPage"
+  },
   "/insights/managed-it": {
     "title": "Why Growing Businesses Need a Managed Service Provider | PatuhData",
     "description": "Learn when an Indonesian business should use an MSP to manage networks, servers, endpoints, backups and branch infrastructure.",

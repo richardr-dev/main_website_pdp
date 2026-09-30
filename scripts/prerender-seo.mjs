@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -6,6 +6,28 @@ const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
 const distRoot = join(projectRoot, 'dist')
 const template = await readFile(join(distRoot, 'index.html'), 'utf8')
 const routes = JSON.parse(await readFile(join(projectRoot, 'src', 'seo-routes.json'), 'utf8'))
+const blogDirectory = join(projectRoot, 'src', 'content', 'blog')
+for (const file of await readdir(blogDirectory)) {
+  if (!file.endsWith('.md')) continue
+  const source = await readFile(join(blogDirectory, file), 'utf8')
+  const frontMatter = source.match(/^---\s*\n([\s\S]*?)\n---/)?.[1] || ''
+  const meta = Object.fromEntries(frontMatter.split('\n').map((line) => {
+    const separator = line.indexOf(':')
+    const key = line.slice(0, separator).trim()
+    let value = line.slice(separator + 1).trim()
+    if (value.startsWith('"') && value.endsWith('"')) {
+      try { value = JSON.parse(value) } catch { value = value.slice(1, -1) }
+    }
+    return [key, value]
+  }).filter(([key]) => key))
+  if (meta.published === 'false') continue
+  const slug = meta.slug || file.replace(/\.md$/, '')
+  routes[`/insights/${slug}`] = {
+    title: `${meta.title || slug} | PatuhData`,
+    description: meta.excerpt || 'A practical insight from PatuhData.',
+    type: 'Article',
+  }
+}
 const siteUrl = 'https://patuhdata.id'
 
 const escapeAttribute = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
