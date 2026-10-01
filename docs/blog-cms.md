@@ -15,4 +15,6 @@ Keep the token private. It is stored by the CMS in your browser, not in this rep
 3. Turn on **Published**, then save.
 4. Wait for the connected Vercel project to finish its deployment.
 
+Turn on **Pin to homepage** when an article should be recommended. The homepage shows up to three posts: pinned posts first, followed by the latest published posts. If more than three posts are pinned, the three newest pinned posts are shown.
+
 Use a unique, lowercase URL slug with hyphens. Changing a slug after publishing changes the article URL.

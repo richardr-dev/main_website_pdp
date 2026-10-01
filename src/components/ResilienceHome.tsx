@@ -1,4 +1,5 @@
 import { resilienceServices } from '../data/resilienceServices'
+import { homepageBlogPosts } from '../data/blogContent'
 
 const Arrow = () => <span aria-hidden="true">↗</span>
 
@@ -20,6 +21,11 @@ export default function ResilienceHome() {
     <section className="cr-section cr-evidence" id="evidence"><div><p className="cr-eyebrow">TANGIBLE OUTPUTS</p><h2>Evidence your team<br />can actually use.</h2><p>Deliverables are confirmed in writing before work begins and tailored to the agreed scope, systems, and maturity of your organization.</p><a className="cr-link" href="/contact">Request a scoped conversation <Arrow /></a></div><div className="cr-deliverables">{[['Current-state findings', 'A grounded view of observed practices, gaps, dependencies, and limitations.'], ['RoPA and risk records', 'Structured records of processing activities, data flows, risks, decisions, and owners.'], ['Operational workflows', 'Usable procedures for DPIAs, requests, incidents, reviews, and evidence maintenance.'], ['Remediation plan', 'Prioritized governance and technology improvements with accountable next actions.']].map(([title, description], i) => <article key={title}><span>0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></article>)}</div></section>
 
     <section className="cr-ecosystem" id="boundaries"><div><p className="cr-eyebrow">TRUST THROUGH CLARITY</p><h2>Operational expertise,<br />with clear boundaries.</h2><p>PatuhData provides privacy-program implementation and technology remediation. We do not promise certification or guaranteed compliance outcomes.</p></div><div className="cr-scope-note"><strong>Legal questions stay with qualified counsel</strong><p>Our work supports implementation and evidence. Where formal legal interpretation or representation is required, we coordinate with or defer to appropriately qualified legal professionals.</p></div></section>
+
+    <section className="cr-section cr-home-insights" aria-labelledby="home-insights-title"><div className="cr-heading"><div><p className="cr-eyebrow">LATEST INSIGHTS</p><h2 id="home-insights-title">Recommended reading<br />for practical teams.</h2></div><div><p>Clear guidance on privacy operations, resilient infrastructure, and responsible data practices.</p><a className="cr-link" href="/insights">View all insights <Arrow /></a></div></div><div className="cr-insights">{homepageBlogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}>
+      {post.image ? <img className="cr-insight-image" src={post.image} alt={post.imageAlt || ''} loading="lazy" /> : <div className="cr-insight-image cr-insight-image-placeholder" aria-hidden="true"><span>PatuhData Insights</span></div>}
+      <div className="cr-insight-copy"><div className="cr-insight-labels"><span className="cr-eyebrow">{post.category}</span>{post.pinned && <span className="cr-pin-label">Recommended</span>}</div><h3>{post.title}</h3><p>{post.excerpt}</p><span className="cr-link">Read the insight <Arrow /></span></div>
+    </a>)}</div></section>
 
     <section className="cr-section cr-consult" id="contact"><div><p className="cr-eyebrow">A PRACTICAL FIRST STEP</p><h2>Start with what is<br />happening today.</h2></div><div><p>Tell us how your organization uses personal data, what has already been prepared, and where you need clarity. We’ll recommend a focused starting scope.</p><a className="cr-button" href="/contact?service=uu-pdp-readiness-assessment">Start With an Assessment <Arrow /></a></div></section>
   </main>

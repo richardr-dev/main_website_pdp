@@ -8,6 +8,7 @@ export type BlogPost = {
   readTime: string
   image?: string
   imageAlt?: string
+  pinned: boolean
   published: boolean
   body: string
 }
@@ -51,6 +52,7 @@ function parsePost(path: string, source: string): BlogPost {
     readTime: meta.readTime || '5 min read',
     image: meta.image || undefined,
     imageAlt: meta.imageAlt || undefined,
+    pinned: meta.pinned === 'true',
     published: meta.published !== 'false',
     body: match[2].trim(),
   }
@@ -62,3 +64,7 @@ export const blogPosts = Object.entries(files)
   .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
 
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug)
+
+export const homepageBlogPosts = [...blogPosts]
+  .sort((a, b) => Number(b.pinned) - Number(a.pinned) || Date.parse(b.date) - Date.parse(a.date))
+  .slice(0, 3)

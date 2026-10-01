@@ -22,6 +22,9 @@ describe('operational privacy experience', () => {
     expect(document.body).not.toHaveTextContent(/Rp5|Request a Quotation|RECOMMENDED|sub-15/)
     const sectionNav = screen.getByRole('navigation', { name: 'On this page' })
     for (const link of within(sectionNav).getAllByRole('link')) expect(document.querySelector(link.getAttribute('href')!)).not.toBeNull()
+    const insights = screen.getByRole('heading', { name: /Recommended reading/ }).closest('section')!
+    expect(within(insights).getAllByRole('link', { name: /Read the insight/ })).toHaveLength(3)
+    expect(within(insights).getByText('Recommended')).toBeInTheDocument()
   })
   it('supports menu toggling, service disclosure, and Escape focus restoration', () => {
     render(<App />)
