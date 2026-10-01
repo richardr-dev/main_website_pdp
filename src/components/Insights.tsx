@@ -6,7 +6,12 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-ID', { day: 'nu
 export function InsightsIndex() {
   return <main id="main-content" className="insights-page">
     <section className="article-hero"><span className="kicker">PATUHDATA INSIGHTS</span><h1>Practical thinking for resilient businesses.</h1><p>Infrastructure, recovery, security, and data governance—explained clearly.</p></section>
-    <section className="cr-section"><div className="cr-insights">{blogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}><span className="cr-eyebrow">{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><span className="cr-link">Read the insight <span aria-hidden="true">↗</span></span></a>)}</div></section>
+    <section className="cr-section"><div className="cr-insights">{blogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}>
+      {post.image
+        ? <img className="cr-insight-image" src={post.image} alt={post.imageAlt || ''} />
+        : <div className="cr-insight-image cr-insight-image-placeholder" aria-hidden="true"><span>PatuhData Insights</span></div>}
+      <div className="cr-insight-copy"><span className="cr-eyebrow">{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><span className="cr-link">Read the insight <span aria-hidden="true">↗</span></span></div>
+    </a>)}</div></section>
   </main>
 }
 
@@ -19,4 +24,3 @@ export function InsightArticle({ slug }: { slug: string }) {
     <article className="article-content"><MarkdownContent source={post.body} /><a className="button primary" href="/contact">Discuss this with PatuhData <span aria-hidden="true">↗</span></a></article>
   </main>
 }
-
