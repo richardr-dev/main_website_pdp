@@ -1,6 +1,26 @@
 export const resilienceServices = [
-  { n: '01', slug: 'backup-restore', title: 'Managed Backup & Restore', text: 'Protect your critical data. Know that you can restore it.', intro: 'Managed backup policies, protected copies, and scheduled restore tests built around the systems your business depends on.', bullets: ['Backup policies aligned with retention and data-loss targets', 'Offsite and immutable copies where supported', 'Backup monitoring, exception handling, and reporting', 'Scheduled restore tests with documented results'], icon: '↻' },
-  { n: '02', slug: 'disaster-recovery', title: 'Disaster Recovery', text: 'A tested path from disruption to recovery.', intro: 'Plan how critical applications and infrastructure recover, with agreed recovery-time and data-loss targets, clear dependencies, and practical exercises.', bullets: ['Critical workload and dependency mapping', 'Recovery time (RTO) and data-loss (RPO) objectives', 'Recovery runbooks, access, and responsibilities', 'Scoped recovery exercises and improvement actions'], icon: '↗' },
-  { n: '03', slug: 'business-continuity', title: 'Business Continuity', text: 'Keep people, processes, and priorities connected.', intro: 'Prepare your team to work through disruption with business impact analysis, operational priorities, response responsibilities, and continuity procedures.', bullets: ['Business impact and operational dependency review', 'Critical process priorities and continuity procedures', 'Escalation, communications, and responsibility mapping', 'Tabletop exercises and plan reviews with your team'], icon: '∞' },
-  { n: '04', slug: 'managed-cyber-resilience', title: 'Managed Cyber Resilience', text: 'Make readiness part of everyday operations.', intro: 'Bring backup monitoring, recovery exercises, reporting, and improvement planning into an ongoing service shaped around your environment.', bullets: ['Backup health reviews and exception tracking', 'Scheduled restore tests and recovery plan maintenance', 'Service reporting and prioritized improvement actions', 'Support hours, escalation, and responsibilities agreed in scope'], icon: '◎' },
+  {
+    n: '01', slug: 'uu-pdp-readiness-assessment', title: 'UU PDP Readiness Assessment', icon: '01',
+    text: 'Understand your current position, priority risks, and the most practical path forward.',
+    intro: 'A fixed-scope assessment of how your organization handles personal data, translated into a prioritized and usable implementation roadmap.',
+    bullets: ['Stakeholder and process discovery', 'Personal data lifecycle and control review', 'Gap and risk register', 'Prioritized 90-day implementation roadmap'],
+  },
+  {
+    n: '02', slug: 'uu-pdp-setup-sprint', title: 'UU PDP Setup Sprint', icon: '02',
+    text: 'Establish the records, workflows, responsibilities, and evidence your privacy program needs.',
+    intro: 'A structured implementation sprint that turns assessment findings into an initial privacy operating model your team can maintain.',
+    bullets: ['Initial RoPA and data inventory', 'DPIA and privacy risk workflow', 'Data-subject request and incident procedures', 'Policy, responsibility, and evidence structure'],
+  },
+  {
+    n: '03', slug: 'uu-pdp-workspace', title: 'UU PDP Compliance Workspace', icon: '03',
+    text: 'Keep RoPA, DPIAs, requests, risks, incidents, policies, and evidence in one structured workspace.',
+    intro: 'A guided digital workspace for maintaining the operational records behind your UU PDP program instead of relying on disconnected spreadsheets and folders.',
+    bullets: ['RoPA and personal data inventory', 'DPIA and risk register', 'Data-subject request, consent, and incident records', 'Evidence library, owners, and review reminders'],
+  },
+  {
+    n: '04', slug: 'privacy-technology-remediation', title: 'Privacy Technology Remediation', icon: '04',
+    text: 'Close validated privacy and security gaps with practical technology improvements.',
+    intro: 'Where an assessment identifies technical gaps, we scope and implement agreed improvements across access, endpoints, data protection, infrastructure, backup, and recovery.',
+    bullets: ['Identity, access, and privileged-account controls', 'Endpoint, encryption, and data-loss safeguards', 'Backup, recovery, logging, and monitoring improvements', 'Implementation evidence and handover documentation'],
+  },
 ]

@@ -36,7 +36,7 @@
 .cr-home .cr-hero-note { font-size: 9px; font-weight: 600; letter-spacing: .07em; color: #546578; margin-top: 48px; line-height: 2; }
 .cr-hero-note span { margin: 0 8px; color: #8095ad; }
 .cr-photo { position: relative; margin: 0; min-height: 560px; background: #dbe5ed; }
-.cr-photo img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: 48% center; }
+.cr-photo img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center center; }
 .cr-photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px 36px 28px; background: linear-gradient(transparent,#061b38c9); color: #fff; font-size: 13px; }
 .cr-section-nav { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 34px; padding: 22px 5vw; border-bottom: 1px solid #dce4ed; font-size: 13px; }
 .cr-section-nav span { color: #65768a; margin-right: auto; }
@@ -87,6 +87,9 @@
 .cr-logos { display: flex; align-items: center; justify-content: space-around; gap: 32px; }
 .cr-logos img { width: 92px; height: 36px; object-fit: contain; }
 .cr-ecosystem small { grid-column: 1/-1; color: #65768a; font-size: 11px; }
+.cr-scope-note { align-self: center; padding: 32px; background: #f2f6fa; border-left: 3px solid #155fc7; }
+.cr-scope-note strong { display: block; margin-bottom: 12px; color: #142e4b; font-size: 18px; }
+.cr-scope-note p { margin: 0; }
 .cr-insights { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 .cr-insights > a { display: flex; flex-direction: column; padding: 34px; background: #f2f6fa; text-decoration: none; }
 .cr-insights > a:hover { background: #eaf1f8; }
@@ -116,7 +119,7 @@
  .cr-home h1 { font-size: clamp(38px,7.5vw,54px); }
  .cr-home .cr-hero-note { margin-top: 28px; }
  .cr-photo { min-height: 320px; }
- .cr-photo img { object-position: center 40%; }
+ .cr-photo img { object-position: center center; }
  .cr-section-nav { justify-content: flex-start; gap: 12px 24px; padding: 20px 24px; }
  .cr-section-nav span { width: 100%; }
  .cr-section { padding: 56px 24px; scroll-margin-top: 145px; }

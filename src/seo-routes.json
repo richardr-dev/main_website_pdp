@@ -1,92 +1,14 @@
 {
-  "/": {
-    "title": "Cyber Resilience, Backup & Business Continuity | PatuhData",
-    "description": "Protect critical data and prepare for disruption with managed backup, restore testing, disaster recovery, and business continuity services from PatuhData Indonesia.",
-    "type": "WebPage"
-  },
-  "/contact": {
-    "title": "Discuss Your Recovery Needs | PatuhData",
-    "description": "Discuss backup, restore testing, disaster recovery, and business continuity with the PatuhData team in Jakarta.",
-    "type": "ContactPage"
-  },
-  "/insights": {
-    "title": "Insights on Cyber Resilience & Data Governance | PatuhData",
-    "description": "Practical perspectives from PatuhData on infrastructure, recovery, security, and Indonesian data governance.",
-    "type": "CollectionPage"
-  },
-  "/insights/managed-it": {
-    "title": "Why Growing Businesses Need a Managed Service Provider | PatuhData",
-    "description": "Learn when an Indonesian business should use an MSP to manage networks, servers, endpoints, backups and branch infrastructure.",
-    "type": "Article"
-  },
-  "/insights/uu-pdp-data-residency": {
-    "title": "UU PDP and Data Residency in Indonesia | PatuhData",
-    "description": "A practical guide for business leaders evaluating Indonesian data residency, cross-border transfers, local hosting and operational resilience.",
-    "type": "Article"
-  },
-  "/privacy": {
-    "title": "Privacy Policy | PatuhData",
-    "description": "How PatuhData collects, uses, protects and manages personal data.",
-    "type": "WebPage"
-  },
-  "/terms": {
-    "title": "Terms of Service | PatuhData",
-    "description": "Terms governing the use of the PatuhData website and services.",
-    "type": "WebPage"
-  },
-  "/cookies": {
-    "title": "Cookie Policy | PatuhData",
-    "description": "Information about cookies used on the PatuhData website.",
-    "type": "WebPage"
-  },
-  "/services/colocation-server": {
-    "title": "Colocation & Server Deployment Indonesia | PatuhData",
-    "description": "We manage the complete server deployment lifecycle\u2014from assessment and rack installation to hardening, migration, and handover. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "Service"
-  },
-  "/services/backup-restore": {
-    "title": "Managed Backup & Restore Indonesia | PatuhData",
-    "description": "Managed backup policies, protected copies, and scheduled restore tests built around the systems your business depends on. Consult an expert about your requirements.",
-    "type": "Service"
-  },
-  "/services/data-recovery": {
-    "title": "Data Recovery Indonesia | PatuhData",
-    "description": "When data is lost, corrupted, or affected by ransomware, our team supports controlled triage and recovery. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "Service"
-  },
-  "/services/managed-infrastructure": {
-    "title": "Managed Infrastructure Indonesia | PatuhData",
-    "description": "An on-demand infrastructure team for servers, networks, endpoints, and branch locations. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "Service"
-  },
-  "/services/cloud-aws": {
-    "title": "Cloud Infrastructure & AWS Indonesia | PatuhData",
-    "description": "We design and operate AWS environments from landing zone to production with clear ownership. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "Service"
-  },
-  "/services/uu-pdp": {
-    "title": "UU PDP Indonesia | PatuhData",
-    "description": "Build a practical personal data protection program, from data mapping and readiness assessment to policies, processes, and implementation evidence. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "Service"
-  },
-  "/services/patuhdata-academy": {
-    "title": "PatuhData Academy Indonesia | PatuhData",
-    "description": "PatuhData Academy is being developed as a training product for business and IT teams. Schedules, formats, and pricing will be announced when programs become available. Request a tailored quotation from our Jakarta-based managed IT team.",
-    "type": "WebPage"
-  },
-  "/services/disaster-recovery": {
-    "title": "Disaster Recovery Indonesia | PatuhData",
-    "description": "Plan how critical applications and infrastructure recover, with agreed recovery-time and data-loss targets, clear dependencies, and practical exercises. Consult an expert about your requirements.",
-    "type": "Service"
-  },
-  "/services/business-continuity": {
-    "title": "Business Continuity Indonesia | PatuhData",
-    "description": "Prepare your team to work through disruption with business impact analysis, operational priorities, response responsibilities, and continuity procedures. Consult an expert about your requirements.",
-    "type": "Service"
-  },
-  "/services/managed-cyber-resilience": {
-    "title": "Managed Cyber Resilience Indonesia | PatuhData",
-    "description": "Bring backup monitoring, recovery exercises, reporting, and improvement planning into an ongoing service shaped around your environment. Consult an expert about your requirements.",
-    "type": "Service"
-  }
+  "/": { "title": "UU PDP Readiness, Implementation & Remediation | PatuhData", "description": "Assess UU PDP readiness, establish RoPA and DPIA workflows, maintain compliance evidence, and remediate privacy technology gaps with PatuhData.", "type": "WebPage" },
+  "/contact": { "title": "Discuss Your UU PDP Program | PatuhData", "description": "Discuss UU PDP readiness, RoPA, DPIA, operational privacy, and technology remediation with the PatuhData team in Jakarta.", "type": "ContactPage" },
+  "/insights": { "title": "UU PDP & Data Governance Insights | PatuhData", "description": "Practical perspectives on operational privacy, data governance, security controls, and UU PDP implementation.", "type": "CollectionPage" },
+  "/insights/managed-it": { "title": "Why growing businesses need a Managed Service Provider | PatuhData", "description": "How ongoing operational ownership supports your systems, backups, and people.", "type": "Article" },
+  "/insights/uu-pdp-data-residency": { "title": "UU PDP and Data Residency: Should Your Company Keep Data in Indonesia? | PatuhData", "description": "A practical guide to cross-border transfers, local hosting, regulatory risk, and operational resilience.", "type": "Article" },
+  "/privacy": { "title": "Privacy Policy | PatuhData", "description": "How PatuhData collects, uses, protects and manages personal data.", "type": "WebPage" },
+  "/terms": { "title": "Terms of Service | PatuhData", "description": "Terms governing the use of the PatuhData website and services.", "type": "WebPage" },
+  "/cookies": { "title": "Cookie Policy | PatuhData", "description": "Information about cookies used on the PatuhData website.", "type": "WebPage" },
+  "/services/uu-pdp-readiness-assessment": { "title": "UU PDP Readiness Assessment Indonesia | PatuhData", "description": "Evaluate current privacy practices, identify gaps and risks, and receive a prioritized UU PDP implementation roadmap.", "type": "Service" },
+  "/services/uu-pdp-setup-sprint": { "title": "UU PDP Setup Sprint Indonesia | PatuhData", "description": "Establish an initial RoPA, DPIA workflow, privacy risk register, operating procedures, responsibilities, and evidence structure.", "type": "Service" },
+  "/services/uu-pdp-workspace": { "title": "UU PDP Compliance Workspace Indonesia | PatuhData", "description": "Maintain RoPA, DPIAs, privacy risks, requests, incidents, policies, owners, and evidence in one structured workspace.", "type": "Service" },
+  "/services/privacy-technology-remediation": { "title": "Privacy Technology Remediation Indonesia | PatuhData", "description": "Address validated privacy gaps across access, endpoints, encryption, data protection, backup, recovery, logging, and monitoring.", "type": "Service" }
 }
