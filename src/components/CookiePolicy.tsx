@@ -1,6 +1,6 @@
 export default function CookiePolicy() {
   return (
-    <div className="pt-16">
+    <div>
       <section className="section bg-navy-dark text-white">
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>

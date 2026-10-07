@@ -8,6 +8,7 @@ author: "PatuhData"
 readTime: "7 min read"
 pinned: false
 published: true
+service: "privacy-technology-remediation"
 ---
 Personal data requests become difficult when customer information is spread across email, spreadsheets, CRM tools, finance systems, support platforms, and backups. A written policy alone does not tell a team where to search or who is responsible for the response.
 

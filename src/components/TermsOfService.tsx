@@ -1,11 +1,11 @@
 export default function TermsOfService() {
   return (
-    <div className="pt-16">
+    <div>
       <section className="section bg-navy-dark text-white">
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Terms of Service</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 July 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 7 October 2026</p>
         </div>
       </section>
 
@@ -26,7 +26,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Services</h2>
               <p>
-                PatuhData provides cloud infrastructure engineering, AI-powered operational automation, and UU PDP compliance services to Indonesian businesses. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
+                PatuhData provides personal data protection services to organizations in Indonesia, including UU PDP readiness assessments, UU PDP implementation, privacy engineering, managed data protection, and managed backup and recovery. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
               </p>
               <p className="mt-3">
                 Website content (including service descriptions, pricing models, and SLA commitments) constitutes general information only and does not constitute a binding offer unless confirmed in a written Service Agreement.
@@ -46,7 +46,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">4. Intellectual Property</h2>
               <p>
-                All Terraform code, architecture designs, and deliverables created by PatuhData and delivered into a client's cloud account or systems are owned by the client upon full payment for the relevant engagement. PatuhData retains ownership of methodologies, templates, and tools used in producing those deliverables.
+                Deliverables created specifically for a client, including records, procedures, reports, configurations, and code delivered into a client's systems, are owned by the client upon full payment for the relevant engagement. PatuhData retains ownership of methodologies, templates, and tools used in producing those deliverables.
               </p>
               <p className="mt-3">
                 Website content, branding, and marketing materials are the property of PT PatuhData Solusi Nusantara and may not be reproduced without written permission.
@@ -56,24 +56,24 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">5. Confidentiality</h2>
               <p>
-                PatuhData treats all client information shared during engagements as confidential. We will not disclose client information to third parties except as required by Indonesian law or as necessary to provide the services (e.g., to cloud service providers under processing agreements). Clients are similarly required to maintain confidentiality regarding PatuhData's methodologies and proprietary tooling.
+                PatuhData treats all client information shared during engagements as confidential. We will not disclose client information to third parties except as required by Indonesian law or as necessary to provide the services (e.g., to service providers acting under processing agreements). Clients are similarly required to maintain confidentiality regarding PatuhData's methodologies and proprietary tooling.
               </p>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">6. Warranties and Representations</h2>
               <p>
-                PatuhData warrants that services will be performed with reasonable skill and care by qualified professionals. PatuhData does not warrant that services will result in specific regulatory outcomes (e.g., OJK Sandbox graduation, Badan PDP audit clearance) as these involve third-party decisions outside PatuhData's control.
+                PatuhData warrants that services will be performed with reasonable skill and care by qualified professionals. PatuhData does not warrant that services will result in specific regulatory outcomes (e.g., the outcome of a regulatory review, audit, or certification) as these involve third-party decisions outside PatuhData's control.
               </p>
               <p className="mt-3">
-                Compliance advice provided by PatuhData is based on our interpretation of applicable Indonesian regulations as of the date of the engagement. Regulatory guidance and enforcement positions may change. Clients should obtain independent legal advice for specific regulatory interpretations.
+                PatuhData provides implementation and operational support, not legal advice. Our work reflects our understanding of applicable Indonesian regulations as of the date of the engagement, and regulatory guidance and enforcement positions may change. Clients should obtain advice from qualified legal counsel for specific regulatory interpretations.
               </p>
             </div>
 
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">7. Payment Terms</h2>
               <p>
-                Payment terms for professional services engagements are specified in the relevant Service Agreement. For outcome-based FinOps engagements, performance fees are calculated and invoiced monthly following confirmed savings verification. Late payment may result in suspension of services after 30 days' written notice.
+                Payment terms for professional services engagements are specified in the relevant Service Agreement. Late payment may result in suspension of services after 30 days' written notice.
               </p>
             </div>
 

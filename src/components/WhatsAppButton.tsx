@@ -1,5 +1,5 @@
 const WA_NUMBER = '6281903378000'
-const WA_MESSAGE = encodeURIComponent('Hello PatuhData, I would like to discuss UU PDP readiness and operational privacy for our organization.')
+const WA_MESSAGE = encodeURIComponent('Hello PatuhData, I would like to discuss UU PDP implementation and data protection for our organization.')
 
 export default function WhatsAppButton() {
   return (

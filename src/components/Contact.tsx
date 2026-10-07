@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { resilienceServices } from '../data/resilienceServices'
+import { trackLead } from '../lib/analytics'
 import './contact.css'
 
 type FormState = {
@@ -26,8 +27,12 @@ const serviceFromUrl = () => {
 
 export default function Contact() {
   const [form, setForm] = useState<FormState>({
-    name: '', company: '', email: '', phone: '', interest: serviceFromUrl(), timeline: '', message: '', website: '',
+    name: '', company: '', email: '', phone: '', interest: '', timeline: '', message: '', website: '',
   })
+  useEffect(() => {
+    const interest = serviceFromUrl()
+    if (interest) setForm(current => ({ ...current, interest }))
+  }, [])
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
   const update = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -46,7 +51,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
-          subject: `UU PDP Inquiry — ${form.interest}`,
+          subject: `PatuhData Inquiry — ${form.interest}`,
           from_name: form.name,
           name: form.name,
           company: form.company,
@@ -59,6 +64,7 @@ export default function Contact() {
       })
       const result = await response.json()
       if (!response.ok || !result.success) throw new Error('Submission failed')
+      trackLead('contact_form', { service: form.interest || 'Not specified' })
       setStatus('success')
     } catch {
       setStatus('error')
@@ -90,9 +96,9 @@ export default function Contact() {
           <span aria-hidden="true">✓</span><h2>Thank you. Your inquiry was sent.</h2>
           <p>Our team will review your requirements and contact you. You can also reach us at <a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a>.</p>
         </div> : <form onSubmit={submit} aria-label="UU PDP consultation inquiry">
-          <p className="cr-form-eyebrow">YOUR PRIVACY PROGRAM</p>
+          <p className="cr-form-eyebrow">YOUR DATA PROTECTION NEEDS</p>
           <h2>Tell us where you are today.</h2>
-          <p className="cr-form-intro">A few details help us recommend the right assessment, implementation, workspace, or remediation scope.</p>
+          <p className="cr-form-intro">A few details help us recommend the right starting point: an assessment, implementation, privacy engineering, or a managed service.</p>
           <div className="cr-form-grid">
             <label htmlFor="consult-name">Full name <span>*</span><input id="consult-name" name="name" type="text" autoComplete="name" placeholder="Your name" required maxLength={120} value={form.name} onChange={update} /></label>
             <label htmlFor="consult-email">Work email <span>*</span><input id="consult-email" name="email" type="email" autoComplete="email" placeholder="name@company.com" required maxLength={180} value={form.email} onChange={update} /></label>

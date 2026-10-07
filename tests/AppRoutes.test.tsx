@@ -12,13 +12,15 @@ describe('application routes', () => {
   })
 
   it.each([
-    ['/services/uu-pdp', 'UU PDP', 'UU PDP Indonesia | PatuhData'],
-    ['/services/patuhdata-academy', 'PatuhData Academy', 'PatuhData Academy Indonesia | PatuhData'],
+    ['/services/uu-pdp', 'UU PDP Readiness Assessment', 'UU PDP Readiness Assessment Indonesia | PatuhData'],
+    ['/services/backup-restore', 'Managed Backup & Recovery', 'Managed Backup & Recovery Indonesia | PatuhData'],
+    ['/services/patuhdata-academy', 'Page not found', 'Page Not Found | PatuhData'],
+    ['/insights/managed-it', 'Insight not found', 'Page Not Found | PatuhData'],
     ['/contact', 'Let’s make privacy operational.', 'Discuss Your UU PDP Program | PatuhData'],
     ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
     ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
     ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],
-    ['/services/managed-infrastructure', 'Managed Infrastructure', 'Managed Infrastructure Indonesia | PatuhData'],
+    ['/insights', 'Practical guidance on UU PDP.', 'UU PDP & Data Protection Insights | PatuhData'],
   ])('renders %s directly with route metadata', (path, heading, title) => {
     window.history.replaceState({}, '', path)
     render(<App />)

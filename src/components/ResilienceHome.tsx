@@ -1,32 +1,117 @@
-import { resilienceServices } from '../data/resilienceServices'
+import { coreService, faqs, resilienceServices } from '../data/resilienceServices'
 import { homepageBlogPosts } from '../data/blogContent'
+import FreeResources from './FreeResources'
 
 const Arrow = () => <span aria-hidden="true">↗</span>
 
+const glance = [
+  ['Focus', 'UU PDP implementation for apps and digital platforms'],
+  ['Approach', 'Engineering-led, from data flows to evidence'],
+  ['Headquarters', 'Jakarta, Indonesia'],
+  ['Clients', 'Organizations operating in Indonesia'],
+  ['Entity', 'PT PatuhData Solusi Nusantara'],
+]
+
+const pillars = [
+  ['01', 'Map', 'Know what personal data you hold, where it flows across your applications, vendors, and cloud, and who is responsible for it.'],
+  ['02', 'Build', 'Put the requirements into your systems: consent, data-subject requests, retention, access control, encryption, and audit trails.'],
+  ['03', 'Prove', 'Keep records, decisions, and evidence current so you can demonstrate compliance whenever customers, partners, or regulators ask.'],
+]
+
+const industries = [
+  ['Healthtech & healthcare', 'Patient apps, portals, and clinical systems handling health records, the most sensitive category of personal data.'],
+  ['Fintech & financial services', 'Lending, payment, multifinance, and cooperative platforms handling identity, credit, and transaction data.'],
+  ['E-commerce & marketplaces', 'Platforms handling customer profiles, transactions, tracking, and marketing consent at scale.'],
+  ['Software & SaaS companies', 'Product teams that must answer enterprise and government privacy requirements before they can close deals.'],
+  ['Education platforms', 'Schools, universities, and learning platforms handling student, parent, and staff information.'],
+  ['HR & workforce platforms', 'Employers and HR systems handling large volumes of employee and candidate data.'],
+]
+
+const principles = [
+  ['Compliance built into systems', 'Obligations on paper are matched by working controls in your applications and data, so compliance holds up in practice.'],
+  ['Engineers who speak your team’s language', 'We work directly with your developers and product owners, translating legal requirements into concrete technical changes.'],
+  ['One accountable partner', 'A single team that owns agreed outcomes, instead of separate advisers and vendors that hand problems to each other.'],
+  ['Clear boundaries', 'We support implementation and operations. Where formal legal interpretation is needed, we work alongside qualified legal counsel.'],
+]
+
 export default function ResilienceHome() {
+  const engagements = [
+    ['Assess', resilienceServices.find(s => s.slug === 'uu-pdp-readiness-assessment')!],
+    ['Implement', resilienceServices.find(s => s.slug === 'uu-pdp-setup-sprint')!],
+    ['Engineer', resilienceServices.find(s => s.slug === 'privacy-technology-remediation')!],
+    ['Operate', coreService],
+  ] as const
+  const backupService = resilienceServices.find(s => s.slug === 'managed-backup-recovery')!
+
   return <main id="main-content" className="cr-home">
     <section className="cr-hero" aria-labelledby="hero-title">
-      <div className="cr-hero-copy"><p className="cr-eyebrow">UU PDP · OPERATIONAL PRIVACY</p><h1 id="hero-title">Turn privacy obligations<br /><span>into everyday practice.</span></h1><p className="cr-lead">Assess readiness, establish your privacy operating model, maintain RoPA and DPIA evidence, and remediate the technology gaps behind your UU PDP program.</p><div className="cr-actions"><a className="cr-button" href="/contact?service=uu-pdp-readiness-assessment">Start With an Assessment <Arrow /></a><a className="cr-link" href="#services">Explore the program <span aria-hidden="true">↓</span></a></div><p className="cr-hero-note">ASSESS <span>/</span> IMPLEMENT <span>/</span> MAINTAIN <span>/</span> REMEDIATE</p></div>
-      <figure className="cr-photo"><img src="/modern-office-space-interior.jpg" alt="Modern professional office workspace" width="1920" height="1280" loading="eager" /><figcaption>Privacy compliance built around real processes, accountable owners, and usable evidence.</figcaption></figure>
+      <div className="cr-hero-copy">
+        <h1 id="hero-title"><small className="cr-eyebrow">UU PDP implementation &amp; privacy engineering</small>Map.<br /><span>Build.</span><br />Prove.</h1>
+        <p className="cr-lead">We build UU PDP compliance into your systems, not just your documents. PatuhData is an engineering-led partner that helps organizations in Indonesia implement and maintain personal data protection.</p>
+        <div className="cr-actions"><a className="cr-button" href={`/contact?service=${coreService.slug}`}>Talk to Our Team <Arrow /></a><a className="cr-link" href="#core-service">Our core service <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <dl className="cr-glance" aria-label="PatuhData at a glance">
+        {glance.map(([term, detail]) => <div key={term}><dt>{term}</dt><dd>{detail}</dd></div>)}
+      </dl>
     </section>
 
-    <nav className="cr-section-nav" aria-label="On this page"><span>A practical UU PDP program</span><a href="#services">Services</a><a href="#approach">How it works</a><a href="#evidence">What you receive</a><a href="#boundaries">Our role</a></nav>
+    <nav className="cr-section-nav" aria-label="On this page"><span>PatuhData at a glance</span><a href="#about">About Us</a><a href="#core-service">Core Service</a><a href="#approach">How We Engage</a><a href="#industries">Industries</a><a href="#why">Why PatuhData</a><a href="#faq">FAQ</a><a href="#resources">Free Resources</a></nav>
 
-    <section className="cr-section cr-intro" id="about"><div><p className="cr-eyebrow">BEYOND DOCUMENTS</p><h2>Compliance should work<br />when the audit ends.</h2></div><div><p>Policies alone do not show how personal data moves through your organization, who owns each decision, or whether important controls operate consistently.</p><p>PatuhData connects privacy governance with implementation. We help your team document processing, assess higher-risk activities, maintain evidence, and address validated technical gaps through a focused operating model.</p><a className="cr-link" href="/contact?service=uu-pdp-readiness-assessment">Discuss your current position <Arrow /></a></div></section>
+    <section className="cr-section cr-intro" id="about">
+      <div><p className="cr-eyebrow">WHO WE ARE</p><h2>Compliance that works<br />in your systems.</h2></div>
+      <div>
+        <p>PT PatuhData Solusi Nusantara is a Jakarta-based company focused on one thing: helping organizations protect the personal data they are trusted with. Our team comes from software engineering and building applications, so we approach UU PDP the way engineers do: by changing how systems actually work.</p>
+        <p>Indonesia’s Personal Data Protection Law (UU PDP) asks every organization to show how personal data is governed, secured, and handled when something goes wrong. Most organizations do not need another policy document. They need someone who can turn legal requirements into working consent flows, request handling, retention rules, and access controls, and keep them working.</p>
+        <div className="cr-mission">
+          <div><strong>Our mission</strong><p>To make personal data protection practical, accountable, and sustainable for organizations of every size.</p></div>
+          <div><strong>Our vision</strong><p>Organizations in Indonesia that customers can trust with their data, and that stay resilient when disruption happens.</p></div>
+        </div>
+      </div>
+    </section>
 
-    <section className="cr-section cr-services" id="services"><div className="cr-heading"><div><p className="cr-eyebrow">ONE CONNECTED PROGRAM</p><h2>Start with clarity.<br />Build what you need.</h2></div><p>Four defined engagements that can stand alone or form one continuous privacy-improvement program.</p></div><div className="cr-service-grid">{resilienceServices.map(s => <article key={s.slug}><div className="cr-service-top"><span>{s.n}</span><span aria-hidden="true">{s.icon}</span></div><h3>{s.title}</h3><p>{s.text}</p><ul>{s.bullets.slice(0, 3).map(b => <li key={b}>{b}</li>)}</ul><a className="cr-link" href={`/services/${s.slug}`} aria-label={`Explore ${s.title}`}>View engagement <Arrow /></a></article>)}</div></section>
+    <section className="cr-section cr-core" id="core-service" aria-labelledby="core-title">
+      <div className="cr-heading">
+        <div><p className="cr-eyebrow">OUR CORE SERVICE</p><h2 id="core-title">{coreService.title}</h2></div>
+        <div><p>{coreService.intro}</p><a className="cr-link" href={`/services/${coreService.slug}`} aria-label={`Explore ${coreService.title}`}>Explore the service <Arrow /></a></div>
+      </div>
+      <ol className="cr-pillars">
+        {pillars.map(([n, title, description]) => <li key={n}><span>{n}</span><h3>{title}</h3><p>{description}</p></li>)}
+      </ol>
+      <p className="cr-core-also"><strong>Also available as a managed service:</strong> {backupService.text} <a className="cr-link" href={`/services/${backupService.slug}`} aria-label={`Explore ${backupService.title}`}>{backupService.title} <Arrow /></a></p>
+    </section>
 
-    <section className="cr-section cr-approach" id="approach"><div className="cr-heading"><div><p className="cr-eyebrow">DELIVERY MODEL</p><h2>Focused enough to finish.<br />Structured enough to maintain.</h2></div><p>Each stage has a defined objective, agreed inputs, named owners, and documented outputs.</p></div><ol className="cr-steps">{[['Discover', 'Understand the organization, processing activities, systems, stakeholders, and existing evidence.'], ['Prioritize', 'Evaluate gaps and privacy risks, then agree what should be addressed first.'], ['Implement', 'Establish the records, workflows, controls, and responsibilities included in scope.'], ['Maintain', 'Review evidence, track change, and remediate validated operational or technical gaps.']].map(([title, description], i) => <li key={title}><span>0{i + 1}</span><h3>{title}</h3><p>{description}</p></li>)}</ol></section>
+    <section className="cr-section cr-approach" id="approach">
+      <div className="cr-heading"><div><p className="cr-eyebrow">HOW WE ENGAGE</p><h2>Start where you are.<br />Grow into a managed program.</h2></div><p>Every engagement has a defined scope and written deliverables. Most clients begin with an assessment, then implement and engineer the priorities before moving to ongoing management.</p></div>
+      <ol className="cr-steps">
+        {engagements.map(([label, service], i) => <li key={service.slug}><span>0{i + 1} · {label.toUpperCase()}</span><h3>{service.title}</h3><p>{service.text}</p><a className="cr-step-link" href={`/services/${service.slug}`} aria-label={`Explore ${service.title}`}>Learn more <Arrow /></a></li>)}
+      </ol>
+    </section>
 
-    <section className="cr-section cr-evidence" id="evidence"><div><p className="cr-eyebrow">TANGIBLE OUTPUTS</p><h2>Evidence your team<br />can actually use.</h2><p>Deliverables are confirmed in writing before work begins and tailored to the agreed scope, systems, and maturity of your organization.</p><a className="cr-link" href="/contact">Request a scoped conversation <Arrow /></a></div><div className="cr-deliverables">{[['Current-state findings', 'A grounded view of observed practices, gaps, dependencies, and limitations.'], ['RoPA and risk records', 'Structured records of processing activities, data flows, risks, decisions, and owners.'], ['Operational workflows', 'Usable procedures for DPIAs, requests, incidents, reviews, and evidence maintenance.'], ['Remediation plan', 'Prioritized governance and technology improvements with accountable next actions.']].map(([title, description], i) => <article key={title}><span>0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></article>)}</div></section>
+    <section className="cr-section cr-industries" id="industries" aria-labelledby="industries-title">
+      <div className="cr-heading"><div><p className="cr-eyebrow">INDUSTRIES WE SERVE</p><h2 id="industries-title">Built for organizations<br />that hold sensitive data.</h2></div><p>We focus on sectors where personal data is central to daily operations and where trust directly affects the business.</p></div>
+      <div className="cr-industry-grid">
+        {industries.map(([title, description], i) => <article key={title}><span>0{i + 1}</span><h3>{title}</h3><p>{description}</p></article>)}
+      </div>
+    </section>
 
-    <section className="cr-ecosystem" id="boundaries"><div><p className="cr-eyebrow">TRUST THROUGH CLARITY</p><h2>Operational expertise,<br />with clear boundaries.</h2><p>PatuhData provides privacy-program implementation and technology remediation. We do not promise certification or guaranteed compliance outcomes.</p></div><div className="cr-scope-note"><strong>Legal questions stay with qualified counsel</strong><p>Our work supports implementation and evidence. Where formal legal interpretation or representation is required, we coordinate with or defer to appropriately qualified legal professionals.</p></div></section>
+    <section className="cr-section cr-evidence" id="why">
+      <div><p className="cr-eyebrow">WHY PATUHDATA</p><h2>How we earn<br />your trust.</h2><p>We are deliberately focused. Implementing personal data protection is not a side service for us. It is the whole company.</p><a className="cr-link" href="/contact">Speak with our team <Arrow /></a></div>
+      <div className="cr-deliverables">{principles.map(([title, description], i) => <article key={title}><span>0{i + 1}</span><div><h3>{title}</h3><p>{description}</p></div></article>)}</div>
+    </section>
 
-    <section className="cr-section cr-home-insights" aria-labelledby="home-insights-title"><div className="cr-heading"><div><p className="cr-eyebrow">LATEST INSIGHTS</p><h2 id="home-insights-title">Recommended reading<br />for practical teams.</h2></div><div><p>Clear guidance on privacy operations, resilient infrastructure, and responsible data practices.</p><a className="cr-link" href="/insights">View all insights <Arrow /></a></div></div><div className="cr-insights">{homepageBlogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}>
+    <section className="cr-section cr-faq" id="faq" aria-labelledby="faq-title">
+      <div><p className="cr-eyebrow">FREQUENTLY ASKED QUESTIONS</p><h2 id="faq-title">UU PDP, answered<br />plainly.</h2><p>Common questions from organizations preparing for Indonesia’s Personal Data Protection Law.</p></div>
+      <div className="cr-faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) }).replace(/</g, '\\u003c') }} />
+    </section>
+
+    <FreeResources />
+
+    <section className="cr-section cr-home-insights" aria-labelledby="home-insights-title"><div className="cr-heading"><div><p className="cr-eyebrow">LATEST INSIGHTS</p><h2 id="home-insights-title">Recommended reading<br />for practical teams.</h2></div><div><p>Clear guidance on UU PDP implementation, privacy engineering, and data recovery.</p><a className="cr-link" href="/insights">View all insights <Arrow /></a></div></div><div className="cr-insights">{homepageBlogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}>
       {post.image ? <img className="cr-insight-image" src={post.image} alt={post.imageAlt || ''} loading="lazy" /> : <div className="cr-insight-image cr-insight-image-placeholder" aria-hidden="true"><span>PatuhData Insights</span></div>}
       <div className="cr-insight-copy"><div className="cr-insight-labels"><span className="cr-eyebrow">{post.category}</span>{post.pinned && <span className="cr-pin-label">Recommended</span>}</div><h3>{post.title}</h3><p>{post.excerpt}</p><span className="cr-link">Read the insight <Arrow /></span></div>
     </a>)}</div></section>
 
-    <section className="cr-section cr-consult" id="contact"><div><p className="cr-eyebrow">A PRACTICAL FIRST STEP</p><h2>Start with what is<br />happening today.</h2></div><div><p>Tell us how your organization uses personal data, what has already been prepared, and where you need clarity. We’ll recommend a focused starting scope.</p><a className="cr-button" href="/contact?service=uu-pdp-readiness-assessment">Start With an Assessment <Arrow /></a></div></section>
+    <section className="cr-section cr-consult" id="contact"><div><p className="cr-eyebrow">LET’S TALK</p><h2>Put your data protection<br />in steady hands.</h2></div><div><p>Tell us how your organization uses personal data and what you have already prepared. We will recommend the most useful place to start.</p><div className="cr-actions"><a className="cr-button" href={`/contact?service=${coreService.slug}`}>Talk to Our Team <Arrow /></a><a className="cr-link" href="/contact?service=uu-pdp-readiness-assessment">Start With an Assessment <Arrow /></a></div></div></section>
   </main>
 }

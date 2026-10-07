@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../src/App'
-import { resilienceServices } from '../src/data/resilienceServices'
+import { coreService, resilienceServices } from '../src/data/resilienceServices'
 
 describe('operational privacy experience', () => {
   beforeEach(() => {
@@ -14,10 +14,13 @@ describe('operational privacy experience', () => {
   afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs() })
   it('connects each core service to its page and every consultation to the form', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Turn privacy obligationsinto everyday practice.')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Map.Build.Prove.')
+    expect(screen.getByRole('heading', { level: 2, name: coreService.title })).toBeInTheDocument()
     for (const service of resilienceServices) {
-      expect(screen.getByRole('link', { name: `Explore ${service.title}` })).toHaveAttribute('href', `/services/${service.slug}`)
+      for (const link of screen.getAllByRole('link', { name: `Explore ${service.title}` })) expect(link).toHaveAttribute('href', `/services/${service.slug}`)
     }
+    for (const cta of screen.getAllByRole('link', { name: /Talk to Our Team/ })) expect(cta.getAttribute('href')).toMatch(/^\/contact/)
+    expect(document.body).not.toHaveTextContent(/Rp ?\d|per month|Wazuh|CISO Assistant|margin/i)
     for (const cta of screen.getAllByRole('link', { name: /Start With an Assessment/ })) expect(cta).toHaveAttribute('href', '/contact?service=uu-pdp-readiness-assessment')
     expect(document.body).not.toHaveTextContent(/Rp5|Request a Quotation|RECOMMENDED|sub-15/)
     const sectionNav = screen.getByRole('navigation', { name: 'On this page' })
@@ -48,7 +51,32 @@ describe('operational privacy experience', () => {
     render(<App />)
     expect(screen.getByRole('heading', { level: 1, name: service.title })).toBeInTheDocument()
     expect(document.title).toBe(`${service.title} Indonesia | PatuhData`)
-    for (const bullet of service.bullets) expect(screen.getByText(bullet)).toBeInTheDocument()
+    for (const [title] of service.scope) expect(screen.getByRole('heading', { level: 3, name: title })).toBeInTheDocument()
+    for (const [question] of service.faqs) expect(screen.getByText(question)).toBeInTheDocument()
+    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toHaveTextContent(service.title)
+  })
+  it('sends the retired workspace URL to the managed service page', () => {
+    window.history.replaceState({}, '', '/services/uu-pdp-workspace')
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 1, name: coreService.title })).toBeInTheDocument()
+  })
+  it('unlocks the free resources after the request form is sent and records a lead', async () => {
+    vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-key')
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => ({ success: true }) }))
+    render(<App />)
+    const form = screen.getByRole('form', { name: 'Free resources request' })
+    fireEvent.change(within(form).getByLabelText(/Full name/), { target: { value: 'Test Person' } })
+    fireEvent.change(within(form).getByLabelText(/Work email/), { target: { value: 'test@example.com' } })
+    fireEvent.change(within(form).getByLabelText(/Company/), { target: { value: 'Test Company' } })
+    fireEvent.click(within(form).getByRole('button', { name: /Get the resources/ }))
+    expect(await screen.findByText('Your resources are ready.')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /UU PDP Readiness Checklist/ })).toHaveAttribute('href', '/downloads/patuhdata-pdp-readiness-checklist.pdf')
+    expect(window.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({ method: 'resource_download' }))
+  })
+  it('records WhatsApp clicks as leads', () => {
+    render(<App />)
+    fireEvent.click(screen.getByRole('link', { name: 'Chat on WhatsApp' }))
+    expect(window.gtag).toHaveBeenCalledWith('event', 'generate_lead', expect.objectContaining({ method: 'whatsapp' }))
   })
   it('reopens cookie preferences from the footer', () => {
     render(<App />)

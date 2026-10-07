@@ -1,110 +1,71 @@
 import { useState } from 'react'
-import { WEB3FORMS_ACCESS_KEY } from '../config/web3forms'
+import { trackLead } from '../lib/analytics'
 
-type Lang = 'id' | 'en'
-type ResourceKey = 'checklist' | 'ropa'
+const resources = [
+  { title: 'UU PDP Readiness Checklist', detail: '15 questions across 8 areas to check how ready your operations are. PDF, Bahasa Indonesia.', href: '/downloads/patuhdata-pdp-readiness-checklist.pdf' },
+  { title: 'Record of Processing Activities Template', detail: 'A starter spreadsheet for your record of processing activities, with worked examples. Excel, Bahasa Indonesia.', href: '/downloads/patuhdata-ropa-starter.xlsx' },
+]
 
-const resources = {
-  checklist: {
-    file: '/downloads/patuhdata-pdp-readiness-checklist.pdf',
-    id: 'Checklist Kesiapan UU PDP',
-    en: 'PDP Readiness Checklist',
-    format: 'PDF',
-  },
-  ropa: {
-    file: '/downloads/patuhdata-ropa-starter.xlsx',
-    id: 'ROPA Starter Template',
-    en: 'ROPA Starter Template',
-    format: 'XLSX',
-  },
-}
+type Status = 'idle' | 'sending' | 'ready' | 'fallback'
 
-export default function FreeResources({ lang }: { lang: Lang }) {
-  const en = lang === 'en'
-  const [selected, setSelected] = useState<ResourceKey>('checklist')
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', role: '' })
-  const [loading, setLoading] = useState(false)
-  const [unlocked, setUnlocked] = useState(false)
-  const [error, setError] = useState('')
+export default function FreeResources() {
+  const [form, setForm] = useState({ name: '', email: '', company: '', website: '' })
+  const [status, setStatus] = useState<Status>('idle')
+  const update = (event: React.ChangeEvent<HTMLInputElement>) => setForm(current => ({ ...current, [event.target.name]: event.target.value }))
 
-  const download = (key: ResourceKey) => {
-    const link = document.createElement('a')
-    link.href = resources[key].file
-    link.download = ''
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-  }
-
-  const submit = async (event: React.FormEvent) => {
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setLoading(true)
-    setError('')
+    if (status === 'sending' || form.website) return
+    setStatus('sending')
     try {
+      if (!import.meta.env.VITE_WEB3FORMS_ACCESS_KEY) throw new Error('Form unavailable')
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Free PDP Resource Download — ${resources[selected].en}`,
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          subject: 'PatuhData Free Resource Request',
           from_name: form.name,
           name: form.name,
+          email: form.email,
           company: form.company,
-          business_email: form.email,
-          whatsapp: form.phone,
-          role: form.role,
-          requested_resource: resources[selected].en,
-          source: 'PatuhData website resource gate',
+          interest: 'Free resources: readiness checklist and RoPA template',
         }),
       })
-      const data = await response.json()
-      if (!data.success) throw new Error('Submission failed')
-      setUnlocked(true)
-      download(selected)
+      const result = await response.json()
+      if (!response.ok || !result.success) throw new Error('Submission failed')
+      trackLead('resource_download', { resource: 'checklist_and_ropa_template' })
+      setStatus('ready')
     } catch {
-      setError(en ? 'We could not process your request. Please try again or email hello@patuhdata.id.' : 'Permintaan belum berhasil diproses. Silakan coba lagi atau email hello@patuhdata.id.')
-    } finally {
-      setLoading(false)
+      setStatus('fallback')
     }
   }
 
-  return <section className="section resource-section" id="resources">
-    <div className="resource-shell">
-      <div className="resource-copy">
-        <span className="kicker">{en ? 'FREE PDP TOOLKIT' : 'TOOLKIT PDP GRATIS'}</span>
-        <h2>{en ? <>Practical templates<br />to get you started.</> : <>Template praktis<br />untuk mulai bergerak.</>}</h2>
-        <p>{en ? 'Choose a resource, enter your business details, and receive immediate access after submission.' : 'Pilih resource, lengkapi data bisnis Anda, dan dapatkan akses langsung setelah formulir dikirim.'}</p>
-        <div className="resource-options">
-          {(Object.keys(resources) as ResourceKey[]).map((key) => {
-            const item = resources[key]
-            return <button type="button" className={selected === key ? 'selected' : ''} onClick={() => setSelected(key)} key={key}>
-              <span>{item.format}</span><strong>{item[lang]}</strong><i>{selected === key ? '●' : '○'}</i>
-            </button>
-          })}
-        </div>
-      </div>
+  const unlocked = status === 'ready' || status === 'fallback'
 
-      <div className="resource-form-wrap">
-        {unlocked ? <div className="resource-success">
-          <span>✓</span>
-          <h3>{en ? 'Your templates are ready.' : 'Template Anda siap.'}</h3>
-          <p>{en ? 'Your selected file should download automatically. You can also download either resource below.' : 'File pilihan Anda akan terunduh otomatis. Anda juga dapat mengunduh kedua resource di bawah ini.'}</p>
-          {(Object.keys(resources) as ResourceKey[]).map((key) => <button key={key} type="button" onClick={() => download(key)}>{resources[key][lang]} <b>↓</b></button>)}
-        </div> : <form onSubmit={submit} className="resource-form">
-          <div className="form-heading"><small>{en ? 'STEP 2 OF 2' : 'LANGKAH 2 DARI 2'}</small><h3>{en ? 'Where should we send access?' : 'Lengkapi data Anda'}</h3></div>
-          <div className="resource-fields">
-            <label>{en ? 'Full name' : 'Nama lengkap'} *<input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={en ? 'Your name' : 'Nama Anda'} /></label>
-            <label>{en ? 'Company' : 'Perusahaan'} *<input required value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="PT / Organization" /></label>
-            <label>{en ? 'Business email' : 'Email bisnis'} *<input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="name@company.com" /></label>
-            <label>{en ? 'WhatsApp number' : 'Nomor WhatsApp'}<input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+62 812..." /></label>
-            <label className="field-wide">{en ? 'Role' : 'Jabatan'} *<select required value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}><option value="">{en ? 'Select your role...' : 'Pilih jabatan...'}</option><option>Owner / Founder</option><option>Director / C-Level</option><option>Legal / Compliance</option><option>Data Protection / DPO</option><option>IT / Security</option><option>HR / Operations</option><option>Other</option></select></label>
-          </div>
-          <label className="resource-consent"><input type="checkbox" required /><span>{en ? 'I agree that PatuhData may use these details to provide the requested resource and contact me about relevant PDP services. I can opt out at any time.' : 'Saya setuju PatuhData menggunakan data ini untuk memberikan resource yang diminta dan menghubungi saya terkait layanan PDP yang relevan. Saya dapat berhenti kapan saja.'}</span></label>
-          {error && <p className="resource-error">{error}</p>}
-          <button className="resource-submit" type="submit" disabled={loading}>{loading ? (en ? 'Processing…' : 'Memproses…') : (en ? 'Get Free Template' : 'Dapatkan Template Gratis')} <span>↓</span></button>
-          <small className="privacy-note">{en ? 'Your information is handled according to our Privacy Policy.' : 'Data Anda diproses sesuai dengan Privacy Policy kami.'}</small>
-        </form>}
-      </div>
+  return <section className="cr-section rs-section" id="resources" aria-labelledby="resources-title">
+    <div>
+      <p className="cr-eyebrow">FREE RESOURCES</p>
+      <h2 id="resources-title">Start your UU PDP<br />program today.</h2>
+      <p>Practical templates your team can use straight away, from the same approach we use with our clients.</p>
+      <ul className="rs-list">{resources.map(item => <li key={item.href}><strong>{item.title}</strong><span>{item.detail}</span></li>)}</ul>
+    </div>
+    <div className="rs-panel">
+      {unlocked ? <div role="status">
+        <p className="cr-eyebrow">{status === 'ready' ? 'THANK YOU' : 'YOUR DOWNLOADS'}</p>
+        <h3>Your resources are ready.</h3>
+        {status === 'fallback' && <p className="rs-note">We could not record your request, but you can still download the files below.</p>}
+        <div className="rs-downloads">{resources.map(item => <a key={item.href} className="cr-button" href={item.href} download>{item.title} <span aria-hidden="true">↓</span></a>)}</div>
+        <p className="rs-note">Want help putting them to work? <a href="/contact?service=uu-pdp-readiness-assessment">Talk to our team</a>.</p>
+      </div> : <form onSubmit={submit} aria-label="Free resources request">
+        <h3>Get both resources</h3>
+        <label htmlFor="resource-name">Full name<input id="resource-name" name="name" type="text" autoComplete="name" required maxLength={120} value={form.name} onChange={update} /></label>
+        <label htmlFor="resource-email">Work email<input id="resource-email" name="email" type="email" autoComplete="email" required maxLength={180} value={form.email} onChange={update} /></label>
+        <label htmlFor="resource-company">Company<input id="resource-company" name="company" type="text" autoComplete="organization" required maxLength={180} value={form.company} onChange={update} /></label>
+        <label className="cr-form-honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={update} /></label>
+        <button type="submit" className="cr-button" disabled={status === 'sending'}>{status === 'sending' ? 'Preparing…' : 'Get the resources'} <span aria-hidden="true">→</span></button>
+        <p className="rs-note">We use these details to send the resources and may follow up about your request. <a href="/privacy">Privacy Policy</a></p>
+      </form>}
     </div>
   </section>
 }

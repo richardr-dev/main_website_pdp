@@ -10,6 +10,7 @@ export type BlogPost = {
   imageAlt?: string
   pinned: boolean
   published: boolean
+  service?: string
   body: string
 }
 
@@ -54,6 +55,7 @@ function parsePost(path: string, source: string): BlogPost {
     imageAlt: meta.imageAlt || undefined,
     pinned: meta.pinned === 'true',
     published: meta.published !== 'false',
+    service: meta.service || undefined,
     body: match[2].trim(),
   }
 }

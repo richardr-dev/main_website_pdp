@@ -8,8 +8,9 @@ author: "PatuhData"
 readTime: "8 min read"
 image: "/officeabt.jpeg"
 imageAlt: "Team members discussing a project around a meeting table"
-pinned: false
+pinned: true
 published: true
+service: "uu-pdp-setup-sprint"
 ---
 A Data Protection Impact Assessment, or DPIA, helps an organization understand and reduce privacy risk before higher-risk processing causes harm. It should be more than a form completed at the end of a project. A useful DPIA influences system design, access controls, retention, vendor selection, and the decision to proceed.
 

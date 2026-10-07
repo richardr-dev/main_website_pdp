@@ -8,8 +8,8 @@ author: "PatuhData"
 readTime: "8 min read"
 image: "https://images.unsplash.com/photo-1691435828932-911a7801adfb?auto=format&fit=crop&w=1800&q=85"
 imageAlt: "Ethernet cables connected to a network switch"
-pinned: true
-published: true
+pinned: false
+published: false
 ---
 As a business adopts more systems, its operational surface grows. A misconfigured router or an untested backup can interrupt an entire branch operation.
 

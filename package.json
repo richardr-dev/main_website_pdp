@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node scripts/prerender-seo.mjs",
+    "build": "tsc && vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender-seo.mjs",
     "preview": "vite preview",
     "test": "npm run build && vitest run && node scripts/check-prerendered-seo.mjs",
     "test:watch": "vitest"

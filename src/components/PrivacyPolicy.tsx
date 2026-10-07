@@ -1,11 +1,11 @@
 export default function PrivacyPolicy() {
   return (
-    <div className="pt-16">
+    <div>
       <section className="section bg-navy-dark text-white">
         <div className="container max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-widest text-primary-300 mb-4">Legal</p>
           <h1 className="text-4xl font-bold tracking-tight text-white">Privacy Policy</h1>
-          <p className="mt-4 text-white/60">Last updated: 1 September 2026</p>
+          <p className="mt-4 text-white/60">Last updated: 7 October 2026</p>
         </div>
       </section>
 
@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">1. Who We Are</h2>
               <p>
-                This Privacy Policy applies to PT PatuhData Solusi Nusantara ("PatuhData," "we," "us," or "our"), a registered PT PMDN entity in Indonesia, operating the website at patuhdata.id and all associated services. We are a registered PSE Privat (Private Electronic System Operator) with Kominfo/Komdigi.
+                This Privacy Policy applies to PT PatuhData Solusi Nusantara ("PatuhData," "we," "us," or "our"), a registered PT PMDN entity in Indonesia, operating the website at patuhdata.id and all associated services.
               </p>
               <p className="mt-3">
                 Contact: <a href="mailto:hello@patuhdata.id" className="text-primary-600 hover:underline">hello@patuhdata.id</a> | +62 819 0337 8000 | Jakarta, Indonesia
@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
               <p className="mb-3">We collect personal data in the following circumstances:</p>
               <ul className="space-y-2 ml-5 list-disc">
                 <li><strong className="text-slate-900">Consultation forms:</strong> Name, company, role, business email, WhatsApp number, organization details, interests, timeline, and message.</li>
-                <li><strong className="text-slate-900">Free resource requests:</strong> Name, company, business email, role, optional WhatsApp number, and requested resource.</li>
+                <li><strong className="text-slate-900">Free resource requests:</strong> Name, company, and business email, together with the resources requested.</li>
                 <li><strong className="text-slate-900">Consent records:</strong> A random consent ID, timestamp, policy version, consent method, and selected cookie categories. Browser-side consent records do not intentionally contain your name or email.</li>
                 <li><strong className="text-slate-900">Analytics:</strong> If you accept optional analytics cookies, we collect anonymised usage data (pages visited, session duration, browser type) via analytics tooling. No personally identifiable information is collected through analytics.</li>
                 <li><strong className="text-slate-900">Email correspondence:</strong> If you contact us by email, we retain the content of that correspondence and your email address.</li>
@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
               </p>
               <ul className="space-y-2 ml-5 list-disc mt-3">
                 <li><strong className="text-slate-900">Service providers:</strong> Vercel hosts the website, Web3Forms processes submitted forms, and Google Analytics processes usage information only after analytics consent.</li>
-                <li><strong className="text-slate-900">Legal requirement:</strong> Indonesian regulatory authorities (including Badan PDP, Kominfo/Komdigi, or law enforcement) if required by applicable law.</li>
+                <li><strong className="text-slate-900">Legal requirement:</strong> Indonesian regulatory authorities (including the personal data protection authority, Komdigi, or law enforcement) if required by applicable law.</li>
               </ul>
             </div>
 
@@ -80,11 +80,13 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-bold text-slate-900 mb-3">7. Your Rights Under UU PDP</h2>
               <p className="mb-3">Under UU PDP No. 27/2022, you have the following rights regarding your personal data:</p>
               <ul className="space-y-2 ml-5 list-disc">
-                <li><strong className="text-slate-900">Right to access (Pasal 34):</strong> Request a copy of the personal data we hold about you.</li>
-                <li><strong className="text-slate-900">Right to correction (Pasal 35):</strong> Request correction of inaccurate or incomplete data.</li>
-                <li><strong className="text-slate-900">Right to deletion (Pasal 36):</strong> Request deletion of your personal data where there is no lawful basis for continued processing.</li>
-                <li><strong className="text-slate-900">Right to withdraw consent (Pasal 38):</strong> Withdraw consent at any time where consent is the legal basis for processing.</li>
-                <li><strong className="text-slate-900">Right to object (Pasal 37):</strong> Object to processing in specific circumstances.</li>
+                <li><strong className="text-slate-900">Right to information (Pasal 5):</strong> Know who processes your personal data, for what purpose, and on what basis.</li>
+                <li><strong className="text-slate-900">Right to correction (Pasal 6):</strong> Request correction of inaccurate or incomplete data.</li>
+                <li><strong className="text-slate-900">Right to access (Pasal 7):</strong> Request access to and a copy of the personal data we hold about you.</li>
+                <li><strong className="text-slate-900">Right to end processing and deletion (Pasal 8):</strong> Request that we stop processing, delete, or destroy your personal data.</li>
+                <li><strong className="text-slate-900">Right to withdraw consent (Pasal 9):</strong> Withdraw consent at any time where consent is the legal basis for processing.</li>
+                <li><strong className="text-slate-900">Right to restrict processing (Pasal 11):</strong> Request that processing be delayed or limited.</li>
+                <li><strong className="text-slate-900">Right to data portability (Pasal 13):</strong> Obtain your personal data in a commonly used, machine-readable format.</li>
               </ul>
               <p className="mt-3">
                 To exercise these rights, contact <a href="mailto:privacy@patuhdata.id" className="text-primary-600 hover:underline">privacy@patuhdata.id</a>. We will verify and respond within the period required by applicable law.
@@ -101,7 +103,7 @@ export default function PrivacyPolicy() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">9. Security</h2>
               <p>
-                We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction — including TLS encryption for data in transit, access controls, and regular security reviews consistent with ISO 27001 standards.
+                We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction — including TLS encryption for data in transit, access controls, and regular security reviews.
               </p>
             </div>
 
@@ -118,7 +120,7 @@ export default function PrivacyPolicy() {
                 For privacy inquiries: <a href="mailto:privacy@patuhdata.id" className="text-primary-600 hover:underline">privacy@patuhdata.id</a>
               </p>
               <p className="mt-2">
-                If you are not satisfied with our response, you have the right to lodge a complaint with Badan Perlindungan Data Pribadi (Badan PDP) in accordance with UU PDP No. 27/2022.
+                If you are not satisfied with our response, you may lodge a complaint with the personal data protection authority established under UU PDP No. 27/2022.
               </p>
             </div>
 

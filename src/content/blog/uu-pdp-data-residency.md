@@ -7,6 +7,7 @@ date: "2026-05-15"
 author: "PatuhData"
 readTime: "9 min read"
 published: true
+service: "uu-pdp-readiness-assessment"
 ---
 Indonesia's Personal Data Protection Law does not create a blanket rule that every company must store all data inside Indonesia. It does, however, make organizations accountable for how personal data is protected—including when it crosses national borders.
 

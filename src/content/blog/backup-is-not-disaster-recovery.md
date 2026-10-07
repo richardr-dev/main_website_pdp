@@ -2,14 +2,15 @@
 slug: "backup-is-not-disaster-recovery"
 title: "A Backup Is Not a Disaster-Recovery Plan"
 excerpt: "Why successful backup jobs do not guarantee recovery—and what businesses should test before an incident."
-category: "Cyber Resilience"
+category: "Backup & Recovery"
 date: "2026-09-10"
 author: "PatuhData"
 readTime: "7 min read"
 image: "/images/cyber-resilience-hero.jpg"
-imageAlt: "Technology operations environment representing cyber resilience"
+imageAlt: "Technology operations environment representing data backup and recovery"
 pinned: false
 published: true
+service: "managed-backup-recovery"
 ---
 A dashboard full of green backup indicators can create dangerous confidence. It proves that a backup process reported success; it does not prove that the business can restore the right systems, in the right order, within an acceptable time.
 
