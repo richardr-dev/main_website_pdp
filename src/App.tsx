@@ -4,7 +4,7 @@ import './resilience.css'
 import ResilienceHome from './components/ResilienceHome'
 import ResilienceNav from './components/ResilienceNav'
 import ServicePage from './components/ServicePage'
-import { resilienceServices, serviceAliases } from './data/resilienceServices'
+import { complianceServices, resilienceLine, resilienceServices, serviceAliases } from './data/resilienceServices'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsOfService from './components/TermsOfService'
 import CookiePolicy from './components/CookiePolicy'
@@ -35,16 +35,16 @@ function useSeo(path: string) {
       : undefined
     const pages: Record<string, SeoData> = {
       '/': {
-        title: 'UU PDP Implementation & Privacy Engineering in Indonesia | PatuhData',
-        description: 'PatuhData builds UU PDP compliance into your systems, not just your documents. Engineering-led implementation and ongoing data protection for organizations in Indonesia.',
+        title: 'UU PDP Compliance & Backup Recovery for Medium Enterprises | PatuhData',
+        description: 'PatuhData helps medium enterprises in Indonesia build UU PDP compliance into their systems and keep critical data recoverable with managed backup and disaster recovery.',
       },
       '/contact': {
         title: 'Discuss Your UU PDP Program | PatuhData',
-        description: 'Talk to PatuhData in Jakarta about UU PDP readiness, implementation, privacy engineering, and managed data protection.',
+        description: 'Talk to PatuhData in Jakarta about UU PDP compliance, backup and recovery assessments, disaster recovery, and managed services.',
       },
       '/insights': {
-        title: 'UU PDP & Data Protection Insights | PatuhData',
-        description: 'Practical guidance from PatuhData on UU PDP implementation, privacy engineering, and data recovery for organizations in Indonesia.',
+        title: 'UU PDP, Backup & Recovery Insights | PatuhData',
+        description: 'Practical guidance from PatuhData on UU PDP compliance, backup, and disaster recovery for medium enterprises in Indonesia.',
       },
       '/insights/uu-pdp-data-residency': {
         title: 'UU PDP and Data Residency in Indonesia | PatuhData',
@@ -79,7 +79,7 @@ function useSeo(path: string) {
     setMeta('meta[property="og:type"]', { property: 'og:type', content: data.type || 'website' })
     setMeta('meta[property="og:url"]', { property: 'og:url', content: canonical })
     setMeta('meta[property="og:image"]', { property: 'og:image', content: image })
-    setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'PatuhData managed data protection services in Indonesia' })
+    setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: 'PatuhData: UU PDP compliance and backup recovery for medium enterprises in Indonesia' })
     setMeta('meta[property="og:locale"]', { property: 'og:locale', content: 'en_ID' })
     setMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: data.title })
@@ -200,7 +200,7 @@ export default function App({ path }: { path?: string } = {}) {
     <a className="cr-skip" href="#main-content">Skip to content</a>
     <ResilienceNav />
     {route === '/contact' ? <main id="main-content" className="contact-page"><Contact/></main> : route === '/privacy' ? <main id="main-content"><PrivacyPolicy/></main> : route === '/terms' ? <main id="main-content"><TermsOfService/></main> : route === '/cookies' ? <main id="main-content"><CookiePolicy/></main> : route === '/insights' ? <InsightsIndex/> : insightSlug ? <InsightArticle slug={insightSlug}/> : serviceSlug ? <ServiceRoute slug={serviceSlug}/> : route === '/' ? <ResilienceHome /> : <NotFound />}
-    <footer className="enterprise-footer"><div className="footer-main"><div className="footer-intro"><img src="/logo-white.png" alt="PatuhData"/><p>Engineering-led UU PDP implementation and ongoing data protection for organizations in Indonesia.</p></div><div><strong>Services</strong>{resilienceServices.map(service => <a key={service.slug} href={`/services/${service.slug}`}>{service.title}</a>)}</div><div><strong>Company</strong><a href="/#about">About Us</a><a href="/#industries">Industries</a><a href="/insights">Insights</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/patuhdata-id" target="_blank" rel="noreferrer">LinkedIn</a></div><div><strong>Contact Us</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><a className="footer-address" href="https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630" target="_blank" rel="noreferrer">INFINITI OFFICE<br/>Jl. Permata Regency, Jl. H. Kelik<br/>RT.1/RW.6, Srengseng, Kembangan<br/>West Jakarta, DKI Jakarta 11630</a></div></div><div className="footer-bottom"><p>© 2026 PT PatuhData Solusi Nusantara. All rights reserved. Our services do not constitute legal advice.</p><div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a><button type="button" className="cr-cookie-settings" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button><a href="#main-content">Back to top ↑</a></div></div></footer>
+    <footer className="enterprise-footer"><div className="footer-main"><div className="footer-intro"><img src="/logo-white.png" alt="PatuhData"/><p>UU PDP compliance, and backup and recovery, for medium enterprises in Indonesia.</p></div><div><strong>Services</strong><span className="footer-group">Compliance</span>{complianceServices.map(service => <a key={service.slug} href={`/services/${service.slug}`}>{service.title}</a>)}<span className="footer-group">Resilience</span>{resilienceLine.map(service => <a key={service.slug} href={`/services/${service.slug}`}>{service.title}</a>)}</div><div><strong>Company</strong><a href="/#about">About Us</a><a href="/#industries">Industries</a><a href="/insights">Insights</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/patuhdata-id" target="_blank" rel="noreferrer">LinkedIn</a></div><div><strong>Contact Us</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><a className="footer-address" href="https://maps.google.com/?q=INFINITI+OFFICE+Jl.+Permata+Regency+Jl.+H.+Kelik+Srengseng+Jakarta+Barat+11630" target="_blank" rel="noreferrer">INFINITI OFFICE<br/>Jl. Permata Regency, Jl. H. Kelik<br/>RT.1/RW.6, Srengseng, Kembangan<br/>West Jakarta, DKI Jakarta 11630</a></div></div><div className="footer-bottom"><p>© 2026 PT PatuhData Solusi Nusantara. All rights reserved. Our services do not constitute legal advice.</p><div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="/cookies">Cookie Policy</a><button type="button" className="cr-cookie-settings" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button><a href="#main-content">Back to top ↑</a></div></div></footer>
     <CookieConsent lang={lang} />
     <WhatsAppButton />
   </div>

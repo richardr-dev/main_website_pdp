@@ -16,11 +16,12 @@ describe('application routes', () => {
     ['/services/backup-restore', 'Managed Backup & Recovery', 'Managed Backup & Recovery Indonesia | PatuhData'],
     ['/services/patuhdata-academy', 'Page not found', 'Page Not Found | PatuhData'],
     ['/insights/managed-it', 'Insight not found', 'Page Not Found | PatuhData'],
-    ['/contact', 'Let’s make privacy operational.', 'Discuss Your UU PDP Program | PatuhData'],
+    ['/contact', 'Let’s protect your data.', 'Discuss Your UU PDP Program | PatuhData'],
     ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
     ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
     ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],
-    ['/insights', 'Practical guidance on UU PDP.', 'UU PDP & Data Protection Insights | PatuhData'],
+    ['/insights', 'Practical guidance on UU PDP and recovery.', 'UU PDP, Backup & Recovery Insights | PatuhData'],
+    ['/services/disaster-recovery', 'Disaster Recovery as a Service', 'Disaster Recovery as a Service Indonesia | PatuhData'],
   ])('renders %s directly with route metadata', (path, heading, title) => {
     window.history.replaceState({}, '', path)
     render(<App />)

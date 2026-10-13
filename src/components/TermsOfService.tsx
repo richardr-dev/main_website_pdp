@@ -26,7 +26,7 @@ export default function TermsOfService() {
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Services</h2>
               <p>
-                PatuhData provides personal data protection services to organizations in Indonesia, including UU PDP readiness assessments, UU PDP implementation, privacy engineering, managed data protection, and managed backup and recovery. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
+                PatuhData provides personal data protection services to organizations in Indonesia, including UU PDP readiness assessments, UU PDP implementation, privacy engineering, managed data protection, backup and recovery assessments, managed backup and recovery, disaster recovery as a service, and business continuity planning. Services are described on this website for informational purposes and are subject to the specific scope defined in each client's Service Agreement.
               </p>
               <p className="mt-3">
                 Website content (including service descriptions, pricing models, and SLA commitments) constitutes general information only and does not constitute a binding offer unless confirmed in a written Service Agreement.

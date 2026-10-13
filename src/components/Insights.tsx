@@ -6,7 +6,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('en-ID', { day: 'nu
 
 export function InsightsIndex() {
   return <main id="main-content" className="insights-page">
-    <section className="article-hero"><span className="kicker">PATUHDATA INSIGHTS</span><h1>Practical guidance on UU PDP.</h1><p>Implementation, privacy engineering, and data recovery, explained clearly for teams that have to make it work.</p></section>
+    <section className="article-hero"><span className="kicker">PATUHDATA INSIGHTS</span><h1>Practical guidance on UU PDP and recovery.</h1><p>Compliance, backup, and disaster recovery, explained clearly for the IT and management teams that have to make it work.</p></section>
     <section className="cr-section"><div className="cr-insights">{blogPosts.map(post => <a key={post.slug} href={`/insights/${post.slug}`}>
       {post.image
         ? <img className="cr-insight-image" src={post.image} alt={post.imageAlt || ''} />

@@ -75,8 +75,8 @@ export default function Contact() {
     <div className="cr-contact-card">
       <div className="cr-contact-intro">
         <p className="cr-contact-kicker">START A CONVERSATION</p>
-        <h1 id="consultation-title">Let’s make privacy operational.</h1>
-        <p className="cr-contact-lead">Tell us how your organization uses personal data, what has already been prepared, and where you need clarity. We’ll define a practical first step.</p>
+        <h1 id="consultation-title">Let’s protect your data.</h1>
+        <p className="cr-contact-lead">Tell us about your systems, sites, and what has already been prepared for UU PDP or backup. We’ll define a practical first step.</p>
         <div className="cr-contact-next">
           <h2>What happens next</h2>
           <ol>
@@ -98,7 +98,7 @@ export default function Contact() {
         </div> : <form onSubmit={submit} aria-label="UU PDP consultation inquiry">
           <p className="cr-form-eyebrow">YOUR DATA PROTECTION NEEDS</p>
           <h2>Tell us where you are today.</h2>
-          <p className="cr-form-intro">A few details help us recommend the right starting point: an assessment, implementation, privacy engineering, or a managed service.</p>
+          <p className="cr-form-intro">A few details help us recommend the right starting point: a UU PDP or backup assessment, a project, or a managed service.</p>
           <div className="cr-form-grid">
             <label htmlFor="consult-name">Full name <span>*</span><input id="consult-name" name="name" type="text" autoComplete="name" placeholder="Your name" required maxLength={120} value={form.name} onChange={update} /></label>
             <label htmlFor="consult-email">Work email <span>*</span><input id="consult-email" name="email" type="email" autoComplete="email" placeholder="name@company.com" required maxLength={180} value={form.email} onChange={update} /></label>

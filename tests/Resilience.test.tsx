@@ -15,13 +15,15 @@ describe('operational privacy experience', () => {
   it('connects each core service to its page and every consultation to the form', () => {
     render(<App />)
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Map.Build.Prove.')
-    expect(screen.getByRole('heading', { level: 2, name: coreService.title })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: /Two service lines/ })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: 'Keep critical systems recoverable' })).toBeInTheDocument()
     for (const service of resilienceServices) {
       for (const link of screen.getAllByRole('link', { name: `Explore ${service.title}` })) expect(link).toHaveAttribute('href', `/services/${service.slug}`)
     }
     for (const cta of screen.getAllByRole('link', { name: /Talk to Our Team/ })) expect(cta.getAttribute('href')).toMatch(/^\/contact/)
     expect(document.body).not.toHaveTextContent(/Rp ?\d|per month|Wazuh|CISO Assistant|margin/i)
-    for (const cta of screen.getAllByRole('link', { name: /Start With an Assessment/ })) expect(cta).toHaveAttribute('href', '/contact?service=uu-pdp-readiness-assessment')
+    expect(screen.getByRole('link', { name: /UU PDP assessment/ })).toHaveAttribute('href', '/contact?service=uu-pdp-readiness-assessment')
+    expect(screen.getByRole('link', { name: /Backup assessment/ })).toHaveAttribute('href', '/contact?service=backup-recovery-assessment')
     expect(document.body).not.toHaveTextContent(/Rp5|Request a Quotation|RECOMMENDED|sub-15/)
     const sectionNav = screen.getByRole('navigation', { name: 'On this page' })
     for (const link of within(sectionNav).getAllByRole('link')) expect(document.querySelector(link.getAttribute('href')!)).not.toBeNull()
