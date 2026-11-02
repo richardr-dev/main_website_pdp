@@ -5,43 +5,138 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/services/uu-pdp-workspace",
-      "destination": "/services/managed-data-protection",
+      "source": "/services/managed-it-services",
+      "destination": "/services/managed-it-business-continuity",
       "permanent": true
     },
     {
-      "source": "/services/uu-pdp",
-      "destination": "/services/uu-pdp-readiness-assessment",
+      "source": "/services/it-assessment",
+      "destination": "/services/managed-it-business-continuity",
       "permanent": true
     },
     {
-      "source": "/services/uu-pdp-compliance",
-      "destination": "/services/uu-pdp-readiness-assessment",
+      "source": "/services/backup-recovery-assessment",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/managed-backup-recovery",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/disaster-recovery-as-a-service",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/disaster-recovery",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/business-continuity",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/business-continuity-planning",
+      "destination": "/services/managed-it-business-continuity",
       "permanent": true
     },
     {
       "source": "/services/backup-restore",
-      "destination": "/services/managed-backup-recovery",
+      "destination": "/services/managed-it-business-continuity",
       "permanent": true
     },
     {
       "source": "/services/data-recovery",
-      "destination": "/services/managed-backup-recovery",
+      "destination": "/services/managed-it-business-continuity",
       "permanent": true
     },
     {
-      "source": "/services/colocation-server",
-      "destination": "/",
+      "source": "/services/uu-pdp",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/uu-pdp-compliance",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/uu-pdp-setup-sprint",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/uu-pdp-readiness-assessment",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/uu-pdp-workspace",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/managed-data-protection",
+      "destination": "/services/managed-it-business-continuity",
+      "permanent": true
+    },
+    {
+      "source": "/services/migration-services",
+      "destination": "/services/it-infrastructure-implementation",
+      "permanent": true
+    },
+    {
+      "source": "/services/managed-cloud-infrastructure",
+      "destination": "/services/it-infrastructure-implementation",
       "permanent": true
     },
     {
       "source": "/services/managed-infrastructure",
-      "destination": "/",
+      "destination": "/services/it-infrastructure-implementation",
       "permanent": true
     },
     {
       "source": "/services/cloud-aws",
-      "destination": "/",
+      "destination": "/services/it-infrastructure-implementation",
+      "permanent": true
+    },
+    {
+      "source": "/services/migration",
+      "destination": "/services/it-infrastructure-implementation",
+      "permanent": true
+    },
+    {
+      "source": "/services/cloud-migration",
+      "destination": "/services/it-infrastructure-implementation",
+      "permanent": true
+    },
+    {
+      "source": "/services/colocation-server",
+      "destination": "/services/it-infrastructure-implementation",
+      "permanent": true
+    },
+    {
+      "source": "/services/custom-software-development",
+      "destination": "/services/business-systems-integration",
+      "permanent": true
+    },
+    {
+      "source": "/services/systems-integration",
+      "destination": "/services/business-systems-integration",
+      "permanent": true
+    },
+    {
+      "source": "/services/production-operations-systems",
+      "destination": "/services/business-systems-integration",
+      "permanent": true
+    },
+    {
+      "source": "/services/privacy-technology-remediation",
+      "destination": "/services/business-systems-integration",
       "permanent": true
     },
     {
@@ -50,23 +145,43 @@
       "permanent": true
     },
     {
-      "source": "/insights/managed-it",
-      "destination": "/insights",
+      "source": "/work",
+      "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/layanan/pdp-readiness-assessment",
-      "destination": "/services/uu-pdp-readiness-assessment",
+      "source": "/work/:path*",
+      "destination": "/about",
       "permanent": true
     },
     {
-      "source": "/layanan/:path*",
+      "source": "/portfolio",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/insights",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/insights/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/downloads/:path*",
       "destination": "/",
       "permanent": true
     },
     {
       "source": "/template-gratis",
-      "destination": "/#resources",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/layanan/:path*",
+      "destination": "/id",
       "permanent": true
     }
   ],

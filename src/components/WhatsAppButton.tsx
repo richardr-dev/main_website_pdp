@@ -1,10 +1,10 @@
-const WA_NUMBER = '6281903378000'
-const WA_MESSAGE = encodeURIComponent('Hello PatuhData, I would like to discuss UU PDP implementation and data protection for our organization.')
+import { whatsappLink } from '../data/company'
+import { copy, type Lang } from '../data/copy'
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ lang = 'en' }: { lang?: Lang }) {
   return (
     <a
-      href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`}
+      href={whatsappLink(copy[lang].whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg transition-transform duration-200 hover:scale-110"
