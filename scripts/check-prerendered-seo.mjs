@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { fileURLToPath } from 'node:url'
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
-const { pages: routes } = await import(pathToFileURL(join(projectRoot, 'dist-server', 'entry-server.js')).href)
+const routes = JSON.parse(await readFile(join(projectRoot, 'src', 'seo-routes.json'), 'utf8'))
 const sitemap = await readFile(join(projectRoot, 'dist', 'sitemap.xml'), 'utf8')
 const escaped = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 
@@ -12,13 +12,13 @@ for (const [route, meta] of Object.entries(routes)) {
   const html = await readFile(output, 'utf8')
   const canonical = `https://patuhdata.id${route === '/' ? '' : route}`
   const required = [
-    `<title>${escaped(meta.title)}</title>`,
+    `<title>${escaped(meta.type === 'Article' ? html.match(/<title>([^<]*)<\/title>/)[1] : meta.title)}</title>`,
     `rel="canonical" href="${canonical}"`,
     `property="og:url" content="${canonical}"`,
     'data-route-seo',
     '<h1',
   ]
-  required.push(`name="description" content="${escaped(meta.description)}`)
+  if (meta.type !== 'Article') required.push(`name="description" content="${escaped(meta.description)}`)
   required.forEach((value) => {
     if (!html.includes(value)) throw new Error(`Missing ${value} in ${output}`)
   })

@@ -5,138 +5,68 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/services/managed-it-services",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
+      "source": "/about",
+      "destination": "/#about",
+      "permanent": false
     },
     {
-      "source": "/services/it-assessment",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
+      "source": "/industries/:slug*",
+      "destination": "/#industries",
+      "permanent": false
     },
     {
-      "source": "/services/backup-recovery-assessment",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
+      "source": "/services/managed-it-business-continuity",
+      "destination": "/services/managed-backup-recovery",
+      "permanent": false
     },
     {
-      "source": "/services/managed-backup-recovery",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
+      "source": "/services/business-systems-integration",
+      "destination": "/services/privacy-technology-remediation",
+      "permanent": false
     },
     {
-      "source": "/services/disaster-recovery-as-a-service",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
+      "source": "/services/(it-infrastructure-implementation|hardware-procurement)",
+      "destination": "/",
+      "permanent": false
     },
     {
-      "source": "/services/disaster-recovery",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/business-continuity",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/business-continuity-planning",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/backup-restore",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/data-recovery",
-      "destination": "/services/managed-it-business-continuity",
+      "source": "/services/uu-pdp-workspace",
+      "destination": "/services/managed-data-protection",
       "permanent": true
     },
     {
       "source": "/services/uu-pdp",
-      "destination": "/services/managed-it-business-continuity",
+      "destination": "/services/uu-pdp-readiness-assessment",
       "permanent": true
     },
     {
       "source": "/services/uu-pdp-compliance",
-      "destination": "/services/managed-it-business-continuity",
+      "destination": "/services/uu-pdp-readiness-assessment",
       "permanent": true
     },
     {
-      "source": "/services/uu-pdp-setup-sprint",
-      "destination": "/services/managed-it-business-continuity",
+      "source": "/services/backup-restore",
+      "destination": "/services/managed-backup-recovery",
       "permanent": true
     },
     {
-      "source": "/services/uu-pdp-readiness-assessment",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/uu-pdp-workspace",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/managed-data-protection",
-      "destination": "/services/managed-it-business-continuity",
-      "permanent": true
-    },
-    {
-      "source": "/services/migration-services",
-      "destination": "/services/it-infrastructure-implementation",
-      "permanent": true
-    },
-    {
-      "source": "/services/managed-cloud-infrastructure",
-      "destination": "/services/it-infrastructure-implementation",
-      "permanent": true
-    },
-    {
-      "source": "/services/managed-infrastructure",
-      "destination": "/services/it-infrastructure-implementation",
-      "permanent": true
-    },
-    {
-      "source": "/services/cloud-aws",
-      "destination": "/services/it-infrastructure-implementation",
-      "permanent": true
-    },
-    {
-      "source": "/services/migration",
-      "destination": "/services/it-infrastructure-implementation",
-      "permanent": true
-    },
-    {
-      "source": "/services/cloud-migration",
-      "destination": "/services/it-infrastructure-implementation",
+      "source": "/services/data-recovery",
+      "destination": "/services/managed-backup-recovery",
       "permanent": true
     },
     {
       "source": "/services/colocation-server",
-      "destination": "/services/it-infrastructure-implementation",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/services/custom-software-development",
-      "destination": "/services/business-systems-integration",
+      "source": "/services/managed-infrastructure",
+      "destination": "/",
       "permanent": true
     },
     {
-      "source": "/services/systems-integration",
-      "destination": "/services/business-systems-integration",
-      "permanent": true
-    },
-    {
-      "source": "/services/production-operations-systems",
-      "destination": "/services/business-systems-integration",
-      "permanent": true
-    },
-    {
-      "source": "/services/privacy-technology-remediation",
-      "destination": "/services/business-systems-integration",
+      "source": "/services/cloud-aws",
+      "destination": "/",
       "permanent": true
     },
     {
@@ -145,43 +75,23 @@
       "permanent": true
     },
     {
-      "source": "/work",
-      "destination": "/about",
+      "source": "/insights/managed-it",
+      "destination": "/insights",
       "permanent": true
     },
     {
-      "source": "/work/:path*",
-      "destination": "/about",
+      "source": "/layanan/pdp-readiness-assessment",
+      "destination": "/services/uu-pdp-readiness-assessment",
       "permanent": true
     },
     {
-      "source": "/portfolio",
-      "destination": "/about",
-      "permanent": true
-    },
-    {
-      "source": "/insights",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/insights/:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/downloads/:path*",
+      "source": "/layanan/:path*",
       "destination": "/",
       "permanent": true
     },
     {
       "source": "/template-gratis",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/layanan/:path*",
-      "destination": "/id",
+      "destination": "/#resources",
       "permanent": true
     }
   ],

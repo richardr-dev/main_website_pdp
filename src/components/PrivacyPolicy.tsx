@@ -27,8 +27,8 @@ export default function PrivacyPolicy() {
               <h2 className="text-xl font-bold text-slate-900 mb-3">2. Data We Collect</h2>
               <p className="mb-3">We collect personal data in the following circumstances:</p>
               <ul className="space-y-2 ml-5 list-disc">
-                <li><strong className="text-slate-900">Requirements form:</strong> Company name, contact person, business email, phone or WhatsApp number, industry, required solution, project description, and an optional budget range.</li>
-                <li><strong className="text-slate-900">Campaign source:</strong> If you arrive through an advertisement or a tagged link, the campaign details in that link (such as the source, campaign name, and advertising click ID) and the page you landed on are kept in your browser for that visit and sent with your form, so we know which campaigns lead to inquiries. They are not used to identify you.</li>
+                <li><strong className="text-slate-900">Consultation forms:</strong> Name, company, role, business email, WhatsApp number, organization details, interests, timeline, and message.</li>
+                <li><strong className="text-slate-900">Free resource requests:</strong> Name, company, and business email, together with the resources requested.</li>
                 <li><strong className="text-slate-900">Consent records:</strong> A random consent ID, timestamp, policy version, consent method, and selected cookie categories. Browser-side consent records do not intentionally contain your name or email.</li>
                 <li><strong className="text-slate-900">Analytics:</strong> If you accept optional analytics cookies, we collect anonymised usage data (pages visited, session duration, browser type) via analytics tooling. No personally identifiable information is collected through analytics.</li>
                 <li><strong className="text-slate-900">Email correspondence:</strong> If you contact us by email, we retain the content of that correspondence and your email address.</li>
