@@ -3,15 +3,14 @@ import './index.css'
 import './site.css'
 import Home from './components/Home'
 import SiteNav from './components/SiteNav'
-import PrivacyPolicy from './components/PrivacyPolicy'
-import TermsOfService from './components/TermsOfService'
-import CookiePolicy from './components/CookiePolicy'
+import LegalPage from './components/LegalPage'
 import Contact from './components/Contact'
 import CookieConsent from './components/CookieConsent'
 import WhatsAppButton from './components/WhatsAppButton'
 import seoRoutes from './seo-routes.json'
 import { trackLead } from './lib/analytics'
 import { commerceLogin } from './lib/links'
+import { basePath, copy, home, langFromPath, localize, type Lang } from './i18n'
 
 const siteUrl = 'https://patuhdata.id'
 const routes = seoRoutes as Record<string, { title: string; description: string }>
@@ -31,7 +30,9 @@ function useSeo(path: string) {
     const notFound = !routes[path]
     const data = routes[path] ?? notFoundMeta
     const canonical = `${siteUrl}${path === '/' ? '' : path}`
-    document.documentElement.lang = 'en-ID'
+    const lang = langFromPath(path)
+    document.documentElement.lang = lang === 'id' ? 'id-ID' : 'en-ID'
+    setMeta('meta[property="og:locale"]', { property: 'og:locale', content: lang === 'id' ? 'id_ID' : 'en_ID' })
     document.title = data.title
     setMeta('meta[name="description"]', { name: 'description', content: data.description })
     setMeta('meta[name="robots"]', { name: 'robots', content: notFound ? 'noindex, follow' : 'index, follow, max-image-preview:large' })
@@ -53,21 +54,23 @@ function useSeo(path: string) {
 
 const normalizePath = (path: string) => (path.length > 1 ? path.replace(/\/+$/, '') : path) || '/'
 
-function NotFound() {
-  return <main id="main-content" className="pd-notfound"><p className="pd-eyebrow">404</p><h1>Page not found</h1><p>This page may have moved.</p><a className="pd-button" href="/">Go to the homepage</a></main>
+function NotFound({ lang }: { lang: Lang }) {
+  const t = copy[lang].notFound
+  return <main id="main-content" className="pd-notfound"><p className="pd-eyebrow">404</p><h1>{t.title}</h1><p>{t.text}</p><a className="pd-button" href={localize('/', lang)}>{t.back}</a></main>
 }
 
-function Footer() {
+function Footer({ lang }: { lang: Lang }) {
+  const t = copy[lang]
   return <footer className="pd-footer">
     <div className="pd-footer-main">
-      <div><img src="/logo/logo-reversed.png" alt="PatuhData Accounting" width="164" height="40" /><p>Invoicing, ledgers and tax reports in one place, for businesses in Indonesia.</p></div>
-      <div><strong>Product</strong><a href="/#features">Features</a><a href="/#how-it-works">How it works</a><a href="/#faq">FAQ</a></div>
-      <div><strong>Account</strong><a href={commerceLogin}>Sign in</a><a href="/contact">Contact sales</a></div>
-      <div><strong>Contact</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><address>INFINITI OFFICE, Jl. Permata Regency<br />Kembangan, West Jakarta 11630</address></div>
+      <div><img src="/logo/logo-reversed.png" alt="PatuhData Accounting" width="164" height="40" /><p>{t.footer.tagline}</p></div>
+      <div><strong>{t.footer.product}</strong><a href={home('features', lang)}>{t.nav.features}</a><a href={home('how-it-works', lang)}>{t.nav.how}</a><a href={home('faq', lang)}>{t.nav.faq}</a></div>
+      <div><strong>{t.footer.account}</strong><a href={commerceLogin}>{t.nav.signIn}</a><a href={localize('/contact', lang)}>{t.nav.sales}</a></div>
+      <div><strong>{t.footer.contact}</strong><a href="mailto:hello@patuhdata.id">hello@patuhdata.id</a><a href="https://wa.me/6281903378000">+62 819 0337 8000</a><address>INFINITI OFFICE, Jl. Permata Regency<br />Kembangan, {lang === 'id' ? 'Jakarta Barat' : 'West Jakarta'} 11630</address></div>
     </div>
     <div className="pd-footer-bottom">
       <p>© 2026 PT PatuhData Solusi Nusantara</p>
-      <div><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><button type="button" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>Cookie Settings</button></div>
+      <div><a href={localize('/privacy', lang)}>{t.footer.privacy}</a><a href={localize('/terms', lang)}>{t.footer.terms}</a><a href={localize('/cookies', lang)}>{t.footer.cookies}</a><button type="button" onClick={() => window.dispatchEvent(new Event('patuhdata:open-consent'))}>{t.footer.cookieSettings}</button></div>
     </div>
   </footer>
 }
@@ -91,23 +94,23 @@ export default function App({ path }: { path?: string } = {}) {
   useEffect(() => {
     const id = window.location.hash.replace('#', '')
     requestAnimationFrame(() => {
-      if (route === '/' && id) document.getElementById(id)?.scrollIntoView({ block: 'start' })
+      if (basePath(route) === '/' && id) document.getElementById(id)?.scrollIntoView({ block: 'start' })
       else window.scrollTo({ top: 0, behavior: 'auto' })
     })
   }, [route])
   useSeo(route)
-  const page = route === '/' ? <Home />
-    : route === '/contact' ? <main id="main-content"><Contact /></main>
-    : route === '/privacy' ? <main id="main-content"><PrivacyPolicy /></main>
-    : route === '/terms' ? <main id="main-content"><TermsOfService /></main>
-    : route === '/cookies' ? <main id="main-content"><CookiePolicy /></main>
-    : <NotFound />
-  return <div className="pd-site">
-    <a className="pd-skip" href="#main-content">Skip to content</a>
-    <SiteNav />
+  const lang = langFromPath(route)
+  const base = basePath(route)
+  const page = base === '/' ? <Home lang={lang} />
+    : base === '/contact' ? <main id="main-content"><Contact lang={lang} /></main>
+    : base === '/privacy' || base === '/terms' || base === '/cookies' ? <LegalPage doc={base.slice(1) as 'privacy' | 'terms' | 'cookies'} lang={lang} />
+    : <NotFound lang={lang} />
+  return <div className="pd-site" lang={lang}>
+    <a className="pd-skip" href="#main-content">{lang === 'id' ? 'Langsung ke konten' : 'Skip to content'}</a>
+    <SiteNav lang={lang} page={routes[route] ? base : '/'} />
     {page}
-    <Footer />
-    <CookieConsent lang="en" />
-    <WhatsAppButton />
+    <Footer lang={lang} />
+    <CookieConsent lang={lang} />
+    <WhatsAppButton lang={lang} />
   </div>
 }

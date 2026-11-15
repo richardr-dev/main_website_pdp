@@ -1,7 +1,12 @@
 {
-  "/": {"title": "PatuhData Accounting: Invoicing, Ledgers & Tax Reports in One Place", "description": "Bookkeeping and accounting software for businesses in Indonesia. Invoicing, ledgers and tax reports in one place, with e-Faktur sync built in.", "type": "WebPage"},
-  "/contact": {"title": "Contact Sales | PatuhData Accounting", "description": "Talk to the PatuhData sales team in Jakarta about setting up an account for invoicing, ledgers and tax reports for your company.", "type": "ContactPage"},
-  "/privacy": {"title": "Privacy Policy | PatuhData", "description": "How PatuhData collects, uses, protects and manages personal data.", "type": "WebPage"},
-  "/terms": {"title": "Terms of Service | PatuhData", "description": "Terms governing the use of the PatuhData website and services.", "type": "WebPage"},
-  "/cookies": {"title": "Cookie Policy | PatuhData", "description": "Information about cookies used on the PatuhData website.", "type": "WebPage"}
+  "/": {"title": "PatuhData Accounting: Aplikasi Pembukuan & Akuntansi untuk Bisnis", "description": "Aplikasi akuntansi untuk usaha mikro, kecil, menengah, hingga enterprise di Indonesia. Faktur, stok, buku besar, dan laporan pajak dalam satu aplikasi.", "type": "WebPage"},
+  "/contact": {"title": "Hubungi Sales | PatuhData Accounting", "description": "Bicara dengan tim sales PatuhData di Jakarta untuk membuka akun pembukuan dan akuntansi bagi usaha Anda.", "type": "ContactPage"},
+  "/privacy": {"title": "Kebijakan Privasi | PatuhData", "description": "Bagaimana PatuhData mengumpulkan, memakai, melindungi, dan mengelola data pribadi.", "type": "WebPage"},
+  "/terms": {"title": "Syarat & Ketentuan | PatuhData", "description": "Ketentuan penggunaan situs dan layanan PatuhData.", "type": "WebPage"},
+  "/cookies": {"title": "Kebijakan Cookie | PatuhData", "description": "Informasi tentang cookie yang dipakai di situs PatuhData.", "type": "WebPage"},
+  "/en": {"title": "PatuhData Accounting: Bookkeeping & Accounting Software for Business", "description": "Accounting software for Indonesian businesses, from micro and small businesses to medium companies and enterprises. Invoicing, stock, ledgers and tax reports in one app.", "type": "WebPage"},
+  "/en/contact": {"title": "Contact Sales | PatuhData Accounting", "description": "Talk to the PatuhData sales team in Jakarta about opening a bookkeeping and accounting account for your business.", "type": "ContactPage"},
+  "/en/privacy": {"title": "Privacy Policy | PatuhData", "description": "How PatuhData collects, uses, protects and manages personal data.", "type": "WebPage"},
+  "/en/terms": {"title": "Terms of Service | PatuhData", "description": "Terms governing the use of the PatuhData website and services.", "type": "WebPage"},
+  "/en/cookies": {"title": "Cookie Policy | PatuhData", "description": "Information about cookies used on the PatuhData website.", "type": "WebPage"}
 }

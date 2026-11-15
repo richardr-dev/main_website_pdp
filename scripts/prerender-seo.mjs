@@ -27,17 +27,22 @@ const parseFrontMatter = (source) => {
 
 const escapeAttribute = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const replaceMeta = (html, selector, value) => html.replace(selector, `$1${escapeAttribute(value)}$2`)
-const absolute = (url) => (url?.startsWith('http') ? url : `${siteUrl}${url || '/logo/logo-glacier-on-white.png'}`)
+const absolute = (url) => (url?.startsWith('http') ? url : `${siteUrl}${url || '/og-image.png'}`)
 const jsonLd = (value) => JSON.stringify(value).replaceAll('<', '\\u003c')
 
 const breadcrumbName = (route, meta) => {
   if (route === '/insights') return 'Insights'
-  if (route === '/contact') return 'Contact'
+  if (route.endsWith('/contact')) return isEnglish(route) ? 'Contact sales' : 'Hubungi sales'
   return meta.headline || meta.title.replace(/ \| PatuhData$/, '').replace(/ Indonesia$/, '')
 }
 
+const isEnglish = (route) => route === '/en' || route.startsWith('/en/')
+const homeRoute = (route) => (isEnglish(route) ? '/en' : '/')
+const counterpart = (route) => (isEnglish(route) ? route.slice(3) || '/' : route === '/' ? '/en' : `/en${route}`)
+const url = (route) => `${siteUrl}${route === '/' ? '/' : route}`
+
 const breadcrumbs = (route, meta) => {
-  const items = [{ name: 'Home', url: `${siteUrl}/` }]
+  const items = [{ name: isEnglish(route) ? 'Home' : 'Beranda', url: url(homeRoute(route)) }]
   if (route.startsWith('/insights/')) items.push({ name: 'Insights', url: `${siteUrl}/insights` })
   if (route.startsWith('/services/')) items.push({ name: 'Services', url: `${siteUrl}/#approach` })
   items.push({ name: breadcrumbName(route, meta), url: `${siteUrl}${route}` })
@@ -53,7 +58,7 @@ const routeSchema = (route, meta, canonical) => {
     ? {
         '@type': 'Article', '@id': `${canonical}#article`, headline: meta.headline, description: meta.description,
         mainEntityOfPage: canonical, image: absolute(meta.image), datePublished: meta.date, dateModified: meta.date,
-        author: organization, publisher: organization, inLanguage: 'en-ID',
+        author: organization, publisher: organization, inLanguage: isEnglish(route) ? 'en-ID' : 'id-ID',
       }
     : meta.type === 'Service'
       ? {
@@ -63,9 +68,9 @@ const routeSchema = (route, meta, canonical) => {
         }
       : {
           '@type': meta.type, '@id': `${canonical}#webpage`, url: canonical, name: meta.title, description: meta.description,
-          isPartOf: { '@id': `${siteUrl}/#website` }, about: organization, inLanguage: 'en-ID',
+          isPartOf: { '@id': `${siteUrl}/#website` }, about: organization, inLanguage: isEnglish(route) ? 'en-ID' : 'id-ID',
         }
-  return { '@context': 'https://schema.org', '@graph': route === '/' ? [page] : [page, breadcrumbs(route, meta)] }
+  return { '@context': 'https://schema.org', '@graph': route === homeRoute(route) ? [page] : [page, breadcrumbs(route, meta)] }
 }
 
 const pageHtml = (route, meta, { noindex = false } = {}) => {
@@ -84,6 +89,12 @@ const pageHtml = (route, meta, { noindex = false } = {}) => {
   html = replaceMeta(html, /(<meta name="twitter:image" content=")[^"]*(" \/>)/, image)
   if (meta.type === 'Article') html = replaceMeta(html, /(<meta property="og:type" content=")[^"]*(" \/>)/, 'article')
 
+  const english = isEnglish(route)
+  html = html
+    .replace('<html lang="id-ID">', `<html lang="${english ? 'en-ID' : 'id-ID'}">`)
+    .replace('<meta property="og:locale" content="id_ID" />\n    <meta property="og:locale:alternate" content="en_ID" />',
+      english ? '<meta property="og:locale" content="en_ID" />\n    <meta property="og:locale:alternate" content="id_ID" />' : '<meta property="og:locale" content="id_ID" />\n    <meta property="og:locale:alternate" content="en_ID" />')
+
   if (noindex) {
     html = html
       .replace(/<link rel="canonical" href="[^"]*" \/>\n?\s*/, '')
@@ -94,7 +105,7 @@ const pageHtml = (route, meta, { noindex = false } = {}) => {
   html = html
     .replace(/(<link rel="canonical" href=")[^"]*(" \/>)/, `$1${canonical}$2`)
     .replace(/(<meta property="og:url" content=")[^"]*(" \/>)/, `$1${canonical}$2`)
-    .replace('</head>', `    <script type="application/ld+json" data-route-seo data-path="${route}">${jsonLd(routeSchema(route, meta, canonical))}</script>\n  </head>`)
+    .replace('</head>', `    <link rel="alternate" hreflang="id" href="${url(english ? counterpart(route) : route)}" />\n    <link rel="alternate" hreflang="en" href="${url(english ? route : counterpart(route))}" />\n    <link rel="alternate" hreflang="x-default" href="${url(english ? counterpart(route) : route)}" />\n    <script type="application/ld+json" data-route-seo data-path="${route}">${jsonLd(routeSchema(route, meta, canonical))}</script>\n  </head>`)
   return html
 }
 
@@ -117,8 +128,8 @@ await writeFile(join(distRoot, '404.html'), pageHtml('/404', {
   type: 'WebPage',
 }, { noindex: true }))
 
-const priority = (route) => route === '/' ? '1.0' : route === '/contact' ? '0.8' : '0.2'
-const changefreq = (route) => route === '/' ? 'weekly' : ['/privacy', '/terms', '/cookies'].includes(route) ? 'yearly' : 'monthly'
+const priority = (route) => route === homeRoute(route) ? (isEnglish(route) ? '0.9' : '1.0') : route.endsWith('/contact') ? '0.8' : '0.2'
+const changefreq = (route) => route === homeRoute(route) ? 'weekly' : /\/(privacy|terms|cookies)$/.test(route) ? 'yearly' : 'monthly'
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${Object.entries(routes).map(([route, meta]) => `  <url><loc>${siteUrl}${route === '/' ? '/' : route}</loc><lastmod>${meta.date || buildDate}</lastmod><changefreq>${changefreq(route)}</changefreq><priority>${priority(route)}</priority></url>`).join('\n')}

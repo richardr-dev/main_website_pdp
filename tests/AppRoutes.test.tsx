@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../src/App'
+import seoRoutes from '../src/seo-routes.json'
 
 describe('application routes', () => {
   beforeEach(() => {
@@ -11,16 +12,28 @@ describe('application routes', () => {
   })
 
   it.each([
-    ['/', 'Books that balance, wherever you do business.', 'PatuhData Accounting: Invoicing, Ledgers & Tax Reports in One Place'],
-    ['/contact', 'Talk to our sales team.', 'Contact Sales | PatuhData Accounting'],
-    ['/privacy', 'Privacy Policy', 'Privacy Policy | PatuhData'],
-    ['/terms', 'Terms of Service', 'Terms of Service | PatuhData'],
-    ['/cookies', 'Cookie Policy', 'Cookie Policy | PatuhData'],
-    ['/services/uu-pdp', 'Page not found', 'Page Not Found | PatuhData'],
-  ])('renders %s directly with route metadata', (path, heading, title) => {
+    ['/', 'Pembukuan yang selalu seimbang, di mana pun Anda berjualan.', 'id-ID'],
+    ['/contact', 'Bicara dengan tim sales kami.', 'id-ID'],
+    ['/privacy', 'Kebijakan Privasi', 'id-ID'],
+    ['/terms', 'Syarat & Ketentuan', 'id-ID'],
+    ['/cookies', 'Kebijakan Cookie', 'id-ID'],
+    ['/en', 'Books that balance, wherever you sell.', 'en-ID'],
+    ['/en/contact', 'Talk to our sales team.', 'en-ID'],
+    ['/en/privacy', 'Privacy Policy', 'en-ID'],
+    ['/en/terms', 'Terms of Service', 'en-ID'],
+    ['/en/cookies', 'Cookie Policy', 'en-ID'],
+  ])('renders %s in its language with route metadata', (path, heading, htmlLang) => {
     window.history.replaceState({}, '', path)
     render(<App />)
     expect(screen.getByRole('heading', { level: 1, name: heading })).toBeInTheDocument()
-    expect(document.title).toBe(title)
+    expect(document.title).toBe((seoRoutes as Record<string, { title: string }>)[path].title)
+    expect(document.documentElement.lang).toBe(htmlLang)
+  })
+
+  it.each([['/services/uu-pdp', 'Halaman tidak ditemukan'], ['/en/insights', 'Page not found']])('shows a 404 for %s', (path, heading) => {
+    window.history.replaceState({}, '', path)
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 1, name: heading })).toBeInTheDocument()
+    expect(document.title).toBe('Page Not Found | PatuhData')
   })
 })
