@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -24,25 +24,10 @@ const parseFrontMatter = (source) => {
   }).filter(([key]) => key))
 }
 
-const blogDirectory = join(projectRoot, 'src', 'content', 'blog')
-for (const file of await readdir(blogDirectory)) {
-  if (!file.endsWith('.md')) continue
-  const meta = parseFrontMatter(await readFile(join(blogDirectory, file), 'utf8'))
-  if (meta.published === 'false') continue
-  const slug = meta.slug || file.replace(/\.md$/, '')
-  routes[`/insights/${slug}`] = {
-    title: `${meta.title || slug} | PatuhData`,
-    headline: meta.title || slug,
-    description: meta.excerpt || 'A practical insight from PatuhData.',
-    type: 'Article',
-    date: meta.date,
-    image: meta.image,
-  }
-}
 
 const escapeAttribute = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const replaceMeta = (html, selector, value) => html.replace(selector, `$1${escapeAttribute(value)}$2`)
-const absolute = (url) => (url?.startsWith('http') ? url : `${siteUrl}${url || '/og-image.png'}`)
+const absolute = (url) => (url?.startsWith('http') ? url : `${siteUrl}${url || '/logo/logo-glacier-on-white.png'}`)
 const jsonLd = (value) => JSON.stringify(value).replaceAll('<', '\\u003c')
 
 const breadcrumbName = (route, meta) => {
@@ -132,7 +117,7 @@ await writeFile(join(distRoot, '404.html'), pageHtml('/404', {
   type: 'WebPage',
 }, { noindex: true }))
 
-const priority = (route) => route === '/' ? '1.0' : route.startsWith('/services/') ? '0.9' : route === '/contact' ? '0.8' : route.startsWith('/insights') ? '0.7' : '0.2'
+const priority = (route) => route === '/' ? '1.0' : route === '/contact' ? '0.8' : '0.2'
 const changefreq = (route) => route === '/' ? 'weekly' : ['/privacy', '/terms', '/cookies'].includes(route) ? 'yearly' : 'monthly'
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

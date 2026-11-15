@@ -4,27 +4,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Barlow Condensed', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: {
-          50:  '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
+          50:  '#eaf7fe',
+          100: '#d4effc',
+          200: '#bfe8fb',
+          300: '#bfe8fb',
+          400: '#5fb0e0',
+          500: '#0b6fb8',
+          600: '#0b6fb8',
+          700: '#095f9e',
+          800: '#074e83',
+          900: '#012441',
+          950: '#012441',
         },
         navy: {
-          DEFAULT: '#0f2d5c',
-          light: '#1a3d7a',
-          dark:  '#0a1f3e',
+          DEFAULT: '#012441',
+          light: '#0b3a63',
+          dark:  '#012441',
         },
       },
       boxShadow: {

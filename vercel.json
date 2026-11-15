@@ -5,83 +5,23 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/about",
-      "destination": "/#about",
-      "permanent": false
-    },
-    {
-      "source": "/industries/:slug*",
-      "destination": "/#industries",
-      "permanent": false
-    },
-    {
-      "source": "/services/managed-it-business-continuity",
-      "destination": "/services/managed-backup-recovery",
-      "permanent": false
-    },
-    {
-      "source": "/services/business-systems-integration",
-      "destination": "/services/privacy-technology-remediation",
-      "permanent": false
-    },
-    {
-      "source": "/services/(it-infrastructure-implementation|hardware-procurement)",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/services/uu-pdp-workspace",
-      "destination": "/services/managed-data-protection",
-      "permanent": true
-    },
-    {
-      "source": "/services/uu-pdp",
-      "destination": "/services/uu-pdp-readiness-assessment",
-      "permanent": true
-    },
-    {
-      "source": "/services/uu-pdp-compliance",
-      "destination": "/services/uu-pdp-readiness-assessment",
-      "permanent": true
-    },
-    {
-      "source": "/services/backup-restore",
-      "destination": "/services/managed-backup-recovery",
-      "permanent": true
-    },
-    {
-      "source": "/services/data-recovery",
-      "destination": "/services/managed-backup-recovery",
-      "permanent": true
-    },
-    {
-      "source": "/services/colocation-server",
+      "source": "/accounting",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/services/managed-infrastructure",
+      "source": "/services/:path*",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/services/cloud-aws",
+      "source": "/insights/:path*",
       "destination": "/",
       "permanent": true
     },
     {
-      "source": "/services/patuhdata-academy",
+      "source": "/insights",
       "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/insights/managed-it",
-      "destination": "/insights",
-      "permanent": true
-    },
-    {
-      "source": "/layanan/pdp-readiness-assessment",
-      "destination": "/services/uu-pdp-readiness-assessment",
       "permanent": true
     },
     {
@@ -90,8 +30,13 @@
       "permanent": true
     },
     {
-      "source": "/template-gratis",
-      "destination": "/#resources",
+      "source": "/(about|industries|template-gratis)",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/industries/:path*",
+      "destination": "/",
       "permanent": true
     }
   ],
